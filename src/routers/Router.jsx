@@ -17,7 +17,7 @@ const Router = () => {
         <Global styles={globalStyle} />
         <Routes>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/login" element={LoginPage} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

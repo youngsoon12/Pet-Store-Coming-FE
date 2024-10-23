@@ -4,12 +4,7 @@ import { LoginAPI } from '@apis/LoginPage/LoginAPI.js';
 function LoginPage() {
   const apiClass = useMemo(() => new LoginAPI(), []);
 
-  return (
-    // Header
-
-    <></>
-    // Footer
-  );
+  return <></>;
 }
 
 export default LoginPage;
