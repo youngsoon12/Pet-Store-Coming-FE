@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { media } from '../../../styles/media';
+import { css } from '@emotion/react';
 
 /**
  * @description: 로그인 페이지에 사용되는 소셜 로그인 버튼 컴포넌트를 반환
@@ -10,21 +11,36 @@ import { media } from '../../../styles/media';
  * @param { function } props.onClick - 나중에 주석 수정
  * @returns
  */
-export function SocialButtonComponent({ bgColor, img }) {
-  return <SocialButton bgColor={bgColor} img={img} />;
+export function SocialButtonComponent({
+  bgColor,
+  border,
+  color,
+  platformIcon,
+  loginText,
+}) {
+  return (
+    <SocialButton bgColor={bgColor} color={color} border={border}>
+      <div styles={SocialButtonContainer}>
+        {platformIcon}
+        <span>{loginText}</span>
+      </div>
+    </SocialButton>
+  );
 }
 
+// 버튼 컨테이너
 const SocialButton = styled.div`
   width: 100%;
   height: 45px;
   background-color: ${({ bgColor }) => bgColor};
   cursor: pointer;
   overflow: hidden;
+  box-sizing: border-box;
+  border: ${({ border }) => border};
   border-radius: 7px;
 
-  background-image: ${({ img }) => `url(${img})`};
-  background-repeat: no-repeat;
-  background-position: center;
+  color: ${({ color }) => color};
+  font-weight: 500;
 
   max-width: 400px;
   min-width: 183px;
@@ -44,3 +60,5 @@ const SocialButton = styled.div`
     width: 50%;
   `}
 `;
+
+const SocialButtonContainer = css``;

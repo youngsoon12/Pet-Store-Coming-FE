@@ -12,12 +12,21 @@ function LoginPage() {
     <>
       <SocialButton
         bgColor={'#FEE500'}
-        img={
-          new URL(
-            '@assets/images/login/kakao_login_medium_narrow.png',
-            import.meta.url
-          ).href
-        }
+        color="#351D1D"
+        loginText="카카오 로그인"
+      />
+
+      <SocialButton
+        bgColor={'#03C75A'}
+        color="#fff"
+        loginText="네이버 로그인"
+      />
+
+      <SocialButton
+        bgColor={'#ffff'}
+        color="#585857"
+        border={'0.5px solid rgba(0, 0, 0, 0.2)'}
+        loginText="구글 로그인"
       />
     </>
   );
