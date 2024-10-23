@@ -1,16 +1,13 @@
-import React from 'react';
-import { LoginAPI } from '../../apis/LoginPage/LoginAPI';
+import React, { useMemo } from 'react';
+import { LoginAPI } from '@apis/LoginPage/LoginAPI.js';
 
 function LoginPage() {
-  const apiClass = new LoginAPI();
+  const apiClass = useMemo(() => new LoginAPI(), []);
 
   return (
     // Header
 
-    <>
-      <h2>Hello</h2>
-    </>
-
+    <></>
     // Footer
   );
 }
