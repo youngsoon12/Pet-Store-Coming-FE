@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-
 import { styles } from './SocialBtnCSS';
 
 /**
@@ -11,7 +10,7 @@ import { styles } from './SocialBtnCSS';
  * @param { string } props.loginText - 소셜 로그인 버튼 텍스트
  * @param { Object } props.platformIcon - 소셜 로그인 버튼 아이콘
  * @param { function } props.onClick - 나중에 주석 수정
- * @returns
+ * @returns JSX 컴포넌트 반환
  */
 function SocialButton({
   bgColor,
