@@ -20,7 +20,7 @@ import AuthActions from '../../components/login/layout/auth_actions';
 function LoginPage() {
   const apiClass = useMemo(() => new LoginAPI(), []);
 
-  // Custom Hook 반환값 디스트럭처링 할당
+  // Custom Hook
   const { formValues, handleChange } = useLoginForm();
 
   // Login Button Form Action
