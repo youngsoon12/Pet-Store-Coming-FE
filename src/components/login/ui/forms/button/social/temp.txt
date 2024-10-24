@@ -1,5 +1,6 @@
+/** @jsxImportSource @emotion/react */
+
 import styled from '@emotion/styled';
-import React from 'react';
 import { media } from '../../../styles/media';
 import { css } from '@emotion/react';
 
@@ -20,9 +21,8 @@ export function SocialButtonComponent({
 }) {
   return (
     <SocialButton bgColor={bgColor} color={color} border={border}>
-      <div styles={SocialButtonContainer}>
-        {platformIcon}
-        <span>{loginText}</span>
+      <div css={SocialButtonContainer}>
+        {platformIcon} <span>{loginText}</span>
       </div>
     </SocialButton>
   );
@@ -34,13 +34,12 @@ const SocialButton = styled.div`
   height: 45px;
   background-color: ${({ bgColor }) => bgColor};
   cursor: pointer;
-  overflow: hidden;
   box-sizing: border-box;
   border: ${({ border }) => border};
   border-radius: 7px;
 
   color: ${({ color }) => color};
-  font-weight: 500;
+  font-weight: 600;
 
   max-width: 400px;
   min-width: 183px;
