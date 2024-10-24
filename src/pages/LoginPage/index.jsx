@@ -5,6 +5,7 @@ import { LoginAPI } from '@apis/LoginPage/LoginAPI.js';
 import SocialButton from '@/components/login/ui/forms/button/social';
 import { socialLoginType } from '@/components/login/data/social';
 import HorizontalRole from '../../components/login/ui/horizontal_rule';
+import TextInput from '../../components/login/ui/forms/input/text';
 
 function LoginPage() {
   const apiClass = useMemo(() => new LoginAPI(), []);
@@ -22,7 +23,10 @@ function LoginPage() {
         />
       ))}
 
-      <HorizontalRole />
+      <HorizontalRole text="또는" />
+
+      <TextInput type="v" />
+      <TextInput type="h" />
     </>
   );
 }

@@ -30,7 +30,7 @@ export const styles = {
         width: 50%;
       `}
       
-      background-color: #9A9A9A;
+      background-color: rgba(154, 154, 154, 0.6);
 
       display: flex;
       justify-content: center;

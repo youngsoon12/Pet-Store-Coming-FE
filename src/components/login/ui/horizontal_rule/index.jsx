@@ -2,10 +2,10 @@
 
 import { styles } from './HorizontalRuleCSS.js';
 
-function HorizontalRole() {
+function HorizontalRole({ text }) {
   return (
     <div css={styles.line()}>
-      <span css={styles.text()}>또는</span>
+      <span css={styles.text()}>{text}</span>
     </div>
   );
 }
