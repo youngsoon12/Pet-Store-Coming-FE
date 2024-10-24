@@ -1,6 +1,5 @@
 import React from 'react';
 
-import styled from '@emotion/styled';
 import { Flex as Wrapper } from './Flex';
 
 function Layout({ children }) {
