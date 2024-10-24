@@ -1,55 +1,56 @@
-import React, { useMemo } from 'react';
+/** @jsxImportSource @emotion/react */
+
+import { useMemo } from 'react';
 import { LoginAPI } from '@apis/LoginPage/LoginAPI.js';
 
 // Social Login Btn 관련 import
 import SocialButton from '@/components/login/ui/forms/button/social';
 import { socialLoginType } from '@/components/login/data/social';
+
+// Custom 수평선 컴포넌트 import
 import HorizontalRole from '../../components/login/ui/horizontal_rule';
+
+// 로그인 인풋 관련 import
 import TextInput from '../../components/login/ui/forms/input/text';
+import { loginInputType } from '../../components/login/data/login';
+import { css } from '@emotion/react';
+
+import { media } from '@styles/media';
+import ColumnContainer from '../../components/login/\bcontainer';
 
 function LoginPage() {
   const apiClass = useMemo(() => new LoginAPI(), []);
 
   return (
     <>
-      {socialLoginType.map((type, id) => (
-        <SocialButton
-          key={id}
-          bgColor={type.bgColor}
-          color={type.color}
-          border={type.border}
-          loginText={type.loginText}
-          platformIcon={type.platformIcon}
-        />
-      ))}
+      <ColumnContainer>
+        {socialLoginType.map((type, id) => (
+          <SocialButton
+            key={id}
+            bgColor={type.bgColor}
+            color={type.color}
+            border={type.border}
+            loginText={type.loginText}
+            platformIcon={type.platformIcon}
+          />
+        ))}
+      </ColumnContainer>
 
       <HorizontalRole text="또는" />
 
-      <TextInput
-        direction="v"
-        type="text"
-        labelText="이메일"
-        filedId="login_email"
-        name="login_email"
-        placeholder="이메일을 입력해주세요"
-      />
-
-      <TextInput
-        direction="v"
-        type="password"
-        labelText="비밀번호"
-        filedId="login_password"
-        name="login_password"
-        placeholder="비밀번호를 입력해주세요"
-      />
-
-      {/* <TextInput
-        direction="h"
-        type="text"
-        labelText="아이디"
-        filedId="login_id"
-        name="login_id"
-      /> */}
+      <ColumnContainer>
+        {loginInputType.map((type, id) => (
+          <TextInput
+            key={id}
+            direction={type.direction}
+            type={type.type}
+            labelText={type.labelText}
+            filedId={type.filedId}
+            name={type.name}
+            placeholder={type.placeholder}
+          />
+        ))}
+      </ColumnContainer>
     </>
   );
 }
