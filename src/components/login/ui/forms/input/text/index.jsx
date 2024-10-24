@@ -2,14 +2,15 @@
 import { styles } from './TextInputCSS';
 
 /**
- * @description: 로그인 페이지에 사용되는 소셜 로그인 버튼 컴포넌트를 반환
- * @param { Object } props - 소셜 로그인 버튼 컴포넌트에 전달되는 속성
- * @param { string } props.bgColor - 소셜 로그인 버튼 배경 색상
- * @param { string } props.color - 소셜 로그인 버튼 텍스트 색상
- * @param { string } props.border - 소셜 로그인 버튼 테두리 선
- * @param { string } props.loginText - 소셜 로그인 버튼 텍스트
- * @param { Object } props.platformIcon - 소셜 로그인 버튼 아이콘
- * @param { function } props.onClick - 나중에 주석 수정
+ * @description: 로그인 페이지에서 사용되는 Input 컴포넌트
+ * @param { Object } props - 로그인 Input 컴포넌트에 전달되는 속성
+ * @param { string } props.direction - Input Filed 수직, 수평선 레이아웃 타입
+ * @param { string } props.type - input 태그의 type 속성값
+ * @param { string } props.labelText - input 태그의 label 텍스트
+ * @param { string } props.filedId - input 태그의 id 속성값
+ * @param { string } props.placeholder - input 태그의 placeholder 속성값
+ * @param { string } props.value - input 태그의 value 속성값
+ * @param { function } props.onChange - input 태그의 onChange 이벤트
  * @returns JSX 컴포넌트 반환
  */
 function TextInput({
@@ -32,6 +33,8 @@ function TextInput({
         name={filedId}
         placeholder={placeholder}
         css={styles.input()}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );

@@ -38,6 +38,7 @@ export const styles = {
       color: ${direction ? '#333' : '#9A9A9A'};
       font-weight: 600;
       font-size: 14px;
+      width: fit-content;
     `;
   },
 
@@ -51,8 +52,14 @@ export const styles = {
       height: 45px;
       border-radius: 7px;
 
+      transition: border 0.3s;
+
       &::placeholder {
         color: #a8a8a8;
+      }
+
+      &:focus {
+        border-color: #141414;
       }
     `;
   },

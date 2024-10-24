@@ -13,6 +13,7 @@ import HorizontalRole from '@components/login/ui/horizontal_rule';
 // 로그인 인풋 관련 import
 import TextInput from '@components/login/ui/forms/input/text';
 import { loginInputType } from '@components/login/data/login';
+import useLoginForm from '@components/login/hook/useLoginForm.js';
 
 import ColumnContainer from '@components/login/\bcontainer';
 import Button from '@components/login/ui/forms/button/nomal';
@@ -22,6 +23,9 @@ import { media } from '@styles/media';
 
 function LoginPage() {
   const apiClass = useMemo(() => new LoginAPI(), []);
+
+  // Custom Hook 반환값 디스트럭처링 할당
+  const { formValues, handleChange } = useLoginForm();
 
   return (
     <>
@@ -50,6 +54,8 @@ function LoginPage() {
             filedId={type.filedId}
             name={type.name}
             placeholder={type.placeholder}
+            value={formValues[type.name]}
+            onChange={handleChange}
           />
         ))}
 
