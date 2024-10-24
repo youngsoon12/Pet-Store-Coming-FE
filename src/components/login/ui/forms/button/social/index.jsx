@@ -13,10 +13,17 @@ import { styles } from './SocialBtnCSS';
  * @returns
  */
 
-function SocialButtn({ bgColor, color, loginText, platformIcon, onClick }) {
+function SocialButton({
+  bgColor,
+  color,
+  border,
+  loginText,
+  platformIcon,
+  onClick,
+}) {
   return (
-    <div css={styles.container()}>
-      <div>
+    <div css={styles.button({ bgColor, color, border })}>
+      <div css={styles.container()}>
         {platformIcon}
         <span>{loginText}</span>
       </div>
@@ -24,4 +31,4 @@ function SocialButtn({ bgColor, color, loginText, platformIcon, onClick }) {
   );
 }
 
-export default SocialButtn;
+export default SocialButton;
