@@ -21,6 +21,7 @@ export const socialLoginType = [
 
   {
     bgColor: '#ffff',
+    color: '#757575',
     border: '0.5px solid rgba(0, 0, 0, 0.2)',
     loginText: '구글 로그인',
     platformIcon: <Icon src={googleLogo} alt="google_logo" />,

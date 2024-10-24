@@ -8,15 +8,14 @@ import SocialButton from '@/components/login/ui/forms/button/social';
 import { socialLoginType } from '@/components/login/data/social';
 
 // Custom 수평선 컴포넌트 import
-import HorizontalRole from '../../components/login/ui/horizontal_rule';
+import HorizontalRole from '@components/login/ui/horizontal_rule';
 
 // 로그인 인풋 관련 import
-import TextInput from '../../components/login/ui/forms/input/text';
-import { loginInputType } from '../../components/login/data/login';
-import { css } from '@emotion/react';
+import TextInput from '@components/login/ui/forms/input/text';
+import { loginInputType } from '@components/login/data/login';
 
-import { media } from '@styles/media';
-import ColumnContainer from '../../components/login/\bcontainer';
+import ColumnContainer from '@components/login/\bcontainer';
+import Button from '@components/login/ui/forms/button/nomal';
 
 function LoginPage() {
   const apiClass = useMemo(() => new LoginAPI(), []);
@@ -50,6 +49,8 @@ function LoginPage() {
             placeholder={type.placeholder}
           />
         ))}
+
+        <Button bgColor="#141414" color="#fff" text="로그인" />
       </ColumnContainer>
     </>
   );
