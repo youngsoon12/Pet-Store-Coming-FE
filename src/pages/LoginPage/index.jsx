@@ -41,8 +41,6 @@ function LoginPage() {
       if (newPopup.closed) {
         clearInterval(interval);
       }
-
-      console.log('Open');
     }, 1000);
   };
 
@@ -59,7 +57,7 @@ function LoginPage() {
 
       if (event.data.type === 'KAKAO_AUTH_CODE') {
         const authCode = event.data.code;
-        console.log(authCode);
+        apiClass.fetchAccessToken(authCode);
       }
     };
     window.addEventListener('message', handleMessage);
