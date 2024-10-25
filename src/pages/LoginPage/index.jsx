@@ -50,14 +50,20 @@ function LoginPage() {
   };
 
   useEffect(() => {
-    const handleMessage = (event) => {
+    const handleMessage = async (event) => {
       if (event.origin !== 'http://localhost:5173') {
         return;
       }
 
       if (event.data.type === 'KAKAO_AUTH_CODE') {
         const authCode = event.data.code;
-        apiClass.fetchAccessToken(authCode);
+
+        try {
+          const accessToken = await apiClass.fetchAccessToken(authCode);
+          await apiClass.fetchUserInfo(accessToken);
+        } catch (error) {
+          console.log(error);
+        }
       }
     };
     window.addEventListener('message', handleMessage);

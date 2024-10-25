@@ -7,38 +7,39 @@ export class LoginAPI {
   // 인가 코드를 통해서
   async fetchAccessToken(code) {
     try {
-      return await axios.post(
-        'http://localhost:8080/auth/social/kakao',
-        { code },
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+      const res = await axios
+        .post(
+          'http://localhost:8080/auth/social/kakao',
+          { code },
+          {
+            headers: { 'Content-Type': 'application/json' },
+          }
+        )
+        .then((res) => res.data);
+
+      return res.accessToken;
     } catch (error) {
       console.log('Error fetching access token:', error);
       throw error;
     }
   }
 
-  async fetchUserInfo(accessToken) {
+  async fetchUserInfo(data) {
     try {
       const res = await axios.get(
-        'http://localhost:8080/user/social/userInfo',
+        'http://localhost:8080/auth/social/userInfo',
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${data['access_token']}`,
           },
         }
       );
 
-      console.log(res);
-    } catch (error) {
-      console.log('Error fetching access token:', error);
-      throw error;
-    }
+      console.log('UserInfo:', res.data);
+    } catch (error) {}
   }
 
   get KAKAO_AUTH_URL() {
-    return `https://kauth.kakao.com/oauth/authorize?client_id=${this.#REST_API_KEY}&redirect_uri=${this.#APP_REDIRECT_URL}&response_type=code`;
+    return `https://kauth.kakao.com/oauth/authorize?client_id=${this.#REST_API_KEY}&redirect_uri=${this.#APP_REDIRECT_URL}&response_type=code&scope=profile,nickname,email,phone_number`;
   }
 }
