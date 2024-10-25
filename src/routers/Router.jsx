@@ -19,9 +19,11 @@ const Router = () => {
         <Global styles={globalStyle} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<LoginPage />}>
-            <Route path="oauth/callback/kakao" element={<KakaoRedirect />} />
-          </Route>
+          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/login/oauth/callback/kakao"
+            element={<KakaoRedirect />}
+          />
 
           {/* <Route path="global" element={<GlobalTitle />} /> */}
         </Routes>

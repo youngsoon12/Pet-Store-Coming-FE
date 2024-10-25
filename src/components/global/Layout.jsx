@@ -9,8 +9,10 @@ function Layout({ children }) {
   return (
     <Wrapper direction="column" align="center" margin="105px 0 0 0">
       <Header />
+
       {children}
-      <Footer />
+
+      {/* <Footer /> */}
     </Wrapper>
   );
 }

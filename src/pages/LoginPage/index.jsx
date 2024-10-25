@@ -19,7 +19,6 @@ import AuthActions from '../../components/login/layout/auth_actions';
 
 function LoginPage() {
   const apiClass = useMemo(() => new LoginAPI(), []);
-  const [popup, setPopup] = useState(null);
 
   // Custom Hook
   const { formValues, handleChange } = useLoginForm();
@@ -37,15 +36,14 @@ function LoginPage() {
       '_blank',
       'width=500, height=600'
     );
-    setPopup(newPopup);
 
-    const popupTick = setInterval(() => {
+    const interval = setInterval(() => {
       if (newPopup.closed) {
-        clearInterval(popupTick);
-        console.log('팝업이 닫힘');
-        return;
+        clearInterval(interval);
       }
-    }, 500);
+
+      console.log('Open');
+    }, 1000);
   };
 
   // Login Button Form Action
@@ -55,23 +53,21 @@ function LoginPage() {
 
   useEffect(() => {
     const handleMessage = (event) => {
-      if (event.origin === 'http://localhost:5173') {
-        const { code } = event.data;
+      if (event.origin !== 'http://localhost:5173') {
+        return;
+      }
 
-        console.log(popup);
-
-        if (popup) {
-          popup.close();
-        }
+      if (event.data.type === 'KAKAO_AUTH_CODE') {
+        const authCode = event.data.code;
+        console.log(authCode);
       }
     };
-
     window.addEventListener('message', handleMessage);
 
     return () => {
       window.removeEventListener('message', handleMessage);
     };
-  }, [popup]);
+  }, []);
 
   return (
     <>
