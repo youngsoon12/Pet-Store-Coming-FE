@@ -13,6 +13,17 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    proxy: {
+      '/auth': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/auth/, ''),
+        secure: false,
+        ws: true,
+      },
+    },
+  },
   publicDir: 'public',
   resolve: {
     alias: [
