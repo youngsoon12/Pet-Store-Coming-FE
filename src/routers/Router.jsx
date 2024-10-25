@@ -9,6 +9,7 @@ import Layout from '../components/global/Layout';
 // 페이지 컴포넌트 import
 import Home from '@pages/Home';
 import LoginPage from '../pages/LoginPage/LoginPage';
+import GlobalTitle from '../components/global/globaltitle/GlobalTitle';
 
 const Router = () => {
   return (
@@ -17,7 +18,8 @@ const Router = () => {
         <Global styles={globalStyle} />
         <Routes>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/login" element={LoginPage} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="global" element={<GlobalTitle />} />
         </Routes>
       </Layout>
     </BrowserRouter>

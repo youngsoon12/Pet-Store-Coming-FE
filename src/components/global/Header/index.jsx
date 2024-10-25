@@ -1,10 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-import { styles } from './HeaderCSS';
-=======
 import { styles } from './Header.style';
->>>>>>> 37a28a6a67f1d3a4490687539afc7f37c544f542
 import { useState } from 'react';
 
 const Header = () => {
