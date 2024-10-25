@@ -10,6 +10,7 @@ import Layout from '../components/global/Layout';
 import Home from '@pages/Home';
 import LoginPage from '@pages/LoginPage';
 import KakaoRedirect from '@pages/LoginPage/Redirect/KakaoRedirect';
+// import GlobalTitle from '../components/global/globaltitle/GlobalTitle';
 
 const Router = () => {
   return (
@@ -21,6 +22,8 @@ const Router = () => {
           <Route path="/login" element={<LoginPage />}>
             <Route path="oauth/callback/kakao" element={<KakaoRedirect />} />
           </Route>
+
+          {/* <Route path="global" element={<GlobalTitle />} /> */}
         </Routes>
       </Layout>
     </BrowserRouter>
