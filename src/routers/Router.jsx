@@ -24,8 +24,6 @@ const Router = () => {
             path="/login/oauth/callback/kakao"
             element={<KakaoRedirect />}
           />
-
-          {/* <Route path="global" element={<GlobalTitle />} /> */}
         </Routes>
       </Layout>
     </BrowserRouter>
