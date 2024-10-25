@@ -1,15 +1,16 @@
 import React from 'react';
 
 import { Flex as Wrapper } from './Flex';
-import Header from '@components/global/Header';
+
+import Header from '@components/global/header';
+import Footer from '@components/global/footer';
 
 function Layout({ children }) {
   return (
-    <Wrapper direction="column" align="center">
+    <Wrapper direction="column" align="center" margin="105px 0 0 0">
       <Header />
-
       {children}
-      {/* Footer 컴포넌트 import */}
+      <Footer />
     </Wrapper>
   );
 }
