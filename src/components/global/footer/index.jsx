@@ -1,8 +1,16 @@
 /** @jsxImportSource @emotion/react */
 
+import { useNavigate } from 'react-router-dom';
+import { footerOptions } from './data';
 import { styles } from './Footer.style';
 
 function Footer() {
+  const navigate = useNavigate();
+
+  const handleClick = (url, event) => {
+    navigate('/' + url);
+  };
+
   return (
     <div css={styles.footerContainer()}>
       <div css={styles.footerLeftPanel()}>
@@ -21,9 +29,21 @@ function Footer() {
       </div>
 
       <div css={styles.footerRightPanel()}>
-        <div></div>
-        <div></div>
-        <div></div>
+        {footerOptions.map((option, idx) => (
+          <div key={idx}>
+            <h2 className="title">{option.title.toUpperCase()}</h2>
+            <div className="optionBox">
+              {option.sub.map((item, idx) => (
+                <span
+                  key={idx}
+                  onClick={(event) => handleClick(item.link, event)}
+                >
+                  {item.subTitle}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

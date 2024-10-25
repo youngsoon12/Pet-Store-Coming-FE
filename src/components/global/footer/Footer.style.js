@@ -44,12 +44,21 @@ export const styles = {
   footerRightPanel() {
     return css`
       display: flex;
-      gap: 60px;
+      gap: 80px;
 
-      div {
-        background-color: black;
-        width: 100px;
-        height: 100px;
+      font-size: 14px;
+
+      & .title {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+
+      .optionBox {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        cursor: pointer;
       }
     `;
   },
