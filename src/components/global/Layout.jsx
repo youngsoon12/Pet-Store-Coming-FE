@@ -1,6 +1,5 @@
 import React from 'react';
 
-import styled from '@emotion/styled';
 import { Flex as Wrapper } from './Flex';
 import Header from '@components/global/Header';
 

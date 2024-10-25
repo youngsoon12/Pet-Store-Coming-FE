@@ -1,7 +1,12 @@
 import React from 'react';
+import GlobalTitle from '../components/global/globaltitle/GlobalTitle';
 
 const Home = () => {
-    return <div>연습이에용 abcdeftg</div>;
+  return (
+    <>
+      <GlobalTitle text={'dfd'} />
+    </>
+  );
 };
 
 export default Home;
