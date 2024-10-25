@@ -6,7 +6,7 @@ import Header from '@components/global/Header';
 
 function Layout({ children }) {
   return (
-    <Wrapper direction="column" align="center">
+    <Wrapper direction="column" align="center" margin="105px 0 0 0">
       <Header />
 
       {children}
