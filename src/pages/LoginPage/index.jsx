@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { LoginAPI } from '@apis/LoginPage/LoginAPI.js';
 
 // Social Login Btn 관련 import
@@ -19,11 +19,12 @@ import AuthActions from '../../components/login/layout/auth_actions';
 
 function LoginPage() {
   const apiClass = useMemo(() => new LoginAPI(), []);
+  const [popup, setPopup] = useState(null);
 
   // Custom Hook
   const { formValues, handleChange } = useLoginForm();
 
-  // Social Login Handle
+  // 카카오 로그인 버튼 클릭 이벤트 핸들러
   const handleKakaoLogin = () => {
     const CLIENT_ID = import.meta.env.VITE_REST_API; // REST API 키
     const REDIRECT_ID = import.meta.env.VITE_REDIRECT_URI; // Redirect URL
@@ -31,17 +32,46 @@ function LoginPage() {
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_ID}&response_type=code`;
 
     // 카카오 로그인 팝업 창 열람
-    const popup = window.open(
+    const newPopup = window.open(
       KAKAO_AUTH_URL,
       '_blank',
       'width=500, height=600'
     );
+    setPopup(newPopup);
+
+    const popupTick = setInterval(() => {
+      if (newPopup.closed) {
+        clearInterval(popupTick);
+        console.log('팝업이 닫힘');
+        return;
+      }
+    }, 500);
   };
 
   // Login Button Form Action
   const handleLogin = (event) => {
     event.preventDefault();
   };
+
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (event.origin === 'http://localhost:5173') {
+        const { code } = event.data;
+
+        console.log(popup);
+
+        if (popup) {
+          popup.close();
+        }
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
+  }, [popup]);
 
   return (
     <>
