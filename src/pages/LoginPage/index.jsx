@@ -23,6 +23,21 @@ function LoginPage() {
   // Custom Hook
   const { formValues, handleChange } = useLoginForm();
 
+  // Social Login Handle
+  const handleKakaoLogin = () => {
+    const CLIENT_ID = import.meta.env.VITE_REST_API; // REST API 키
+    const REDIRECT_ID = import.meta.env.VITE_REDIRECT_URI; // Redirect URL
+
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_ID}&response_type=code`;
+
+    // 카카오 로그인 팝업 창 열람
+    const popup = window.open(
+      KAKAO_AUTH_URL,
+      '_blank',
+      'width=500, height=600'
+    );
+  };
+
   // Login Button Form Action
   const handleLogin = (event) => {
     event.preventDefault();
@@ -39,6 +54,7 @@ function LoginPage() {
             border={type.border}
             loginText={type.loginText}
             platformIcon={type.platformIcon}
+            onClick={handleKakaoLogin}
           />
         ))}
       </ColumnContainer>

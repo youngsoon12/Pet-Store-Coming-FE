@@ -21,7 +21,7 @@ function SocialButton({
   onClick,
 }) {
   return (
-    <div css={styles.button({ bgColor, color, border })}>
+    <div onClick={onClick} css={styles.button({ bgColor, color, border })}>
       <div css={styles.container()}>
         {platformIcon}
         <span>{loginText}</span>
