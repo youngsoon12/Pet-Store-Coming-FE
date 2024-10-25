@@ -2,7 +2,7 @@
 
 import { useNavigate } from 'react-router-dom';
 import { footerOptions } from './data';
-import { styles } from './Footer.style';
+import { styles } from './footer.style';
 
 function Footer() {
   const navigate = useNavigate();

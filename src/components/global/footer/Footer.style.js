@@ -5,11 +5,6 @@ export const styles = {
     return css`
       border-top: 1px solid rgba(25, 25, 25, 0.2);
       padding: 45px 100px;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-
       display: flex;
       justify-content: space-between;
     `;
