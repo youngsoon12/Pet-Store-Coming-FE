@@ -3,10 +3,15 @@ import { css } from '@emotion/react';
 export const styles = {
   footerContainer() {
     return css`
+      width: 100%;
       border-top: 1px solid rgba(25, 25, 25, 0.2);
       padding: 45px 100px;
       display: flex;
       justify-content: space-between;
+      box-sizing: border-box;
+      height: 232px;
+      position: relative;
+      transform: translateY(0%);
     `;
   },
   footerLeftPanel() {
