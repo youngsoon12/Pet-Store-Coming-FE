@@ -4,6 +4,9 @@ export class LoginAPI {
   #REST_API_KEY = import.meta.env.VITE_REST_API_KEY;
   #APP_REDIRECT_URL = import.meta.env.VITE_APP_REDIRECT_URL;
 
+  // 로그인 시도 API
+  async requestLogin(email, password) {}
+
   // 카카오 인가 코드 발급
   async fetchAccessToken(code) {
     try {
