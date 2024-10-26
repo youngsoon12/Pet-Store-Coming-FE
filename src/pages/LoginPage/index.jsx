@@ -11,17 +11,21 @@ import HorizontalRole from '@components/login/ui/horizontal_rule';
 // 로그인 인풋 관련 import
 import TextInput from '@components/login/ui/forms/input/text';
 import { loginInputType } from '@components/login/data/login';
-import useLoginForm from '@components/login/hook/useLoginForm.js';
 
 import ColumnContainer from '@components/login/\bcontainer';
 import Button from '@components/login/ui/forms/button/nomal';
 import AuthActions from '../../components/login/layout/auth_actions';
+
+// Custom Hook
+import useLoginForm from '@components/login/hook/useLoginForm.js';
+import useLoginValidation from '@components/login/hook/useLoginValidation';
 
 function LoginPage() {
   const apiClass = useMemo(() => new LoginAPI(), []);
 
   // Custom Hook
   const { formValues, handleChange } = useLoginForm();
+  const {} = useLoginValidation();
 
   // 카카오 로그인 버튼 클릭 이벤트 핸들러
   const handleKakaoLogin = () => {
@@ -47,6 +51,8 @@ function LoginPage() {
   // Login Button Form Action
   const handleLogin = (event) => {
     event.preventDefault();
+
+    // 입력값 확인
   };
 
   useEffect(() => {
