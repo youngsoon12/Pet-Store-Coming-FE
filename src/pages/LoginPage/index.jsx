@@ -25,7 +25,7 @@ function LoginPage() {
 
   // Custom Hook
   const { formValues, handleChange } = useLoginForm();
-  const {} = useLoginValidation();
+  const { loginErrors, validateLogin } = useLoginValidation();
 
   // 카카오 로그인 버튼 클릭 이벤트 핸들러
   const handleKakaoLogin = () => {
@@ -53,6 +53,9 @@ function LoginPage() {
     event.preventDefault();
 
     // 입력값 확인
+    if (validateLogin(formValues.login_email, formValues.login_password)) {
+      console.log('Hello');
+    }
   };
 
   useEffect(() => {
@@ -105,9 +108,10 @@ function LoginPage() {
             type={type.type}
             labelText={type.labelText}
             filedId={type.filedId}
-            name={type.name}
+            name={type.filedId}
             placeholder={type.placeholder}
-            value={formValues[type.name]}
+            errorMessage={loginErrors[type.filedId]}
+            value={formValues[type.filedId]}
             onChange={handleChange}
           />
         ))}

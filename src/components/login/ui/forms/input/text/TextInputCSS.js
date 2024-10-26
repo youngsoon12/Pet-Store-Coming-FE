@@ -63,4 +63,12 @@ export const styles = {
       }
     `;
   },
+
+  errorMsg() {
+    return css`
+      font-size: 10px;
+      height: 10px;
+      color: #ff4d4f;
+    `;
+  },
 };

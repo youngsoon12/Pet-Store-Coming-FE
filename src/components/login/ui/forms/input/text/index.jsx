@@ -19,6 +19,7 @@ function TextInput({
   labelText,
   filedId,
   placeholder,
+  errorMessage,
   value,
   onChange,
 }) {
@@ -36,6 +37,8 @@ function TextInput({
         value={value}
         onChange={onChange}
       />
+
+      <p css={styles.errorMsg()}>{errorMessage}</p>
     </div>
   );
 }
