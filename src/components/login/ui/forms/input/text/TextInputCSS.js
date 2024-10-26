@@ -42,12 +42,13 @@ export const styles = {
     `;
   },
 
-  input() {
+  input(errorMsg) {
     return css`
       display: block;
       box-sizing: border-box;
       outline: none;
-      border: 0.5px solid rgba(154, 154, 154, 0.6);
+      border: 0.5px solid
+        rgba(${errorMsg ? '255, 77, 79, 1' : '154, 154, 154, 0.6'});
       padding: 0 20px 0 8px;
       height: 45px;
       border-radius: 7px;
@@ -59,7 +60,7 @@ export const styles = {
       }
 
       &:focus {
-        border-color: #141414;
+        border-color: ${errorMsg ? '#ff4d4f' : '#141414'};
       }
     `;
   },

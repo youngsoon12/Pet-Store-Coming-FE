@@ -52,7 +52,7 @@ function LoginPage() {
   const handleLogin = (event) => {
     event.preventDefault();
 
-    // 입력값 확인
+    // 유효성 검사를 통과 했을 경우
     if (validateLogin(formValues.login_email, formValues.login_password)) {
       console.log('Hello');
     }
