@@ -88,6 +88,11 @@ function LoginPage() {
   return (
     <>
       <ColumnContainer>
+        <h2>Hello</h2>
+        <p>
+          <strong>꼬밍</strong>과 함께 반려견 용품 쇼핑생황을 즐겨보세요!
+        </p>
+
         {/* 소셜 로그인 컴포넌트 */}
         <SocialButton
           bgColor="#FEE500"
