@@ -41,6 +41,7 @@ export const styles = {
   text() {
     return css`
       display: block;
+      font-size: 14px;
       padding: 0 15px;
       background-color: #fff;
       color: #9a9a9a;

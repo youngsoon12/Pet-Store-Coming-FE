@@ -1,3 +1,6 @@
+/** @jsxImportSource @emotion/react */
+import { styles } from './LoginPageCSS';
+
 import { useEffect, useMemo, useState } from 'react';
 import { LoginAPI } from '@apis/LoginPage/LoginAPI.js';
 
@@ -88,8 +91,8 @@ function LoginPage() {
   return (
     <>
       <ColumnContainer>
-        <h2>Hello</h2>
-        <p>
+        <h2 css={styles.text(18, 600)}>로그인</h2>
+        <p css={styles.text()}>
           <strong>꼬밍</strong>과 함께 반려견 용품 쇼핑생황을 즐겨보세요!
         </p>
 
