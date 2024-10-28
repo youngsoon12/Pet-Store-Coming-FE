@@ -3,7 +3,8 @@ import { LoginAPI } from '@apis/LoginPage/LoginAPI.js';
 
 // Social Login Btn 관련 import
 import SocialButton from '@/components/login/ui/forms/button/social';
-import { socialLoginType } from '@/components/login/data/social';
+import Icon from '@/components/login/ui/icon';
+import kakaoLogo from '@assets/images/login/logo/kakao.svg';
 
 // Custom 수평선 컴포넌트 import
 import HorizontalRole from '@components/login/ui/horizontal_rule';
@@ -56,6 +57,8 @@ function LoginPage() {
     if (validateLogin(formValues.login_email, formValues.login_password)) {
       console.log('Hello');
     }
+
+    console.log(MediaDeviceInfo.deviceId);
   };
 
   useEffect(() => {
@@ -85,17 +88,13 @@ function LoginPage() {
   return (
     <>
       <ColumnContainer>
-        {socialLoginType.map((type, id) => (
-          <SocialButton
-            key={id}
-            bgColor={type.bgColor}
-            color={type.color}
-            border={type.border}
-            loginText={type.loginText}
-            platformIcon={type.platformIcon}
-            onClick={handleKakaoLogin}
-          />
-        ))}
+        {/* 소셜 로그인 컴포넌트 */}
+        <SocialButton
+          bgColor="#FEE500"
+          color="#351D1D"
+          loginText="카카오 로그인"
+          platformIcon={<Icon src={kakaoLogo} alt="kakao_logo" />}
+        />
       </ColumnContainer>
 
       <HorizontalRole text="또는" />
