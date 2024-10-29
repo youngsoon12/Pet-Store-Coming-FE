@@ -4,7 +4,7 @@ import { Global } from '@emotion/react';
 // 페이지 컴포넌트 import
 import Home from '@pages/Home';
 import { globalStyle } from '@styles/global';
-import Layout from '../components/global/Layout';
+import Layout from '../layout';
 
 const Router = () => {
   return (
