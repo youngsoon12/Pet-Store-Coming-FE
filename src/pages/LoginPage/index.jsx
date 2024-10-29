@@ -104,6 +104,7 @@ function LoginPage() {
           color="#351D1D"
           loginText="카카오 로그인"
           platformIcon={<Icon src={kakaoLogo} alt="kakao_logo" />}
+          // onClick={handleKakaoLogin}
         />
       </Container>
 
