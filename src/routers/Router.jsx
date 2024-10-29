@@ -4,7 +4,7 @@ import { Global } from '@emotion/react';
 import { globalStyle } from '@styles/global';
 
 // Global Component Import
-import Layout from '../components/global/Layout';
+import Layout from '@components/global/Layout';
 
 // 페이지 컴포넌트 import
 import Home from '@pages/Home';

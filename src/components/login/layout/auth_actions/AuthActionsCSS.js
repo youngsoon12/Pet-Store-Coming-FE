@@ -5,9 +5,6 @@ const styles = {
     return css`
       width: 100%;
 
-      max-width: 400px;
-      min-width: 183px;
-
       display: flex;
       justify-content: space-between;
 
