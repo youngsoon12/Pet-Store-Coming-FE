@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { styles } from './textInput.style.js';
+import { styles } from './text_input.style.js';
 
 /**
  * @description: 로그인 페이지에서 사용되는 Input 컴포넌트

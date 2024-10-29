@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { styles } from './socialBtn.style.js';
+import { styles } from './social_btn.style.js';
 
 /**
  * @description: 로그인 페이지에 사용되는 소셜 로그인 버튼 컴포넌트를 반환

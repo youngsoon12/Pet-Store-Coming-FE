@@ -15,6 +15,7 @@ function Layout({ children }) {
         height="auto"
         padding="0 8vw 232px 8vw"
         margin="105px auto 0 auto"
+        align="center"
       >
         {children}
       </Wrapper>

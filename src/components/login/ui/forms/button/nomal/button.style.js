@@ -9,6 +9,7 @@ export const styles = (bgColor, color) => {
     border-radius: 7px;
     font-weight: 600;
 
+    max-width: 400px;
     margin-top: 10px;
 
     background-color: ${bgColor};

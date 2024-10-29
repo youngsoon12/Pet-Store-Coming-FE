@@ -1,17 +1,20 @@
 import { css } from '@emotion/react';
 
 export const styles = {
-  line() {
+  button(props) {
     return css`
       width: 100%;
-      height: 1px;
+      height: 45px;
+      cursor: pointer;
       box-sizing: border-box;
       border-radius: 7px;
       font-weight: 600;
 
-      margin: 35px 0;
+      max-width: 400px;
 
-      background-color: rgba(154, 154, 154, 0.4);
+      background-color: ${props.bgColor};
+      border: ${props.border};
+      color: ${props.color};
 
       display: flex;
       justify-content: center;
@@ -19,14 +22,11 @@ export const styles = {
     `;
   },
 
-  text() {
+  container() {
     return css`
-      display: block;
-      font-size: 14px;
-      padding: 0 15px;
-      background-color: #fff;
-      color: #9a9a9a;
-      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     `;
   },
 };

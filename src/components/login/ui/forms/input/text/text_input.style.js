@@ -7,6 +7,8 @@ export const styles = {
       border-radius: 7px;
       font-weight: 600;
 
+      max-width: 400px;
+
       display: flex;
       flex-direction: ${direction === 'v' && 'column'};
       gap: ${direction === 'v' && '8px'};

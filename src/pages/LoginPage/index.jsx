@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { styles } from './loginPage.style.js';
+import { styles } from './login_page.style.js';
 
 import { useEffect, useMemo, useState } from 'react';
 import { LoginAPI } from '@apis/LoginPage/LoginAPI.js';
@@ -16,7 +16,7 @@ import HorizontalRole from '@components/login/ui/horizontal_rule';
 import TextInput from '@components/login/ui/forms/input/text';
 import { loginInputType } from '@components/login/data/login';
 
-import Container from '@components/login/\bcontainer';
+import Container from '@components/login/container';
 import Button from '@components/login/ui/forms/button/nomal';
 import AuthActions from '@components/login/layout/auth_actions';
 

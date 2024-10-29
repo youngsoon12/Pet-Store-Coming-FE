@@ -8,6 +8,8 @@ const styles = {
       display: flex;
       justify-content: space-between;
 
+      max-width: 400px;
+
       & span {
         font-size: 14px;
         cursor: pointer;
