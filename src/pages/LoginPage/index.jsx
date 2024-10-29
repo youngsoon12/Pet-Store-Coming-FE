@@ -29,7 +29,8 @@ function LoginPage() {
 
   // Custom Hook
   const { formValues, handleChange } = useLoginForm();
-  const { loginErrors, validateLogin } = useLoginValidation();
+  const { loginErrors, validateLogin, updateLoginErrors } =
+    useLoginValidation();
 
   // 카카오 로그인 버튼 클릭 이벤트 핸들러
   const handleKakaoLogin = () => {
@@ -59,6 +60,11 @@ function LoginPage() {
     // 유효성 검사를 통과 했을 경우
     if (validateLogin(formValues.login_email, formValues.login_password)) {
       // 이메일과 비밀번호를 서버로 전달
+      apiClass.fetchLogin(
+        formValues.login_email,
+        formValues.login_password,
+        updateLoginErrors
+      );
     }
   };
 
