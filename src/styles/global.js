@@ -33,4 +33,8 @@ export const globalStyle = css`
       display: none;
     }
   }
+
+  div {
+    box-sizing: border-box;
+  }
 `;

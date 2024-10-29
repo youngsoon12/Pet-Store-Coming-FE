@@ -3,13 +3,14 @@ import styled from '@emotion/styled';
 export const Flex = styled.div`
   display: flex;
   flex-direction: ${({ direction }) => (direction ? `${direction}` : 'row')};
-  justify-content: ${({ justify }) => (justify ? `${justify}` : 'center')};
-  align-items: ${({ align }) => (align ? `${align}` : 'center')};
+  justify-content: ${({ justify }) => (justify ? `${justify}` : 'flex-start')};
+  align-items: ${({ align }) => (align ? `${align}` : 'flex-start')};
   gap: ${({ webGap }) => (webGap ? `${webGap}rem` : '0rem')};
   width: ${({ width, widthPer }) =>
-    width ? `${width}rem` : widthPer ? `${widthPer}%` : '100%'};
+    width ? `${width}` : widthPer ? `${widthPer}%` : '100%'};
   height: ${({ height, heightPer }) =>
-    height ? `${height}rem` : heightPer ? `${heightPer}%` : '100%'};
+    height ? `${height}` : heightPer ? `${heightPer}%` : '100%'};
+  min-height: calc(100vh - 340px);
   margin: ${({ margin }) => (margin ? margin : '0')};
   padding: ${({ padding }) => (padding ? padding : '0')};
   box-sizing: border-box;
