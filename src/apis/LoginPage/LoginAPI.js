@@ -1,10 +1,14 @@
 import axios from 'axios';
+import { setCookie } from '../../util/configCookie';
 
 // device ID 설정 및 유지
 function getOrCreateDeviceId() {
   let deviceId = localStorage.getItem('deviceId');
 
+  console.log(deviceId);
+
   if (!deviceId) {
+    console.log('Hello');
     deviceId = crypto.randomUUID();
     localStorage.setItem('deviceId', deviceId);
   }
@@ -27,7 +31,22 @@ export class LoginAPI {
         )
         .then((res) => res.data);
 
-      return { state: true, data: res };
+      console.log(res);
+
+      // 예외가 발생하지 않은 경우 - Cookie 생성
+      setCookie('token', res.token, {
+        path: '/',
+        sameSite: 'Lax',
+        // secure: true, 배포 시 무조건 주석 풀기
+        maxAge: Math.floor(res.expirationTime / 1000),
+      });
+
+      setCookie('refreshToken', res.refreshToken, {
+        path: '/',
+        sameSite: 'Lax',
+        // secure: true, 배포 시 무조건 주석 풀기
+        maxAge: 7 * 24 * 60 * 60, // (초 단위) 7일 만료 시간
+      });
     } catch (error) {
       const err = error.response.data;
 
