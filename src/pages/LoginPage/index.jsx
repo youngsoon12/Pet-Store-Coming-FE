@@ -16,9 +16,9 @@ import HorizontalRole from '@components/login/ui/horizontal_rule';
 import TextInput from '@components/login/ui/forms/input/text';
 import { loginInputType } from '@components/login/data/login';
 
-import ColumnContainer from '@components/login/\bcontainer';
+import Container from '@components/login/\bcontainer';
 import Button from '@components/login/ui/forms/button/nomal';
-import AuthActions from '../../components/login/layout/auth_actions';
+import AuthActions from '@components/login/layout/auth_actions';
 
 // Custom Hook
 import useLoginForm from '@components/login/hook/useLoginForm.js';
@@ -90,11 +90,13 @@ function LoginPage() {
 
   return (
     <>
-      <ColumnContainer>
-        <h2 css={styles.text(18, 600)}>로그인</h2>
-        <p css={styles.text()}>
-          <strong>꼬밍</strong>과 함께 반려견 용품 쇼핑생황을 즐겨보세요!
-        </p>
+      <Container>
+        <div css={styles.paragraphBox()}>
+          <h2 css={styles.text(18, 600)}>로그인</h2>
+          <p css={styles.text()}>
+            <strong>꼬밍</strong>과 함께 반려견 용품 쇼핑생황을 즐겨보세요!
+          </p>
+        </div>
 
         {/* 소셜 로그인 컴포넌트 */}
         <SocialButton
@@ -103,11 +105,11 @@ function LoginPage() {
           loginText="카카오 로그인"
           platformIcon={<Icon src={kakaoLogo} alt="kakao_logo" />}
         />
-      </ColumnContainer>
+      </Container>
 
       <HorizontalRole text="또는" />
 
-      <ColumnContainer isForm={true} onSubmit={handleLogin}>
+      <Container gap={16} isForm={true} onSubmit={handleLogin}>
         {loginInputType.map((type, id) => (
           <TextInput
             key={id}
@@ -126,7 +128,7 @@ function LoginPage() {
         <Button bgColor="#141414" color="#fff" text="로그인" />
 
         <AuthActions />
-      </ColumnContainer>
+      </Container>
     </>
   );
 }

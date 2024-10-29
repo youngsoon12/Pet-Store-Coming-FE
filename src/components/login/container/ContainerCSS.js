@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 export const styles = {
-  container() {
+  container(gap) {
     return css`
       width: 100%;
 
@@ -10,7 +10,7 @@ export const styles = {
       justify-content: center;
       align-items: center;
 
-      gap: 16px;
+      gap: ${gap}px;
     `;
   },
 };

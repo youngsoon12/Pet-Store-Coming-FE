@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { styles } from './ContainerCSS';
 
-function ColumnContainer({ isForm, onSubmit, children }) {
+function Container({ isForm, onSubmit, gap, children }) {
   const Tag = isForm ? 'form' : 'div';
 
   return (
-    <Tag onSubmit={onSubmit} css={styles.container()}>
+    <Tag onSubmit={onSubmit} css={styles.container(gap)}>
       {children}
     </Tag>
   );
 }
 
-export default ColumnContainer;
+export default Container;

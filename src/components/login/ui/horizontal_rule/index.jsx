@@ -5,7 +5,7 @@ import { styles } from './HorizontalRuleCSS.js';
 function HorizontalRole({ text }) {
   return (
     <div css={styles.line()}>
-      <span css={styles.text()}>{text}</span>
+      {text && <span css={styles.text()}>{text}</span>}
     </div>
   );
 }
