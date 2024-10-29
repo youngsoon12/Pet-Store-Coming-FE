@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useNavigate } from 'react-router-dom';
-import { styles } from './Header.style';
+import { styles } from './header1.style';
 import { useState } from 'react';
 import logo from '@assets/images/header/logos/logo.svg';
 import dogLogo from '@assets/images/header/logos/dog_logo.svg';

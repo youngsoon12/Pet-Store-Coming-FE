@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../components/global/button';
 import GlobalTitle from '@components/global/globaltitle/index';
-import Header from '../components/global/header';
+import Header from '../components/global/header1';
 
 const Home = () => {
   return (
