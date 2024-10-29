@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { styles } from './HorizontalRuleCSS.js';
+import { styles } from './horizontalRule.style.js';
 
 function HorizontalRole({ text }) {
   return (

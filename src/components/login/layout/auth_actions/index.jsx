@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import styles from '@components/login/layout/auth_actions/AuthActionsCSS';
+import styles from './authActions.stlye.js';
 
 function AuthActions() {
   return (

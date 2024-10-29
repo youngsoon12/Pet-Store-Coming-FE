@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { styles } from './LoginPageCSS';
+import { styles } from './loginPage.style.js';
 
 import { useEffect, useMemo, useState } from 'react';
 import { LoginAPI } from '@apis/LoginPage/LoginAPI.js';
