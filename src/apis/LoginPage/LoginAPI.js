@@ -1,7 +1,7 @@
 import axios from 'axios';
 // import { useNavigate } from 'react-router-dom';
 
-import { setCookie } from '../../util/configCookie';
+import { setCookie } from '@util/configCookie';
 
 // device ID 설정 및 유지
 function getOrCreateDeviceId() {
@@ -21,9 +21,8 @@ export class LoginAPI {
   #APP_REDIRECT_URL = import.meta.env.VITE_APP_REDIRECT_URL;
 
   // 로그인 시도 API
-  async fetchLogin(email, password, setErrorMsg) {
+  async fetchLogin(email, password, setErrorMsg, setIsAuthenticated) {
     const deviceId = getOrCreateDeviceId(); // 디바이스 아이디 생성 및 가져오기
-    // const navigate = useNavigate();
 
     try {
       const res = await axios

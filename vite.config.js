@@ -33,6 +33,8 @@ export default defineConfig({
       { find: '@assets', replacement: '/src/assets' },
       { find: '@apis', replacement: '/src/apis' },
       { find: '@styles', replacement: '/src/styles' },
+      { find: '@util', replacement: '/src/util' },
+      { find: '@recoil', replacement: '/src/recoil' },
     ],
   },
 });

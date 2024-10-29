@@ -24,10 +24,14 @@ import AuthActions from '@components/login/layout/auth_actions';
 import useLoginForm from '@components/login/hook/useLoginForm.js';
 import useLoginValidation from '@components/login/hook/useLoginValidation';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { isActhenticatedState } from '@recoil/atom/authState.js';
 
 function LoginPage() {
   const apiClass = useMemo(() => new LoginAPI(), []);
   const navigate = useNavigate();
+
+  const setIsAuthenticated = useSetRecoilState(isActhenticatedState);
 
   // Custom Hook
   const { formValues, handleChange } = useLoginForm();
@@ -68,6 +72,7 @@ function LoginPage() {
     if (validateLogin(email, password)) {
       // 이메일과 비밀번호를 서버로 전달
       if (apiClass.fetchLogin(email, password, updateLoginErrors)) {
+        setIsAuthenticated(true);
         navigate('/');
       }
     }
