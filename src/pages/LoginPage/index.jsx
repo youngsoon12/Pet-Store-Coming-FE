@@ -23,9 +23,11 @@ import AuthActions from '@components/login/layout/auth_actions';
 // Custom Hook
 import useLoginForm from '@components/login/hook/useLoginForm.js';
 import useLoginValidation from '@components/login/hook/useLoginValidation';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
   const apiClass = useMemo(() => new LoginAPI(), []);
+  const navigate = useNavigate();
 
   // Custom Hook
   const { formValues, handleChange } = useLoginForm();
@@ -57,14 +59,17 @@ function LoginPage() {
   const handleLogin = (event) => {
     event.preventDefault();
 
+    const [email, password] = [
+      formValues.login_email,
+      formValues.login_password,
+    ];
+
     // 유효성 검사를 통과 했을 경우
-    if (validateLogin(formValues.login_email, formValues.login_password)) {
+    if (validateLogin(email, password)) {
       // 이메일과 비밀번호를 서버로 전달
-      apiClass.fetchLogin(
-        formValues.login_email,
-        formValues.login_password,
-        updateLoginErrors
-      );
+      if (apiClass.fetchLogin(email, password, updateLoginErrors)) {
+        navigate('/');
+      }
     }
   };
 

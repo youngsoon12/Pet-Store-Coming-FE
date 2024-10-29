@@ -1,14 +1,14 @@
 import axios from 'axios';
+// import { useNavigate } from 'react-router-dom';
+
 import { setCookie } from '../../util/configCookie';
 
 // device ID 설정 및 유지
 function getOrCreateDeviceId() {
-  let deviceId = localStorage.getItem('deviceId');
+  let deviceId = localStorage.getItem('deviceId'); // 디바이스 정보 가져오기
 
-  console.log(deviceId);
-
+  // 디바이스 정보가 없을 경우 새로운 UUID 값 생성 이후 localStorage에 저장
   if (!deviceId) {
-    console.log('Hello');
     deviceId = crypto.randomUUID();
     localStorage.setItem('deviceId', deviceId);
   }
@@ -23,6 +23,7 @@ export class LoginAPI {
   // 로그인 시도 API
   async fetchLogin(email, password, setErrorMsg) {
     const deviceId = getOrCreateDeviceId(); // 디바이스 아이디 생성 및 가져오기
+    // const navigate = useNavigate();
 
     try {
       const res = await axios
@@ -30,8 +31,6 @@ export class LoginAPI {
           `http://localhost:8080/auth/sign-in?email=${email}&password=${password}&deviceId=${deviceId}`
         )
         .then((res) => res.data);
-
-      console.log(res);
 
       // 예외가 발생하지 않은 경우 - Cookie 생성
       setCookie('token', res.token, {
@@ -47,18 +46,25 @@ export class LoginAPI {
         // secure: true, 배포 시 무조건 주석 풀기
         maxAge: 7 * 24 * 60 * 60, // (초 단위) 7일 만료 시간
       });
-    } catch (error) {
-      const err = error.response.data;
 
-      switch (err.errorCode) {
-        case 'USER_NOT_FOUND':
-          setErrorMsg('login_email', '존재하지 않는 아이디 입니다.');
-          break;
-        case 'INVALID_PASSWORD':
-          setErrorMsg('login_password', '비밀번호가 일치하지 않습니다.');
-          break;
+      return true;
+    } catch (error) {
+      // 서버에서 에러에 대한 response를 넘겨 받았을 경우
+      if (error.response) {
+        const err = error.response.data;
+
+        switch (err.errorCode) {
+          case 'USER_NOT_FOUND':
+            setErrorMsg('login_email', '존재하지 않는 아이디 입니다.');
+            break;
+          case 'INVALID_PASSWORD':
+            setErrorMsg('login_password', '비밀번호가 일치하지 않습니다.');
+            break;
+        }
       }
     }
+
+    // 넘겨 받지 못한 경우 error.code 속성을 통해서 에러 페이지 이동
   }
 
   // 카카오 인가 코드 발급
