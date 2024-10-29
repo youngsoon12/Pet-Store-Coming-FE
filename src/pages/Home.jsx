@@ -2,11 +2,13 @@ import React from 'react';
 import Button from '../components/global/button';
 import GlobalTitle from '@components/global/globaltitle/index';
 import Header from '../components/global/header';
+import TabBar from '../components/global/TabBar';
 
 const Home = () => {
   return (
     <div>
       <Header type={1} />
+      <TabBar />
       {/* <Header type={2} />
       <Header type={3} title={'페이지 제목'} />
       <Header type={4} title={'간식 / 사료'} />
