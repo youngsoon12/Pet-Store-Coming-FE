@@ -8,17 +8,17 @@ import cart from '@assets/images/header/icons/cart.svg';
 import search from '@assets/images/header/icons/search.svg';
 
 export const styles = {
-  headerWrap: css`
+  headerContainer: css`
     background-color: rgba(230, 230, 230, 0.4);
     backdrop-filter: blur(3px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-    height: 75px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    height: 60px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    column-gap: 100px;
-    padding: 0 60px;
+    column-gap: 8vw;
+    padding: 0 5vw;
     box-sizing: border-box;
     position: fixed; /* 헤더를 화면에 고정 */
     top: 0;
@@ -45,24 +45,26 @@ export const styles = {
 
   categoryArea: css`
     display: flex;
-    /* column-gap: 10%; */
-    gap: 35px; /* 카테고리 간의 간격을 조정 */
-    font-size: 18px;
+    gap: 35px;
+    font-size: 16px;
     & > div {
       cursor: pointer;
+      transition: opacity 0.3s ease-in-out;
+
+      &:hover {
+        opacity: 0.4;
+      }
     }
   `,
   buttonArea: css`
     display: flex;
-    /* column-gap: 15%; */
-    gap: 20px; /* 버튼과 아이콘 간의 간격 */
+    gap: 2vw; /* 버튼과 아이콘 간의 간격 */
     margin-left: auto;
     align-items: center;
   `,
 
   buttons: css`
     display: flex;
-    /* column-gap: 10%; */
     gap: 15px; /* 로그인과 회원가입 간의 간격 */
 
     & > div {
@@ -70,22 +72,31 @@ export const styles = {
       height: fit-content;
       line-height: normal;
       font-size: 14px;
+      transition: opacity 0.3s ease-in-out;
+
+      &:hover {
+        opacity: 0.4;
+      }
     }
   `,
 
   icons: css`
     display: flex;
-    /* column-gap: 10%; */
     gap: 15px; /* 각 아이콘 간의 간격 */
 
     & > div {
       cursor: pointer;
-      width: 25px;
-      min-width: 25px;
-      height: 25px;
+      width: 22px;
+      min-width: 22px;
+      height: 22px;
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
+      transition: opacity 0.3s ease-in-out;
+
+      &:hover {
+        opacity: 0.4;
+      }
     }
   `,
 

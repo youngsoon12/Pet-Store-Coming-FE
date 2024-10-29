@@ -7,11 +7,19 @@ import Footer from '@components/global/footer';
 
 function Layout({ children }) {
   return (
-    <Wrapper direction="column" align="center" margin="105px 0 0 0">
+    <>
       <Header />
-      {children}
+      <Wrapper
+        direction="column"
+        width="100vw"
+        height="auto"
+        padding="0 8vw 232px 8vw"
+        margin="105px auto 0 auto"
+      >
+        {children}
+      </Wrapper>
       <Footer />
-    </Wrapper>
+    </>
   );
 }
 

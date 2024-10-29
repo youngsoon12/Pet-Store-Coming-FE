@@ -1,10 +1,34 @@
 import React from 'react';
-import GlobalTitle from '../components/global/globaltitle/GlobalTitle';
+import Button from '../components/global/button';
+import GlobalTitle from '@components/global/globaltitle/index';
 
 const Home = () => {
   return (
     <>
-      <GlobalTitle text={'dfd'} />
+      {/* <GlobalTitle text={'FOOD'} arrow={true} />
+      <GlobalTitle text={'MY PETS'} arrow={false} />
+
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div>
+      <div>꼬밍이에요</div> */}
     </>
   );
 };
