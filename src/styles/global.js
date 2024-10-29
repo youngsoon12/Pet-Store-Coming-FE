@@ -22,7 +22,7 @@ export const globalStyle = css`
     .scroll::-webkit-scrollbar {
       display: none;
     }
-    background-color: gray;
+    background-color: #f8f8f8;
   }
 
   *,
