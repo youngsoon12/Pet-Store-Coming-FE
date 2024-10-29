@@ -13,7 +13,7 @@ import kakaoLogo from '@assets/images/login/logo/kakao.svg';
 import HorizontalRole from '@components/login/ui/horizontal_rule';
 
 // 로그인 인풋 관련 import
-import TextInput from '@components/login/ui/forms/input/text';
+import TextInput from '@components/global/input';
 import { loginInputType } from '@components/login/data/login';
 
 import Container from '@components/login/container';
@@ -60,8 +60,6 @@ function LoginPage() {
     if (validateLogin(formValues.login_email, formValues.login_password)) {
       console.log('Hello');
     }
-
-    console.log(MediaDeviceInfo.deviceId);
   };
 
   useEffect(() => {
