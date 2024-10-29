@@ -6,11 +6,15 @@ export const Flex = styled.div`
   justify-content: ${({ justify }) => (justify ? `${justify}` : 'flex-start')};
   align-items: ${({ align }) => (align ? `${align}` : 'flex-start')};
   gap: ${({ webGap }) => (webGap ? `${webGap}rem` : '0rem')};
-  width: ${({ width, widthPer }) =>
-    width ? `${width}` : widthPer ? `${widthPer}%` : '100%'};
-  height: ${({ height, heightPer }) =>
-    height ? `${height}` : heightPer ? `${heightPer}%` : '100%'};
-  min-height: calc(100vh - 340px);
+  /* width: ${({ width, widthPer }) =>
+    width ? `${width}` : widthPer ? `${widthPer}%` : '100%'}; */
+
+  max-width: 600px;
+  min-width: 320px;
+  min-height: calc(100vh - 52px);
+  /* height: ${({ height, heightPer }) =>
+    height ? `${height}` : heightPer ? `${heightPer}%` : '100%'}; */
+  /* min-height: calc(100vh - 340px); */
   margin: ${({ margin }) => (margin ? margin : '0')};
   padding: ${({ padding }) => (padding ? padding : '0')};
   box-sizing: border-box;

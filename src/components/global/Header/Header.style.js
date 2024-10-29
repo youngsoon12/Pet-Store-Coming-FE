@@ -9,11 +9,12 @@ import search from '@assets/images/header/icons/search.svg';
 
 export const styles = {
   headerContainer: css`
-    background-color: rgba(230, 230, 230, 0.4);
+    /* background-color: rgba(255, 255, 255, 0.7); */
+    background-color: rgba(1, 1, 1, 0.7);
     backdrop-filter: blur(3px);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-    height: 60px;
-    width: 100%;
+    /* box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); */
+    height: 52px;
+    width: 600px;
     display: flex;
     align-items: center;
     justify-content: space-between;

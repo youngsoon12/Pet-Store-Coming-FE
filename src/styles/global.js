@@ -8,15 +8,12 @@ export const globalStyle = css`
     font-family: 'Pretendard', sans-serif;
   }
 
-  html {
-    box-sizing: border-box; // 요소 크기를 계산할 때 패딩과 테두리 포함
-  }
-
   body {
     width: 100%;
     margin: 0;
     padding: 0;
     min-width: 320px;
+    min-height: 100vh;
     overflow-x: hidden;
     justify-content: flex-start;
     align-items: center;
@@ -31,7 +28,9 @@ export const globalStyle = css`
     }
   }
 
-  div {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
   }
 `;
