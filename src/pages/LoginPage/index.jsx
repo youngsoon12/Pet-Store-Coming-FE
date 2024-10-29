@@ -58,7 +58,7 @@ function LoginPage() {
 
     // 유효성 검사를 통과 했을 경우
     if (validateLogin(formValues.login_email, formValues.login_password)) {
-      console.log('Hello');
+      // 이메일과 비밀번호를 서버로 전달
     }
   };
 

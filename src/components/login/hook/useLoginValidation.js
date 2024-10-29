@@ -35,9 +35,18 @@ function useLoginValidation() {
     return Object.keys(errors).length === 0;
   };
 
+  // 외부에서 에러 메시지를 업데이트하는 함수
+  const updateLoginErrors = (field, message) => {
+    setLoginErrors((prevErrors) => ({
+      ...prevErrors,
+      [field]: message,
+    }));
+  };
+
   return {
     loginErrors,
     validateLogin,
+    updateLoginErrors,
   };
 }
 
