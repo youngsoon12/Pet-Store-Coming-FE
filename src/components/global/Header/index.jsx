@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useNavigate } from 'react-router-dom';
-import { styles } from './Header.style';
+import { styles } from './header.style';
 import { useState } from 'react';
 
 const Header = () => {
@@ -10,7 +10,7 @@ const Header = () => {
     navigate(`/${category}`);
   };
   return (
-    <div css={styles.headerWrap}>
+    <div css={styles.headerContainer}>
       <div
         css={styles.logo}
         onClick={() => {
@@ -21,11 +21,7 @@ const Header = () => {
         {categories.map((category) => {
           const name = category.toUpperCase();
           return (
-            <div
-              css={styles.category}
-              key={category}
-              onClick={() => handleClickCategory(category)}
-            >
+            <div key={category} onClick={() => handleClickCategory(category)}>
               {name}
             </div>
           );

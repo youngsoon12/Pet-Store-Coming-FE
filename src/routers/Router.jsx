@@ -5,17 +5,17 @@ import { globalStyle } from '@styles/global';
 
 // Global Component Import
 import Layout from '../components/global/Layout';
+import GlobalTitle from '@components/global/globaltitle';
 
 // 페이지 컴포넌트 import
 import Home from '@pages/Home';
 import LoginPage from '../pages/LoginPage/LoginPage';
-import GlobalTitle from '../components/global/globaltitle/GlobalTitle';
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <Global styles={globalStyle} />
       <Layout>
-        <Global styles={globalStyle} />
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<LoginPage />} />
