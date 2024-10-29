@@ -60,7 +60,7 @@ function LoginPage() {
   };
 
   // Login Button Form Action
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
 
     const [email, password] = [
@@ -71,7 +71,7 @@ function LoginPage() {
     // 유효성 검사를 통과 했을 경우
     if (validateLogin(email, password)) {
       // 이메일과 비밀번호를 서버로 전달
-      if (apiClass.fetchLogin(email, password, updateLoginErrors)) {
+      if (await apiClass.fetchLogin(email, password, updateLoginErrors)) {
         setIsAuthenticated(true);
         navigate('/');
       }
