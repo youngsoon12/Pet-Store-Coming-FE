@@ -4,7 +4,7 @@
  * @module hooks/modal/useModal.js
  */
 
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 
 import { modalState } from '@recoil/atom/modalState';
 import { useRecoilState } from 'recoil';

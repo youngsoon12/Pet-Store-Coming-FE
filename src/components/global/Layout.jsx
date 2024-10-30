@@ -76,18 +76,7 @@ function Layout({ children }) {
 
   return (
     <>
-      {/* 모달 오픈 */}
-      {modalConfig.isVisible && (
-        <Modal
-          title={modalConfig.title}
-          description={modalConfig.description}
-          actionsBtn={modalConfig.actions}
-        />
-      )}
-
       {/* <Header /> */}
-      {isActhenticated && <button onClick={openLogoutModal}>로그아웃</button>}
-      <button onClick={openLogoutModal}>로그아웃</button>
       <MainLayout
         direction="column"
         width="100vw"
@@ -100,6 +89,23 @@ function Layout({ children }) {
       </MainLayout>
 
       <Footer />
+
+      {/* 모달 오픈 */}
+      {modalConfig.isVisible && (
+        <Modal
+          title={modalConfig.title}
+          description={modalConfig.description}
+          actionsBtn={modalConfig.actions}
+        />
+      )}
+
+      {/* 
+      
+        Feat: 사용자가 로그인을 하고 있을 있을 경우 활성화되는 로그아웃 버튼
+        - 단, 해당 위치에서 테스트를 하기 위해 Layout.jsx에 위치해 있을 뿐 나중에 마이페이지로 옮길 예정
+      
+      */}
+      {isActhenticated && <button onClick={openLogoutModal}>로그아웃</button>}
     </>
   );
 }

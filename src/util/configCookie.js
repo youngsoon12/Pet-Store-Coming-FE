@@ -14,7 +14,5 @@ export const getCookie = (key) => {
 
 // 쿠키 삭제
 export const removeCookie = (key, option) => {
-  console.log(key);
-  console.log(option);
-  // cookies.remove(key, { ...option });
+  cookies.remove(key, { ...option });
 };

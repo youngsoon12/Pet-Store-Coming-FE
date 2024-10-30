@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { AuthAPI } from '@apis/authApi';
 import { useCallback } from 'react';
 
+import { getCookie, removeCookie } from '@util/configCookie';
+
+import useModal from '@hooks/modal/useModal';
 import useErrorModal from '@hooks/modal/useErrorModal';
 
 export default function useAuth() {
@@ -14,13 +17,12 @@ export default function useAuth() {
   const navigate = useNavigate();
   const authApi = new AuthAPI();
 
+  const { hideModal } = useModal();
   const { showErrorModal } = useErrorModal();
 
   // 로그아웃 핸들러
   const handleLogout = useCallback(async () => {
     const response = await authApi.logout();
-
-    console.log(response);
 
     // 1. 로그아웃 성공 처리
     if (response.success) {
@@ -54,6 +56,7 @@ export default function useAuth() {
         maxAge: Math.floor(expirationTime / 1000), // 토큰 만료 시간 설정
       });
 
+      hideModal();
       navigate('/'); // 로그아웃 후 리다이렉션
     }
 
