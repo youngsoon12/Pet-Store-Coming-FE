@@ -132,6 +132,7 @@ function Layout({ children }) {
 
   return (
     <>
+      {/* 모달 오픈 */}
       {modalConfig.isVisible && (
         <Modal
           title={modalConfig.title}
