@@ -15,8 +15,12 @@ import { getCookie, removeCookie } from '@util/configCookie';
 // API 불러오기
 import { AuthAPI } from '@apis/authApi';
 
+import useModal from '@components/global/modal/hook/useModal';
+
 function Layout({ children }) {
-  const [showModal, setShowModal] = useState(false); // 쿠키 만료 시간 경고 모달창
+  const { modalConfig, showModal, hideModal } = useModal();
+
+  // const [showModal, setShowModal] = useState(false); // 쿠키 만료 시간 경고 모달창
   const [showLogoutModal, setShowLogoutModal] = useState(true); // 로그아웃 알림 모달창
 
   const apiClass = new AuthAPI();
@@ -27,6 +31,22 @@ function Layout({ children }) {
   // 전역 상태 값 가져오기
   const [isActhenticated, setIsActhenticated] =
     useRecoilState(isActhenticatedState);
+
+  const openLogoutModal = () => {
+    showModal({
+      title: '로그아웃 안내',
+      description: (
+        <p>
+          정말 로그아웃 하시겠습니까?
+          <br /> 로그아웃 후에는 다시 로그인하셔야 합니다.
+        </p>
+      ),
+      actions: [
+        { title: '취소', onClick: hideModal },
+        { title: '로그아웃', onClick: handleLogout },
+      ],
+    });
+  };
 
   // 로그아웃 핸들러
   const handleLogout = async () => {
@@ -66,39 +86,39 @@ function Layout({ children }) {
     } catch (error) {}
   };
 
-  // 로그인 이후 쿠키 만료 시간 계산
-  useEffect(() => {
-    if (isActhenticated) {
-      const token = getCookie('token');
-      const expirationTime = getCookie('tokenExpirationTime');
+  // // 로그인 이후 쿠키 만료 시간 계산
+  // useEffect(() => {
+  //   if (isActhenticated) {
+  //     const token = getCookie('token');
+  //     const expirationTime = getCookie('tokenExpirationTime');
 
-      if (token && expirationTime) {
-        const timeUntilExpiration = expirationTime - Date.now();
+  //     if (token && expirationTime) {
+  //       const timeUntilExpiration = expirationTime - Date.now();
 
-        // 현재 남은 쿠키 만료 시간이 5분 이하인 경우 바로 모달창 오픈
-        if (timeUntilExpiration <= 5 * 60 * 1000) {
-          setShowModal(true);
-        } else {
-          // setTimeout() 비동기 이벤트를 통해 남은 시간이 5분 이하로 남을 경우 모달창 오픈
-          const waringTimeoutId = setTimeout(
-            () => setShowModal(true),
-            timeUntilExpiration - 5 * 60 * 1000
-          );
+  //       // 현재 남은 쿠키 만료 시간이 5분 이하인 경우 바로 모달창 오픈
+  //       if (timeUntilExpiration <= 5 * 60 * 1000) {
+  //         setShowModal(true);
+  //       } else {
+  //         // setTimeout() 비동기 이벤트를 통해 남은 시간이 5분 이하로 남을 경우 모달창 오픈
+  //         const waringTimeoutId = setTimeout(
+  //           () => setShowModal(true),
+  //           timeUntilExpiration - 5 * 60 * 1000
+  //         );
 
-          // 로그인 이후 토큰 만료 시간이 다 된 경우 -> 강제 로그아웃
-          const logoutTimeoutId = setTimeout(
-            () => handleLogout(),
-            timeUntilExpiration
-          );
+  //         // 로그인 이후 토큰 만료 시간이 다 된 경우 -> 강제 로그아웃
+  //         const logoutTimeoutId = setTimeout(
+  //           () => handleLogout(),
+  //           timeUntilExpiration
+  //         );
 
-          return () => {
-            clearTimeout(waringTimeoutId);
-            clearTimeout(logoutTimeoutId);
-          };
-        }
-      }
-    }
-  }, [isActhenticated]);
+  //         return () => {
+  //           clearTimeout(waringTimeoutId);
+  //           clearTimeout(logoutTimeoutId);
+  //         };
+  //       }
+  //     }
+  //   }
+  // }, [isActhenticated]);
 
   // 페이지 리다이렉션 useEffect()
   useEffect(() => {
@@ -112,29 +132,16 @@ function Layout({ children }) {
 
   return (
     <>
-      {/* {showModal && <Modal />} */}
-      {showLogoutModal && (
+      {modalConfig.isVisible && (
         <Modal
-          title="로그아웃 안내"
-          description={
-            <p>
-              정말 로그아웃 하시겠습니까?
-              <br /> 로그아웃 후에는 다시 로그인하셔야 합니다.
-            </p>
-          }
-          actionsBtn={[
-            {
-              title: '취소',
-            },
-            {
-              title: '로그아웃',
-            },
-          ]}
+          title={modalConfig.title}
+          description={modalConfig.description}
+          actionsBtn={modalConfig.actions}
         />
       )}
 
-      <Header />
-      {isActhenticated && <button onClick={handleLogout}>로그아웃</button>}
+      {/* <Header /> */}
+      {isActhenticated && <button onClick={openLogoutModal}>로그아웃</button>}
       <MainLayout
         direction="column"
         width="100vw"

@@ -19,7 +19,11 @@ function Modal({ title, description, actionsBtn }) {
         {/* 모달창 버튼 */}
         <div css={styles.modalActionsBtn()}>
           {actionsBtn.length &&
-            actionsBtn.map((btn) => <button>{btn.title}</button>)}
+            actionsBtn.map((action, idx) => (
+              <button key={idx} onClick={action.onClick}>
+                {action.title}
+              </button>
+            ))}
         </div>
       </div>
     </div>

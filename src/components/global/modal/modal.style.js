@@ -55,6 +55,10 @@ export const styles = {
       font-size: 14px;
       text-align: center;
       line-height: 20px;
+
+      & > strong {
+        font-weight: 600;
+      }
     `;
   },
 
@@ -73,7 +77,7 @@ export const styles = {
         cursor: pointer;
       }
 
-      & > button:first-child {
+      & > button:first-of-type {
         background-color: #fff;
         border: 1px solid #5d5d5d;
         color: #000;
