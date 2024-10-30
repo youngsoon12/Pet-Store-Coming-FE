@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Flex as Wrapper } from './Flex';
+import { Flex as MainLayout } from './Flex';
 
 import Header from '@components/global/header';
 import Footer from '@components/global/footer';
@@ -10,10 +10,16 @@ import Footer from '@components/global/footer';
 import { isActhenticatedState } from '@recoil/atom/authState';
 import { useRecoilState } from 'recoil';
 import Modal from './modal/Modal';
-import { getCookie, removeCookie, cookiesOptions } from '@util/configCookie';
+import { getCookie, removeCookie } from '@util/configCookie';
+
+// API 불러오기
+import { AuthAPI } from '@apis/authApi';
 
 function Layout({ children }) {
-  const [showModal, setShowModal] = useState(false); // 모달창 상태 변수
+  const [showModal, setShowModal] = useState(false); // 쿠키 만료 시간 경고 모달창
+  const [showLogoutModal, setShowLogoutModal] = useState(true); // 로그아웃 알림 모달창
+
+  const apiClass = new AuthAPI();
 
   const location = useLocation(); // location 정보 가져오기
   const navigate = useNavigate();
@@ -23,20 +29,41 @@ function Layout({ children }) {
     useRecoilState(isActhenticatedState);
 
   // 로그아웃 핸들러
-  const handleLogout = () => {
-    setIsActhenticated(false);
-    setShowModal(false);
+  const handleLogout = async () => {
+    try {
+      if (await apiClass.logout()) {
+      }
 
-    // 로그인 한 디바이스 아이디 제거
-    localStorage.removeItem('deviceId');
+      // const expirationTime = getCookie('tokenExpirationTime');
 
-    // Cookie에 저장된 로그인과 관련된 정보 모두 삭제
-    removeCookie('token', ...cookiesOptions('token'));
-    removeCookie('refreshToken', ...cookiesOptions('refreshToken'));
-    removeCookie(
-      'tokenExpirationTime',
-      ...cookiesOptions('tokenExpirationTime')
-    );
+      // setIsActhenticated(false);
+      // setShowModal(false);
+
+      // // 로그인 한 디바이스 아이디 제거
+      // localStorage.removeItem('deviceId', expirationTime);
+
+      // // Cookie에 저장된 로그인과 관련된 정보 모두 삭제
+      // removeCookie('token', {
+      //   path: '/',
+      //   sameSite: 'Lax',
+      //   // secure: true, 배포 시 무조건 주석 풀기
+      //   maxAge: Math.floor(expirationTime / 1000), // 토큰 만료 시간 설정
+      // });
+
+      // removeCookie('refreshToken', {
+      //   path: '/',
+      //   sameSite: 'Lax',
+      //   // secure: true, 배포 시 무조건 주석 풀기
+      //   maxAge: 7 * 24 * 60 * 60, // (초 단위) 7일 만료 시간
+      // });
+
+      // removeCookie('tokenExpirationTime', {
+      //   path: '/',
+      //   sameSite: 'Lax',
+      //   // secure: true, 배포 시 무조건 주석 풀기
+      //   maxAge: Math.floor(expirationTime / 1000), // 토큰 만료 시간 설정
+      // });
+    } catch (error) {}
   };
 
   // 로그인 이후 쿠키 만료 시간 계산
@@ -85,9 +112,9 @@ function Layout({ children }) {
 
   return (
     <>
-      <Header />
-      {showModal && <Modal />}
-      <Wrapper
+      {/* <Header /> */}
+      {isActhenticated && <button onClick={handleLogout}>로그아웃</button>}
+      <MainLayout
         direction="column"
         width="100vw"
         height="auto"
@@ -96,7 +123,15 @@ function Layout({ children }) {
         align="center"
       >
         {children}
-      </Wrapper>
+      </MainLayout>
+
+      {showModal && <Modal />}
+      {showLogoutModal && (
+        <Modal
+          title="로그아웃 안내"
+          description="정말 로그아웃 하시겠습니까? 로그아웃 후에는 다시 로그인하셔야 합니다."
+        />
+      )}
       <Footer />
     </>
   );

@@ -1,7 +1,6 @@
 import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
 
-import { setCookie, cookiesOptions } from '@util/configCookie';
+import { setCookie } from '@util/configCookie';
 
 // device ID 설정 및 유지
 function getOrCreateDeviceId() {
@@ -34,21 +33,28 @@ export class LoginAPI {
       // 예외가 발생하지 않은 경우 - Cookie 생성
 
       // 사용자 인증을 위한 토큰을 쿠키값에 설정
-      setCookie('token', res.token, ...cookiesOptions('token'));
+      setCookie('token', res.token, {
+        path: '/',
+        sameSite: 'Lax',
+        // secure: true, 배포 시 무조건 주석 풀기
+        maxAge: Math.floor(res.expirationTime / 1000), // 토큰 만료 시간 설정
+      });
 
       // 사용자 만료 시간을 늘리기 위한 리프레시 토큰을 쿠키값에 설정
-      setCookie(
-        'refreshToken',
-        res.refreshToken,
-        ...cookiesOptions('refreshToken')
-      );
+      setCookie('refreshToken', res.refreshToken, {
+        path: '/',
+        sameSite: 'Lax',
+        // secure: true, 배포 시 무조건 주석 풀기
+        maxAge: 7 * 24 * 60 * 60, // (초 단위) 7일 만료 시간
+      });
 
       // 사용자의 토큰 남은 시간을 확인하기 위한 토큰 만료 시간을 쿠키값에 설정
-      setCookie(
-        'tokenExpirationTime',
-        res.expirationTime,
-        ...cookiesOptions('tokenExpirationTime')
-      );
+      setCookie('tokenExpirationTime', res.expirationTime, {
+        path: '/',
+        sameSite: 'Lax',
+        // secure: true, 배포 시 무조건 주석 풀기
+        maxAge: Math.floor(res.expirationTime / 1000), // 토큰 만료 시간 설정
+      });
 
       return true;
     } catch (error) {

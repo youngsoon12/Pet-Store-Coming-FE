@@ -2,11 +2,21 @@
 
 import { styles } from './modal.style';
 
-function Modal() {
+function Modal({ title, description }) {
   return (
-    <div css={styles.modalContainer()}>
-      <div css={styles.modalHader()}>
-        <p>모달창</p>
+    // 모달창 바깥 영역
+    <div>
+      {/* 모달창 컨테이너 */}
+      <div css={styles.modalContainer()}>
+        {/* 모달창 헤더 */}
+        <div css={styles.modalHader()}>
+          <p>{title}</p>
+        </div>
+
+        {/* 모달창 본문 */}
+        <div></div>
+
+        <div></div>
       </div>
     </div>
   );
