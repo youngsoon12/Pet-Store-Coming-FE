@@ -9,7 +9,7 @@ export default function ContentsWrapper({ children }) {
         overflowY: 'scroll',
       }}
     >
-      <div>{children}</div>
+      {children}
     </div>
   );
 }

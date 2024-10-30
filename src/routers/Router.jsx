@@ -5,6 +5,7 @@ import { Global } from '@emotion/react';
 import Home from '@pages/Home';
 import { globalStyle } from '@styles/global';
 import Layout from '../layout';
+import SignupSuccess from '../pages/SignupSuccess/SignupSuccess';
 
 const Router = () => {
   return (
@@ -13,6 +14,7 @@ const Router = () => {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />}></Route>
+          <Route path="/signup/success" element={<SignupSuccess />}></Route>
         </Routes>
       </Layout>
     </BrowserRouter>
