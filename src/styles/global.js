@@ -5,7 +5,23 @@ export const globalStyle = css`
   ${emotionReset} // 모든 브라우저에서 기본적으로 제공하는 CSS 초기화
 
   * {
-    font-family: 'Pretendard', sans-serif;
+    font-family:
+      /* 'Pretendard', */
+      'Pretendard Variable',
+      Pretendard,
+      -apple-system,
+      BlinkMacSystemFont,
+      system-ui,
+      Roboto,
+      'Helvetica Neue',
+      'Segoe UI',
+      'Apple SD Gothic Neo',
+      'Noto Sans KR',
+      'Malgun Gothic',
+      'Apple Color Emoji',
+      'Segoe UI Emoji',
+      'Segoe UI Symbol',
+      sans-serif;
   }
 
   body {
