@@ -27,24 +27,6 @@ function Footer() {
         </span>
         <span>&copy; 2024 COMING.design | All rights reserved</span>
       </div>
-
-      <div css={styles.footerRightPanel()}>
-        {footerOptions.map((option, idx) => (
-          <div key={idx}>
-            <h2 className="title">{option.title.toUpperCase()}</h2>
-            <div className="optionBox">
-              {option.sub.map((item, idx) => (
-                <span
-                  key={idx}
-                  onClick={(event) => handleClick(item.link, event)}
-                >
-                  {item.subTitle}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
