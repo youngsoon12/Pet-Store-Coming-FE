@@ -5,6 +5,7 @@ import { Global } from '@emotion/react';
 import Home from '@pages/Home';
 import { globalStyle } from '@styles/global';
 import Layout from '../layout';
+import Cart from '@pages/Cart/Cart';
 
 const Router = () => {
   return (
@@ -13,6 +14,7 @@ const Router = () => {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />}></Route>
+          <Route path="/cart" element={<Cart />}></Route>
         </Routes>
       </Layout>
     </BrowserRouter>
