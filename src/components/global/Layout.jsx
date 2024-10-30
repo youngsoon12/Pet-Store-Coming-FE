@@ -112,7 +112,28 @@ function Layout({ children }) {
 
   return (
     <>
-      {/* <Header /> */}
+      {/* {showModal && <Modal />} */}
+      {showLogoutModal && (
+        <Modal
+          title="로그아웃 안내"
+          description={
+            <p>
+              정말 로그아웃 하시겠습니까?
+              <br /> 로그아웃 후에는 다시 로그인하셔야 합니다.
+            </p>
+          }
+          actionsBtn={[
+            {
+              title: '취소',
+            },
+            {
+              title: '로그아웃',
+            },
+          ]}
+        />
+      )}
+
+      <Header />
       {isActhenticated && <button onClick={handleLogout}>로그아웃</button>}
       <MainLayout
         direction="column"
@@ -125,13 +146,6 @@ function Layout({ children }) {
         {children}
       </MainLayout>
 
-      {showModal && <Modal />}
-      {showLogoutModal && (
-        <Modal
-          title="로그아웃 안내"
-          description="정말 로그아웃 하시겠습니까? 로그아웃 후에는 다시 로그인하셔야 합니다."
-        />
-      )}
       <Footer />
     </>
   );
