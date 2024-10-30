@@ -9,6 +9,7 @@ export const globalStyle = css`
   }
 
   html {
+    font-family: 'Pretendard', sans-serif;
     box-sizing: border-box; // 요소 크기를 계산할 때 패딩과 테두리 포함
   }
 
@@ -20,6 +21,8 @@ export const globalStyle = css`
     overflow-x: hidden;
     justify-content: flex-start;
     align-items: center;
+
+    font-family: 'Pretendard', sans-serif;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
