@@ -1,4 +1,6 @@
-import React from 'react';
+/** @jsxImportSource @emotion/react */
+
+import { styles } from './sign_up_page.style';
 
 function SignUp() {
   const handleSubmit = (event) => {
@@ -7,49 +9,51 @@ function SignUp() {
 
   return (
     <>
-      <h2>회원가입</h2>
+      <h2 css={styles.headerTitle()}>회원가입</h2>
 
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form css={styles.formContainer()} onSubmit={handleSubmit}>
+        <div css={styles.formInputContainer()}>
           <label>회원구분</label>
 
-          <label>
-            <input type="radio" />
-            개인회원
-          </label>
+          <div>
+            <label>
+              <input type="radio" />
+              개인회원
+            </label>
 
-          <label>
-            <input type="radio" />
-            판매자 회원
-          </label>
+            <label>
+              <input type="radio" />
+              판매자 회원
+            </label>
+          </div>
         </div>
 
-        <div>
+        <div css={styles.formInputContainer()}>
           <label>아이디</label>
           <input type="text" />
         </div>
 
-        <div>
+        <div css={styles.formInputContainer()}>
           <label>비밀번호</label>
           <input type="password" />
         </div>
 
-        <div>
+        <div css={styles.formInputContainer()}>
           <label>비밀번호 확인</label>
           <input type="password" />
         </div>
 
-        <div>
+        <div css={styles.formInputContainer()}>
           <label>이름</label>
           <input type="text" />
         </div>
 
-        <div>
+        <div css={styles.formInputContainer()}>
           <label>주소</label>
           <input type="text" />
         </div>
 
-        <div>
+        <div css={styles.formInputContainer()}>
           <label>휴대전화</label>
           <input type="text" />
         </div>
