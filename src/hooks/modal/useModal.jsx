@@ -6,27 +6,28 @@
 
 import { useState, useCallback } from 'react';
 
+import { modalState } from '@recoil/atom/modalState';
+import { useRecoilState } from 'recoil';
+
 export default function useModal() {
   // 모달(Modal) 설정 state 변수
-  const [modalConfig, setModalConfig] = useState({
-    isVisible: false,
-    title: '',
-    description: '',
-    actions: [],
-  });
+  const [modalConfig, setModalConfig] = useRecoilState(modalState);
 
   // 모달(Modal) 활성화 Callback 함수
-  const showModal = useCallback((config) => {
-    setModalConfig({
-      isVisible: true,
-      ...config,
-    });
-  }, []);
+  const showModal = useCallback(
+    (config) => {
+      setModalConfig({
+        isVisible: true,
+        ...config,
+      });
+    },
+    [setModalConfig]
+  );
 
   // 모달(Modal) 비활성화 Callback 함수
   const hideModal = useCallback(() => {
     setModalConfig((prevModal) => ({ ...prevModal, isVisible: false }));
-  }, []);
+  }, [setModalConfig]);
 
   return { modalConfig, showModal, hideModal };
 }

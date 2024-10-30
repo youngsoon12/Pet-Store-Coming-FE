@@ -35,6 +35,7 @@ export default defineConfig({
       { find: '@styles', replacement: '/src/styles' },
       { find: '@util', replacement: '/src/util' },
       { find: '@recoil', replacement: '/src/recoil' },
+      { find: '@hooks', replacement: '/src/hooks' },
     ],
   },
 });
