@@ -3,7 +3,7 @@ import React from 'react';
 import { loadTossPayments } from '@tosspayments/payment-sdk';
 import { styles } from './PaymentBtn.style';
 
-const PaymentButton = () => {
+const PaymentButton = ({ totalAmount }) => {
   const random = new Date().getTime() + Math.random(); //난수 생성
   const randomId = btoa(random); // random에서 나온 난수를 Base64 암호화
 
@@ -39,7 +39,7 @@ const PaymentButton = () => {
 
   return (
     <button css={styles.container} onClick={handlePayment}>
-      구매하기
+      <span css={styles.amount_area}>{totalAmount}</span>원 결제하기
     </button>
   );
 };
