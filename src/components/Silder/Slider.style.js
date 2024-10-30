@@ -5,7 +5,7 @@ export const styles = {
   sliderContainer: css`
     position: relative;
     width: 100%;
-    height: 400px;
+    height: 500px;
     overflow: hidden;
   `,
   slide: css`
@@ -27,8 +27,8 @@ export const styles = {
   `,
   textContainer: css`
     position: absolute;
-    bottom: 150px;
-    left: 20px;
+    bottom: 330px;
+    left: 40px;
     color: #000000;
 
     h2 {
@@ -44,19 +44,18 @@ export const styles = {
 
     p {
       font-size: 15px;
+      margin-bottom: 8px; 
     }
   `,
   categoryButton: css`
-    margin-top: 101px;
+    margin-top: 12px; 
     padding: 10px 20px;
     border-radius: 15px;
     font-size: 15px;
-    background-color: #000; 
-  color: #fff; 
+    background-color: #000;
+    color: #fff;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
-
-    
   `,
 };
