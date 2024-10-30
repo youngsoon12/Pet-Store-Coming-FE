@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { styles } from './login_page.style.js';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useMemo } from 'react';
+
 import { LoginAPI } from '@apis/LoginPage/LoginAPI.js';
 
 // Social Login Btn 관련 import
@@ -21,9 +23,9 @@ import Button from '@components/login/ui/forms/button/nomal';
 import AuthActions from '@components/login/layout/auth_actions';
 
 // Custom Hook
-import useLoginForm from '@components/login/hook/useLoginForm.js';
-import useLoginValidation from '@components/login/hook/useLoginValidation';
-import { useNavigate } from 'react-router-dom';
+import useLoginForm from '@hooks/auth/useLoginForm';
+import useLoginValidation from '@hooks/auth/useLoginValidation';
+
 import { useSetRecoilState } from 'recoil';
 import { isActhenticatedState } from '@recoil/atom/authState.js';
 
