@@ -5,6 +5,9 @@ import { Global } from '@emotion/react';
 import Home from '@pages/Home';
 import { globalStyle } from '@styles/global';
 import Layout from '../layout';
+import ShopPage from '../pages/Shop/Shop';
+//import PetProfilePage from '../pages/PetProfile/PetProfile';
+//import Mainpage from '../pages/Main/Main';
 
 const Router = () => {
   return (
@@ -13,6 +16,8 @@ const Router = () => {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />}></Route>
+/        <Route path="/shop" element={<ShopPage />}></Route> 
+          
         </Routes>
       </Layout>
     </BrowserRouter>
