@@ -5,7 +5,6 @@ export const styles = {
   mainContainer: css`
     display: flex;
     flex-direction: column;
-    padding-top: 76px;
   `,
   imageGrid: css`
     display: flex;

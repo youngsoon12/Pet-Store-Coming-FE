@@ -2,12 +2,14 @@
 //import { useState } from 'react';
 import Slider from '../../components/Silder/Slider';
 import { styles } from './Main.style';
-
+import Header from "@components/global/header";
+import TabBar from "@components/global/TabBar/TabBar";
 import mainImage from '../../assets/images/mainpage/main.jpg';
 import subImage1 from '../../assets/images/mainpage/sub1.jpg';
 import subImage2 from '../../assets/images/mainpage/sub2.jpg';
 import subImage3 from '../../assets/images/mainpage/sub3.jpg';
 import subImage4 from '../../assets/images/mainpage/sub4.jpg';
+import Footer from '../../components/global/footer';
 
 export default function Mainpage() {
   const selectedCategory = '취향저격 간식 모음';
@@ -17,6 +19,8 @@ export default function Mainpage() {
   };
 
   return (
+    <>
+    <Header type={1}/>
     <div css={styles.mainContainer}>
       <Slider />
       <div css={styles.imageGrid}>
@@ -33,6 +37,10 @@ export default function Mainpage() {
           ))}
         </div>
       </div>
+      <Footer/>
     </div>
+    <TabBar/>
+    </>
   );
 }
+
