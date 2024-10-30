@@ -1,6 +1,15 @@
 import { css } from '@emotion/react';
 
 export const styles = {
+  pageContainer() {
+    return css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+      margin-bottom: 30px;
+    `;
+  },
   headerTitle() {
     return css`
       font-size: 18px;
@@ -10,7 +19,7 @@ export const styles = {
 
   formContainer() {
     return css`
-      width: 70vw;
+      width: 70%;
       max-width: 600px;
       min-width: 320px;
 
