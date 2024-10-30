@@ -2,30 +2,47 @@ import React from 'react';
 import Button from '../components/global/button';
 import GlobalTitle from '@components/global/globaltitle/index';
 import Header from '../components/global/header';
+import TabBar from '../components/global/TabBar/TabBar';
 
 const Home = () => {
   return (
-    <div>
+    <>
       <Header type={1} />
-      {/* <Header type={2} />
-      <Header type={3} title={'페이지 제목'} />
-      <Header type={4} title={'간식 / 사료'} />
-      <Header type={5} /> */}
-      {/* <GlobalTitle text={'FOOD'} arrow={true} />
-      <GlobalTitle text={'MY PETS'} arrow={false} />
-
-      <div style={{ display: 'flex' }}>
-        <div>꼬밍이에요</div>
-        <div>꼬밍이에요</div>
-        <div>꼬밍이에요</div>
-        <div>꼬밍이에요</div>
-        <div>꼬밍이에요</div>
-        <div>꼬밍이에요</div>
-        <div>꼬밍이에요</div>
-        <div>꼬밍이에요</div>
-        <div>꼬밍이에요</div>
-      </div> */}
-    </div>
+      <div
+        style={{
+          maxHeight: 'calc(100vh - 52px)',
+          overflowY: 'scroll',
+          // marginTop: '52px',
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: 'black',
+            height: '600px',
+            width: '100%',
+            // overflowY: 'scroll',
+          }}
+        ></div>
+        <div
+          style={{
+            backgroundColor: 'blue',
+            height: '600px',
+            width: '100%',
+            // overflowY: 'scroll',
+          }}
+        ></div>
+        <div
+          style={{
+            backgroundColor: 'red',
+            height: '10px',
+            width: '100%',
+            // overflowY: 'scroll',
+          }}
+        ></div>
+        {/* <TabBar /> */}
+      </div>
+      <TabBar />
+    </>
   );
 };
 
