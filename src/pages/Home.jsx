@@ -1,36 +1,16 @@
-import Button from '../components/global/button';
-import GlobalTitle from '@components/global/globaltitle/index';
+import React from 'react';
+import Header from '../components/global/header';
+import TabBar from '../components/global/TabBar/TabBar';
+import ContentsWrapper from '../components/global/ContentsWrapper/ContentsWrapper';
 
-const Home = () => {
-  // 로그인 상태에 따른 리다이렉션
+export default function Home() {
   return (
     <>
-      {/* <GlobalTitle text={'FOOD'} arrow={true} />
-      <GlobalTitle text={'MY PETS'} arrow={false} />
-
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div>
-      <div>꼬밍이에요</div> */}
+      <Header type={1} />
+      <ContentsWrapper>
+        <div>내부 컨텐츠</div>
+      </ContentsWrapper>
+      <TabBar />
     </>
   );
-};
-
-export default Home;
+}

@@ -9,6 +9,8 @@ import GlobalTitle from '@components/global/globaltitle';
 
 // 페이지 컴포넌트 import
 import Home from '@pages/Home';
+import { globalStyle } from '@styles/global';
+import Layout from '../layout';
 import LoginPage from '@pages/LoginPage';
 import KakaoRedirect from '@pages/LoginPage/Redirect/KakaoRedirect';
 import SignUp from '@pages/SignUpPage';
@@ -26,7 +28,6 @@ const Router = () => {
             path="/login/oauth/callback/kakao"
             element={<KakaoRedirect />}
           />
-          <Route path="global" element={<GlobalTitle />} />
         </Routes>
       </Layout>
     </BrowserRouter>
