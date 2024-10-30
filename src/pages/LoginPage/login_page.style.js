@@ -8,6 +8,7 @@ export const styles = {
       align-items: center;
       gap: 16px;
       margin-bottom: 35px;
+      margin-top: 50px;
     `;
   },
 
@@ -19,6 +20,15 @@ export const styles = {
       strong {
         font-weight: 600;
       }
+    `;
+  },
+
+  inputWrapper() {
+    return css`
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     `;
   },
 };

@@ -9,7 +9,7 @@ export const styles = {
       border-radius: 7px;
       font-weight: 600;
 
-      max-width: 400px;
+      max-width: 600px;
       margin: 35px 0;
 
       background-color: rgba(154, 154, 154, 0.4);

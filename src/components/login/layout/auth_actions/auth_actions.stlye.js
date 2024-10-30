@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 const styles = {
   authOptions() {
     return css`
-      width: 100%;
+      width: 80%;
 
       display: flex;
       justify-content: space-between;

@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 export const styles = {
   button(props) {
     return css`
-      width: 100%;
+      width: 80%;
       height: 45px;
       cursor: pointer;
       box-sizing: border-box;

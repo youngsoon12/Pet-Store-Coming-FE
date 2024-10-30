@@ -28,6 +28,8 @@ import useLoginValidation from '@hooks/auth/useLoginValidation';
 
 import { useSetRecoilState } from 'recoil';
 import { isActhenticatedState } from '@recoil/atom/authState.js';
+import Header from '../../components/global/Header/Header.jsx';
+import ContentsWrapper from '../../components/global/ContentsWrapper/ContentsWrapper.jsx';
 
 function LoginPage() {
   const apiClass = useMemo(() => new LoginAPI(), []);
@@ -106,46 +108,51 @@ function LoginPage() {
 
   return (
     <>
-      <Container>
-        <div css={styles.paragraphBox()}>
-          <h2 css={styles.text(18, 600)}>로그인</h2>
-          <p css={styles.text()}>
-            <strong>꼬밍</strong>과 함께 반려견 용품 쇼핑생황을 즐겨보세요!
-          </p>
-        </div>
+      <Header type={2} />
+      <ContentsWrapper>
+        <Container>
+          <div css={styles.paragraphBox()}>
+            <h2 css={styles.text(18, 600)}>로그인</h2>
+            <p css={styles.text()}>
+              <strong>꼬밍</strong>과 함께 반려견 용품 쇼핑생활을 즐겨보세요!
+            </p>
+          </div>
 
-        {/* 소셜 로그인 컴포넌트 */}
-        <SocialButton
-          bgColor="#FEE500"
-          color="#351D1D"
-          loginText="카카오 로그인"
-          platformIcon={<Icon src={kakaoLogo} alt="kakao_logo" />}
-          // onClick={handleKakaoLogin}
-        />
-      </Container>
-
-      <HorizontalRole text="또는" />
-
-      <Container gap={16} isForm={true} onSubmit={handleLogin}>
-        {loginInputType.map((type, id) => (
-          <TextInput
-            key={id}
-            direction={type.direction}
-            type={type.type}
-            labelText={type.labelText}
-            filedId={type.filedId}
-            name={type.filedId}
-            placeholder={type.placeholder}
-            errorMessage={loginErrors[type.filedId]}
-            value={formValues[type.filedId]}
-            onChange={handleChange}
+          {/* 소셜 로그인 컴포넌트 */}
+          <SocialButton
+            bgColor="#FEE500"
+            color="#351D1D"
+            loginText="카카오 로그인"
+            platformIcon={<Icon src={kakaoLogo} alt="kakao_logo" />}
+            // onClick={handleKakaoLogin}
           />
-        ))}
+        </Container>
 
-        <Button bgColor="#141414" color="#fff" text="로그인" />
+        <HorizontalRole text="또는" />
 
-        <AuthActions />
-      </Container>
+        <Container gap={16} isForm={true} onSubmit={handleLogin}>
+          {loginInputType.map((type, id) => (
+            <div css={styles.inputWrapper()}>
+              <TextInput
+                key={id}
+                direction={type.direction}
+                type={type.type}
+                labelText={type.labelText}
+                filedId={type.filedId}
+                name={type.filedId}
+                placeholder={type.placeholder}
+                errorMessage={loginErrors[type.filedId]}
+                value={formValues[type.filedId]}
+                onChange={handleChange}
+              />
+            </div>
+          ))}
+
+          <Button bgColor="#141414" color="#fff" text="로그인" />
+
+          <AuthActions />
+        </Container>
+      </ContentsWrapper>
     </>
   );
 }

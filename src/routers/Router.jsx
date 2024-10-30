@@ -1,16 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { Global } from '@emotion/react';
-import { globalStyle } from '@styles/global';
 
 // Global Component Import
-import Layout from '@components/global/Layout';
-import GlobalTitle from '@components/global/globaltitle';
+import { globalStyle } from '@styles/global';
+import Layout from '../layout';
 
 // 페이지 컴포넌트 import
 import Home from '@pages/Home';
-import { globalStyle } from '@styles/global';
-import Layout from '../layout';
 import LoginPage from '@pages/LoginPage';
 import KakaoRedirect from '@pages/LoginPage/Redirect/KakaoRedirect';
 import SignUp from '@pages/SignUpPage';
