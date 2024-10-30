@@ -29,6 +29,7 @@ const PaymentSuccess = () => {
           '결제 승인 실패:',
           error.response ? error.response.data : error.message
         );
+        alert(error.message);
       });
   }, [navigate]);
 

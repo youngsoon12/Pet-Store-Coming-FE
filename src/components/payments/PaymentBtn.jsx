@@ -1,6 +1,7 @@
-// src/PaymentButton.tsx
+/** @jsxImportSource @emotion/react */
 import React from 'react';
 import { loadTossPayments } from '@tosspayments/payment-sdk';
+import { styles } from './PaymentBtn.style';
 
 const PaymentButton = () => {
   const random = new Date().getTime() + Math.random(); //난수 생성
@@ -14,7 +15,7 @@ const PaymentButton = () => {
     loadTossPayments(clientKey).then((tossPayments) => {
       tossPayments
         .requestPayment('카드', {
-          amount: 10000, // 결제 금액
+          amount: 1999999, // 결제 금액
           orderId: `${randomId}`, // 고유 주문 ID
           orderName: '주문임당', // 주문명
           customerName: '영순', // 고객 이름
@@ -36,7 +37,11 @@ const PaymentButton = () => {
     });
   };
 
-  return <button onClick={handlePayment}>결제하기</button>;
+  return (
+    <button css={styles.container} onClick={handlePayment}>
+      구매하기
+    </button>
+  );
 };
 
 export default PaymentButton;
