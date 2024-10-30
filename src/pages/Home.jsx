@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../components/global/header';
+import Header from '../components/global/Header/Header';
 import TabBar from '../components/global/TabBar/TabBar';
 import ContentsWrapper from '../components/global/ContentsWrapper/ContentsWrapper';
 

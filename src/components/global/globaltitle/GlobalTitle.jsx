@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { styles } from './global_title.style.js';
-import globalTitleBackIcon from '@assets/images/global_title/globalTitleBackIcon.svg';
+import React from 'react';
+import { styles } from './GlobalTitle.style.js';
+import globalTitleBackIcon from '../../../assets/images/GlobalTitle/globalTitleBackIcon.svg';
 import { useNavigate } from 'react-router-dom';
 
 // 스타일 정의를 컴포넌트 위로 이동
@@ -23,9 +24,15 @@ const GlobalTitle = ({ text, arrow }) => {
           onClick={goBack}
         />
       ) : (
-        ''
+        <img
+          css={backIcon}
+          src={globalTitleBackIcon}
+          alt="Global Title Hidden"
+          style={{ visibility: 'hidden' }}
+          onClick={goBack}
+        />
       )}
-      <div css={titleText}>{text}</div>
+      <p css={titleText}>{text}</p>
     </div>
   );
 };
