@@ -5,7 +5,6 @@ import { css } from '@emotion/react';
 export const styles = {
   mainContainer: css`
     width: 600px;
-    padding-top: 76px;
   `,
   header: css`
     width: 600px;
@@ -58,14 +57,20 @@ export const styles = {
     height: 200px;
     background-color: #e0e0e0;
     margin-bottom: 10px;
+    border-radius: 7px;
   `,
   productTitle: css`
     font-size: 14px;
-    color: #000000;
+    color: #484848;
+    font-weight:800;
+    margin-right: 35px;
     margin-bottom: 5px;
+    
   `,
   productPrice: css`
     font-size: 14px;
+    font-weight:800;
+    margin-right: 122px;
     color: #9A9A9A;
   `,
   divider: css`
@@ -102,13 +107,15 @@ export const styles = {
   `,
   itemGridTitle: css`
     font-size: 15px;
-    color: #000000;
     margin-bottom: 6px;
-    margin-right: 70px;
+    margin-right: 92px;
+    color: #484848;
+    font-weight: 800;
   `,
   itemGridPrice: css`
     font-size: 14px;
     color: #9A9A9A;
-    margin-right: 170px;
+    margin-right: 189px;
+    font-weight: 800;
   `,
 };
