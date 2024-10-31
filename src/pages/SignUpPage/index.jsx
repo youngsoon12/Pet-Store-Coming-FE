@@ -11,7 +11,6 @@ function SignUp() {
 
   return (
     <>
-      <Header type={2} />
       <ContentsWrapper>
         <div css={styles.pageContainer()}>
           <h2 css={styles.headerTitle()}>회원가입</h2>

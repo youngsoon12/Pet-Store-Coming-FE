@@ -16,14 +16,17 @@ import { AuthAPI } from '@apis/authApi';
 
 // 커스텀 훅 import
 import useLogoutModal from '@hooks/modal/useLogoutModal';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { modalState } from '@recoil/atom/modalState';
+import { activeTabState } from '@recoil/atom/tabState';
 
 function Layout({ children }) {
   const modalConfig = useRecoilValue(modalState);
 
   const { openLogoutModal } = useLogoutModal();
+
   const isActhenticated = useRecoilValue(isActhenticatedState);
+  const [activeTab, setActiveTab] = useRecoilState(activeTabState);
 
   const apiClass = new AuthAPI();
 
@@ -64,14 +67,31 @@ function Layout({ children }) {
   //   }
   // }, [isActhenticated]);
 
-  // 페이지 리다이렉션 useEffect()
+  // 페이지 리다이렉션 && Tab Bar
   useEffect(() => {
-    // 사용자가 로그인을 하고 있을 경우
-    if (isActhenticated && location.pathname === '/login') {
-      navigate('/');
-    }
+    const { pathname } = location;
 
+    // 사용자가 로그인 한 경우 페이지 리다이렉션
+    // if (isActhenticated && location.pathname === '/login') {
+    //     navigate('/');
+    //   } else {}
     // 사용자가 로그인을 하고 있지 않은 경우
+
+    // Tab Bar 그 멀까요?
+    switch (pathname) {
+      case '/':
+        setActiveTab('home');
+        break;
+      case '/shop':
+        setActiveTab('shop');
+        break;
+      case '/search':
+        setActiveTab('search');
+        break;
+      case '/my':
+        setActiveTab('my');
+        break;
+    }
   }, [location]);
 
   return (
@@ -81,7 +101,9 @@ function Layout({ children }) {
         {children}
       </MainLayout>
 
-      <TabBar />
+      {!['/login', '/sign-up'].includes(location.pathname) && (
+        <TabBar activeTab={activeTab} />
+      )}
 
       {/* 모달 오픈 */}
       {modalConfig.isVisible && (

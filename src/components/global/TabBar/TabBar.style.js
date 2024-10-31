@@ -10,7 +10,7 @@ export const styles = {
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 2147483647;
+    z-index: 1000;
 
     & a {
       text-decoration: none;
