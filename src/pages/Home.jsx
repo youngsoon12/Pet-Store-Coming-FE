@@ -6,11 +6,7 @@ import ContentsWrapper from '../components/global/ContentsWrapper/ContentsWrappe
 export default function Home() {
   return (
     <>
-      <Header type={1} />
-      <ContentsWrapper>
-        <div>내부 컨텐츠</div>
-      </ContentsWrapper>
-      <TabBar />
+      <div>내부 컨텐츠</div>
     </>
   );
 }
