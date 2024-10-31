@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 export const styles = {
   filed(direction) {
     return css`
-      width: 100%;
+      width: 80%;
       border-radius: 7px;
       font-weight: 600;
 
@@ -30,9 +30,9 @@ export const styles = {
       display: block;
       box-sizing: border-box;
       outline: none;
-      border: 0.5px solid
+      border: 1px solid
         rgba(${errorMsg ? '255, 77, 79, 1' : '154, 154, 154, 0.6'});
-      padding: 0 20px 0 8px;
+      padding: 0 20px 0 12px;
       height: 45px;
       border-radius: 7px;
 
@@ -40,6 +40,7 @@ export const styles = {
 
       &::placeholder {
         color: #a8a8a8;
+        font-size: 14px;
       }
 
       &:focus {
