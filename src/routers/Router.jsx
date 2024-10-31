@@ -11,8 +11,6 @@ import Home from '@pages/Home';
 import LoginPage from '@pages/LoginPage';
 import KakaoRedirect from '@pages/LoginPage/Redirect/KakaoRedirect';
 import SignUp from '@pages/SignUpPage';
-import ShopPage from '../pages/Shop/Shop';
-import PetProfilePage from '../pages/PetProfile/PetProfile';
 import Mainpage from '../pages/Main/Main';
 
 const Router = () => {
@@ -29,8 +27,6 @@ const Router = () => {
             element={<KakaoRedirect />}
           />
           <Route path="/main" element={<Mainpage />}></Route>
-         <Route path="/petprofile" element={<PetProfilePage />}></Route> 
-         <Route path="/shop" element={<ShopPage />}></Route> 
           
         </Routes>
       </Layout>

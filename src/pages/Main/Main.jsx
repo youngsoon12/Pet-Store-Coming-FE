@@ -2,8 +2,6 @@
 //import { useState } from 'react';
 import Slider from '../../components/Silder/Slider';
 import { styles } from './Main.style';
-import Header from "@components/global/header";
-import TabBar from "@components/global/TabBar/TabBar";
 import mainImage from '../../assets/images/mainpage/main.jpg';
 import subImage1 from '../../assets/images/mainpage/sub1.jpg';
 import subImage2 from '../../assets/images/mainpage/sub2.jpg';
@@ -20,8 +18,7 @@ export default function Mainpage() {
 
   return (
     <>
-    <Header type={1}/>
-    <div css={styles.mainContainer}>
+   <div css={styles.mainContainer}>
       <Slider />
       <div css={styles.imageGrid}>
         <img src={images[selectedCategory][0]} alt="main" css={styles.mainImage} />
@@ -39,7 +36,7 @@ export default function Mainpage() {
       </div>
       <Footer/>
     </div>
-    <TabBar/>
+    
     </>
   );
 }
