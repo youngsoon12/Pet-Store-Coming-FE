@@ -103,6 +103,9 @@ function Layout({ children }) {
       case '/sign-up':
         setType(2);
         break;
+      case '/order':
+        setType(1);
+        break;
     }
   }, [location]);
 
@@ -114,7 +117,7 @@ function Layout({ children }) {
         {children}
       </MainLayout>
 
-      {!['/login', '/sign-up'].includes(location.pathname) && (
+      {!['/login', '/sign-up', '/order'].includes(location.pathname) && (
         <TabBar activeTab={activeTab} />
       )}
 
