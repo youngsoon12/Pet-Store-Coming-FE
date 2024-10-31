@@ -13,7 +13,8 @@ export const styles = {
     background-color: #171717;
     color: #ed5729;
     box-sizing: border-box;
-    padding: 40px 0px;
+    padding: 20px 0px;
+    cursor: pointer;
   `,
   amount_area: css`
     font-weight: 800;

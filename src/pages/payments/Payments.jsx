@@ -10,14 +10,16 @@ import { styles } from './Payments.style';
 
 const productInfo = [
   {
-    brand: '멀티',
-    name: '멀티 채코보드 에코 풀백',
-    price: '90,000',
+    brand: '버켄스탁',
+    name: '취리히 스웨이드 레더 토프 레귤러',
+    quantity: 3,
+    price: '90,000', 
     discountPrice: '73,217',
   },
   {
     brand: '왕티',
     name: '멀티 채코보드 에코 풀백',
+    quantity: 4,
     price: '90,000',
     discountPrice: '73,217',
   },
@@ -73,6 +75,7 @@ const Payments = () => {
                       name={product.name}
                       price={product.price}
                       discountPrice={product.discountPrice}
+                      brand={product.brand}
                     />
                   );
                 })}
