@@ -78,7 +78,7 @@ export const styles = {
 
   title: css`
     font-weight: bold;
-    font-size: 15px;
+    font-size: 18px;
   `,
   // user: css`
   //   background-image: url(${user});
