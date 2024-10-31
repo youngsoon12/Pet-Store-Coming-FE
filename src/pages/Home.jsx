@@ -1,16 +1,15 @@
 import React from 'react';
-import Header from '../components/global/header';
+import Header from '../components/global/Header/Header';
 import TabBar from '../components/global/TabBar/TabBar';
 import ContentsWrapper from '../components/global/ContentsWrapper/ContentsWrapper';
 
 export default function Home() {
   return (
     <>
-      <Header type={1} />
-      <ContentsWrapper>
-        <div>내부 컨텐츠</div>
-      </ContentsWrapper>
-      <TabBar />
+      <div>내부 컨텐츠</div>
+      {/* <div
+        style={{ backgroundColor: 'black', height: '2000px', width: '100%' }}
+      ></div> */}
     </>
   );
 }
