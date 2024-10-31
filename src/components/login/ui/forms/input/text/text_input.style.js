@@ -40,6 +40,7 @@ export const styles = {
 
       &::placeholder {
         color: #a8a8a8;
+        font-size: 14px;
       }
 
       &:focus {

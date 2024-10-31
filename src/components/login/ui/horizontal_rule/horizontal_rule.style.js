@@ -3,13 +3,13 @@ import { css } from '@emotion/react';
 export const styles = {
   line() {
     return css`
-      width: 100%;
+      width: 80%;
       height: 1px;
       box-sizing: border-box;
       border-radius: 7px;
       font-weight: 600;
 
-      max-width: 600px;
+      max-width: 400px;
       margin: 35px 0;
 
       background-color: rgba(154, 154, 154, 0.4);
