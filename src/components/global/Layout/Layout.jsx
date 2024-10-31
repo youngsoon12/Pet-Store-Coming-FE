@@ -110,7 +110,7 @@ function Layout({ children }) {
     <>
       {type >= 1 && <Header type={type} />}
 
-      <MainLayout direction="column" width="100vw" height="auto" align="center">
+      <MainLayout direction="column" height="auto" align="center">
         {children}
       </MainLayout>
 

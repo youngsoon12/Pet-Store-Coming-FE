@@ -7,6 +7,9 @@ export default function Home() {
   return (
     <>
       <div>내부 컨텐츠</div>
+      {/* <div
+        style={{ backgroundColor: 'black', height: '2000px', width: '100%' }}
+      ></div> */}
     </>
   );
 }
