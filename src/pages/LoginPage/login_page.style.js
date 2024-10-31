@@ -8,7 +8,6 @@ export const styles = {
       align-items: center;
       gap: 16px;
       margin-bottom: 35px;
-      margin-top: 50px;
     `;
   },
 

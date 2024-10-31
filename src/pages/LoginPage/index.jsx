@@ -130,20 +130,18 @@ function LoginPage() {
 
       <Container gap={16} isForm={true} onSubmit={handleLogin}>
         {loginInputType.map((type, id) => (
-          <div css={styles.inputWrapper()}>
-            <TextInput
-              key={id}
-              direction={type.direction}
-              type={type.type}
-              labelText={type.labelText}
-              filedId={type.filedId}
-              name={type.filedId}
-              placeholder={type.placeholder}
-              errorMessage={loginErrors[type.filedId]}
-              value={formValues[type.filedId]}
-              onChange={handleChange}
-            />
-          </div>
+          <TextInput
+            key={id}
+            direction={type.direction}
+            type={type.type}
+            labelText={type.labelText}
+            filedId={type.filedId}
+            name={type.filedId}
+            placeholder={type.placeholder}
+            errorMessage={loginErrors[type.filedId]}
+            value={formValues[type.filedId]}
+            onChange={handleChange}
+          />
         ))}
 
         <Button bgColor="#141414" color="#fff" text="로그인" />

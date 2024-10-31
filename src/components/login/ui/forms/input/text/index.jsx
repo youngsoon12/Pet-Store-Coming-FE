@@ -33,7 +33,6 @@ function TextInput({
         id={filedId}
         name={filedId}
         placeholder={placeholder}
-        css={styles.input(errorMessage)}
         value={value}
         onChange={onChange}
       />

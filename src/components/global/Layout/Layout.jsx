@@ -77,13 +77,7 @@ function Layout({ children }) {
   return (
     <>
       <Header type={1} />
-      <MainLayout
-        direction="column"
-        width="100vw"
-        height="auto"
-        padding="0 8vw 232px 8vw"
-        align="center"
-      >
+      <MainLayout direction="column" width="100vw" height="auto" align="center">
         {children}
       </MainLayout>
 
