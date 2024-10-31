@@ -18,7 +18,6 @@ export const styles = {
   margin-bottom: 60px;
   width: 190px;
   height: 190px;
-  margin-left: 160px;
   border-radius: 10px;
 `,
 

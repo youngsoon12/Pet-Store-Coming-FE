@@ -11,6 +11,8 @@ import Home from '@pages/Home';
 import LoginPage from '@pages/LoginPage';
 import KakaoRedirect from '@pages/LoginPage/Redirect/KakaoRedirect';
 import SignUp from '@pages/SignUpPage';
+import PetProfilePage
+ from '../pages/PetProfile/PetProfile';
 
 const Router = () => {
   return (
@@ -25,6 +27,7 @@ const Router = () => {
             path="/login/oauth/callback/kakao"
             element={<KakaoRedirect />}
           />
+           <Route path="/petprofile" element={<PetProfilePage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

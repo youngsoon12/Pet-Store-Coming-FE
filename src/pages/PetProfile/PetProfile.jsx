@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
 import Button from '../../components/global/button';
-import Camera from '../../assets/images/petprofilepage/camera.svg';
+import Camera from '../../assets/images/PetProfile/camera.svg';
 import { styles } from './PetProfile.style';
 import CategoryButton from '../../components/CategoryButton/CategoryButton';
 
