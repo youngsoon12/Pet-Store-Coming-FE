@@ -1,9 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from 'react';
 import { styles } from './Shop.style';
-import Header from "@components/global/header";
-import TabBar from "@components/global/TabBar/TabBar";
-
 export default function ShopPage() {
   const [activeTab, setActiveTab] = useState('전체');
 
@@ -21,7 +18,6 @@ export default function ShopPage() {
 
   return (
     <>
-    <Header type={1}/>
     <div css={styles.mainContainer}>
       <div css={styles.tabBarContainer}>
         {tabs.map((tab, index) => (
@@ -62,7 +58,6 @@ export default function ShopPage() {
         ))}
       </div>
     </div>
-    <TabBar/>
     </>
   );
 }
