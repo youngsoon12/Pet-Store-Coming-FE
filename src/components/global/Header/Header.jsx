@@ -1,4 +1,4 @@
-/** @jsxImportSource @emotion/react */
+
 import { useNavigate } from 'react-router-dom';
 import { styles } from './Header.style';
 import { useState } from 'react';
@@ -14,9 +14,10 @@ export default function Header({ type, title }) {
   const handleClickCategory = (category) => {
     navigate(`/${category}`);
   };
+
   return (
     <div css={styles.headerContainer}>
-      {type === 1 ? (
+      {type === 1 && (
         <>
           <img
             src={logo}
@@ -32,7 +33,9 @@ export default function Header({ type, title }) {
             <img src={cart} alt="장바구니 버튼" />
           </div>
         </>
-      ) : type === 2 ? (
+      )}
+
+      {type === 2 && (
         <>
           <img
             src={dogLogo}
@@ -43,12 +46,16 @@ export default function Header({ type, title }) {
             alt="로고"
           />
         </>
-      ) : type === 3 ? (
+      )}
+
+      {type === 3 && (
         <>
           <div css={styles.title}>{title}</div>
           <img css={styles.icon} src={home}></img>
         </>
-      ) : type === 4 ? (
+      )}
+
+      {type === 4 && (
         <>
           <img css={styles.icon} src={back}></img>
           <div css={styles.title}>{title}</div>
@@ -57,7 +64,9 @@ export default function Header({ type, title }) {
             <img src={cart} alt="장바구니 버튼" />
           </div>
         </>
-      ) : (
+      )}
+
+      {type > 4 && (
         <>
           <img css={styles.icon} src={back}></img>
           <div css={styles.icons}>

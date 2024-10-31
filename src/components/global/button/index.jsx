@@ -12,6 +12,7 @@ export default function Button({
   onClick,
 }) {
   const buttonStyle = styles.button(theme, fontSize, fontWeight);
+
   return (
     <button
       css={[
