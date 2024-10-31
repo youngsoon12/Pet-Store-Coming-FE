@@ -7,27 +7,31 @@ export const styles = {
     backdrop-filter: blur(20px);
     /* box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); */
     height: 52px;
+    min-height: 52px;
     width: 100%;
+    max-width: 600px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     column-gap: 8vw;
     padding: 0 20px;
-    position: sticky; /* 헤더를 화면에 고정 */
+    position: sticky;
     top: 0;
-    /* left: 0;
-    z-index: 1000; 헤더가 다른 요소들 위에 표시되도록 설정 */
+    left: 0;
+    z-index: 1000;
   `,
 
   logo: css`
     width: 64px;
     min-width: 64px;
     height: 19px;
+    cursor: pointer;
   `,
   dogLogo: css`
     width: 90px;
     min-width: 90px;
     height: 20px;
+    cursor: pointer;
   `,
 
   buttonArea: css`
