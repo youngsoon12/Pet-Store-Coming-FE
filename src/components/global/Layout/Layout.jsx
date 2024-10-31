@@ -21,6 +21,8 @@ import { modalState } from '@recoil/atom/modalState';
 import { activeTabState } from '@recoil/atom/tabState';
 
 function Layout({ children }) {
+  const [type, setType] = useState(1);
+
   const modalConfig = useRecoilValue(modalState);
 
   const { openLogoutModal } = useLogoutModal();
@@ -81,22 +83,33 @@ function Layout({ children }) {
     switch (pathname) {
       case '/':
         setActiveTab('home');
+        setType(1);
         break;
       case '/shop':
         setActiveTab('shop');
+        setType(1);
         break;
       case '/search':
         setActiveTab('search');
+        setType(0);
         break;
       case '/my':
         setActiveTab('my');
+        setType(0);
+        break;
+      case '/login':
+        setType(2);
+        break;
+      case '/sign-up':
+        setType(2);
         break;
     }
   }, [location]);
 
   return (
     <>
-      <Header type={1} />
+      {type >= 1 && <Header type={type} />}
+
       <MainLayout direction="column" width="100vw" height="auto" align="center">
         {children}
       </MainLayout>
