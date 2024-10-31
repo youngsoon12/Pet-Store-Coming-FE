@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import { styles } from './global_title.style.js';
 import globalTitleBackIcon from '@assets/images/global_title/globalTitleBackIcon.svg';
 import { useNavigate } from 'react-router-dom';

@@ -12,46 +12,42 @@ import search from '@assets/images/tab_bar/icons/search.svg';
 import search_active from '@assets/images/tab_bar/icons/search_active.svg';
 import my from '@assets/images/tab_bar/icons/my.svg';
 import my_active from '@assets/images/tab_bar/icons/my_active.svg';
-export default function TabBar() {
-  const [activeTab, setActiveTab] = useRecoilState(activeTabState);
-  const location = useLocation();
+export default function TabBar({ activeTab }) {
+  // const [activeTab, setActiveTab] = useRecoilState(activeTabState);
+  // const location = useLocation();
 
-  useEffect(() => {
-    const path = location.pathname;
-    if (path === '/') setActiveTab('home');
-    else if (path === '/shop') setActiveTab('shop');
-    else if (path === '/search') setActiveTab('search');
-    else if (path === '/my') setActiveTab('my');
-  }, [location, setActiveTab]);
+  // useEffect(() => {
+  //   const path = location.pathname;
+  //   if (path === '/') setActiveTab('home');
+  //   else if (path === '/shop') setActiveTab('shop');
+  //   else if (path === '/search') setActiveTab('search');
+  //   else if (path === '/my') setActiveTab('my');
+  // }, [location]);
 
   return (
     <nav css={styles.container}>
-      <Link to="/" onClick={() => setActiveTab('home')} css={styles.menu}>
+      <Link to="/" css={styles.menu}>
         <img
           css={styles.icon}
           src={activeTab === 'home' ? home_active : home}
         />
         <div>HOME</div>
       </Link>
-      <Link to="/shop" onClick={() => setActiveTab('shop')} css={styles.menu}>
+      <Link to="/shop" css={styles.menu}>
         <img
           css={styles.icon}
           src={activeTab === 'shop' ? shop_active : shop}
         />
         <div>SHOP</div>
       </Link>
-      <Link
-        to="/search"
-        onClick={() => setActiveTab('search')}
-        css={styles.menu}
-      >
+      <Link to="/search" css={styles.menu}>
         <img
           css={styles.icon}
           src={activeTab === 'search' ? search_active : search}
         />
         <div>SEARCH</div>
       </Link>
-      <Link to="/my" onClick={() => setActiveTab('my')} css={styles.menu}>
+      <Link to="/my" css={styles.menu}>
         <img css={styles.icon} src={activeTab === 'my' ? my_active : my} />
         <div>MY</div>
       </Link>
