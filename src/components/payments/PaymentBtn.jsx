@@ -3,7 +3,7 @@ import React from 'react';
 import { loadTossPayments } from '@tosspayments/payment-sdk';
 import { styles } from './PaymentBtn.style';
 
-const PaymentButton = ({ totalAmount }) => {
+const PaymentButton = ({ totalAmount, active }) => {
   const random = new Date().getTime() + Math.random(); //난수 생성
   const randomId = btoa(random); // random에서 나온 난수를 Base64 암호화
 
@@ -19,7 +19,7 @@ const PaymentButton = ({ totalAmount }) => {
           orderId: `${randomId}`, // 고유 주문 ID
           orderName: '주문임당', // 주문명
           customerName: '영순', // 고객 이름
-          successUrl: `${originUrl}/success`, // 결제 성공시 리다이렉션 URL
+          successUrl: `${originUrl}/order/success`, // 결제 성공시 리다이렉션 URL
           failUrl: `${originUrl}`, // 결제 실패시 리다이렉션 URL
         })
         .catch(function (error) {
@@ -38,7 +38,7 @@ const PaymentButton = ({ totalAmount }) => {
   };
 
   return (
-    <button css={styles.container} onClick={handlePayment}>
+    <button css={styles.container} onClick={handlePayment} disabled={active}>
       <span css={styles.amount_area}>{totalAmount}</span>원 결제하기
     </button>
   );
