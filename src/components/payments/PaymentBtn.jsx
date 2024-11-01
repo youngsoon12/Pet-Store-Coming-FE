@@ -2,23 +2,28 @@
 import React from 'react';
 import { loadTossPayments } from '@tosspayments/payment-sdk';
 import { styles } from './PaymentBtn.style';
+import { deliveryInfo } from '../../recoil/atom/deliveryInfo';
+import { useRecoilValue } from 'recoil';
 
 const PaymentButton = ({ totalAmount, active }) => {
   const random = new Date().getTime() + Math.random(); //난수 생성
   const randomId = btoa(random); // random에서 나온 난수를 Base64 암호화
+
+  const orderInfo = useRecoilValue(deliveryInfo);
 
   // 환경 변수에서 클라이언트 키와 도메인 URL 가져오기
   const clientKey = import.meta.env.VITE_TOSS_PAYMENTS_CLIENT_KEY || '';
   const originUrl = import.meta.env.VITE_ORIGIN_URL || 'http://localhost:5173';
 
   const handlePayment = () => {
-    loadTossPayments(clientKey).then((tossPayments) => {
+    loadTossPayments(clientKey)
+      .then((tossPayments) => {
       tossPayments
         .requestPayment('카드', {
-          amount: 1999999, // 결제 금액
+          amount: orderInfo.amount, // 결제 금액
           orderId: `${randomId}`, // 고유 주문 ID
-          orderName: '주문임당', // 주문명
-          customerName: '영순', // 고객 이름
+          orderName: orderInfo.orderName, // 주문명
+          customerName: orderInfo.receiverName, // 고객 이름
           successUrl: `${originUrl}/order/success`, // 결제 성공시 리다이렉션 URL
           failUrl: `${originUrl}`, // 결제 실패시 리다이렉션 URL
         })
@@ -39,7 +44,8 @@ const PaymentButton = ({ totalAmount, active }) => {
 
   return (
     <button css={styles.container} onClick={handlePayment} disabled={active}>
-      <span css={styles.amount_area}>{totalAmount}</span>원 결제하기
+      <span css={styles.amount_area}>{totalAmount.toLocaleString()}</span>원
+      결제하기
     </button>
   );
 };

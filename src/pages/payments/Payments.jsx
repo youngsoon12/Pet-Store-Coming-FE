@@ -6,6 +6,8 @@ import { styles } from './Payments.style';
 import { useEffect, useState } from 'react';
 import upArrow from '@assets/images/payment/up_arrow.svg';
 import downArrow from '@assets/images/payment/down_arrow.svg';
+import { useRecoilState } from 'recoil';
+import { deliveryInfo } from '../../recoil/atom/deliveryInfo';
 
 const productInfo = [
   {
@@ -15,6 +17,7 @@ const productInfo = [
     price: '90,000',
     discountPrice: '73,217',
   },
+
   {
     brand: '왕티',
     name: '멀티 채코보드 에코 풀백',
@@ -38,19 +41,15 @@ const Payments = () => {
     checkbox2: false,
     checkbox3: false,
   });
-  const [phoneNumberParts, setPhoneNumberParts] = useState({
+  const [phoneNumbers, setPhoneNumbers] = useState({
     part1: '',
     part2: '',
     part3: '',
   });
-  const [orderInfo, setOrderInfo] = useState({
-    userId: 'bef88434-1402-4095-90af-a7a76026fcf3',
-    deliveryAddress: '',
-    receiverName: '',
-    phoneNumber: '',
-    orderName: '',
-    amount: 0,
-  });
+
+  // recoil state 구간
+
+  const [orderInfo, setOrderInfo] = useRecoilState(deliveryInfo);
 
   // UseEffect 구간
   useEffect(() => {
@@ -67,14 +66,21 @@ const Payments = () => {
 
     setAmountList({
       ...amountList,
-      paymentPrice: (
-        Math.floor(totalDiscountAmount / 100) * 100
-      ).toLocaleString(),
+      paymentPrice: Math.floor(totalDiscountAmount / 100) * 100,
       totalDiscountPrice: (totalAmount - totalDiscountAmount).toLocaleString(),
       totalAmount: totalAmount.toLocaleString(),
       totalDiscountAmount: totalDiscountAmount.toLocaleString(),
     });
   }, []);
+
+  // 두 번째 useEffect: amountList가 업데이트된 후 orderInfo에 반영
+  useEffect(() => {
+    setOrderInfo((prev) => ({
+      ...prev,
+      userId: 'bef88434-1402-4095-90af-a7a76026fcf3',
+      amount: parseInt(amountList.paymentPrice),
+    }));
+  }, [amountList]);
 
   // 핸들러 함수 구간
   const onChangeCheckbox = (e) => {
@@ -86,20 +92,33 @@ const Payments = () => {
   };
   const onChangeOrderInfo = (e) => {
     const { name, value } = e.target;
-    setOrderInfo((prev) => ({
-      ...prev,
+    setOrderInfo({
+      ...orderInfo,
       [name]: value,
-    }));
-    const fullPhoneNumber = `${phoneNumberParts.part1}-${phoneNumberParts.part2}-${phoneNumberParts.part3}`;
-    setOrderInfo((prev) => ({
-      ...prev,
-      phoneNumber: fullPhoneNumber,
-    }));
+    });
+  };
+
+  const onChangePhoneNumber = (e) => {
+    const { name, value } = e.target;
+    setPhoneNumbers((prevPhoneNumbers) => {
+      const updatedPhoneNumbers = {
+        ...prevPhoneNumbers,
+        [name]: value,
+      };
+
+      const fullPhoneNumber = `${updatedPhoneNumbers.part1}-${updatedPhoneNumbers.part2}-${updatedPhoneNumbers.part3}`;
+
+      setOrderInfo((prevOrderInfo) => ({
+        ...prevOrderInfo,
+        phoneNumber: fullPhoneNumber,
+      }));
+
+      return updatedPhoneNumbers;
+    });
   };
 
   const btnActive = Object.values(checkedItems).every(Boolean);
   console.log(orderInfo);
-  console.log(amountList);
   return (
     <>
       <div css={styles.container}>
@@ -142,19 +161,22 @@ const Payments = () => {
               <input
                 css={styles.info_input_phone}
                 name="part1"
-                onChange={onChangeOrderInfo}
+                maxLength="3"
+                onChange={onChangePhoneNumber}
               />
               <p css={styles.info_input_phone_tag}>-</p>
               <input
                 css={styles.info_input_phone}
                 name="part2"
-                onChange={onChangeOrderInfo}
+                maxLength="4"
+                onChange={onChangePhoneNumber}
               />
               <p css={styles.info_input_phone_tag}>-</p>
               <input
                 css={styles.info_input_phone}
                 name="part3"
-                onChange={onChangeOrderInfo}
+                maxLength="4"
+                onChange={onChangePhoneNumber}
               />
             </div>
           </div>
@@ -188,7 +210,6 @@ const Payments = () => {
               <img src={downArrow} css={styles.payment_paymentPrice_icon} />
             </div>
           </div>
-          <div>dsa</div>
         </div>
         <div css={styles.horizon} />
         <div css={styles.personalInfoArea}>
