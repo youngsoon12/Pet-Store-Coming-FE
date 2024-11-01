@@ -7,6 +7,7 @@ import { globalStyle } from '@styles/global';
 import Layout from '@components/global/Layout/Layout';
 
 
+
 // 페이지 컴포넌트 import
 import Home from '@pages/Home';
 import PaymentPage from '../pages/Payments/Payments';
@@ -28,6 +29,7 @@ const Router = () => {
           <Route path="/order/success" element={<OrderSuccess />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/sign-up" element={<SignUp />} />
+
 
           <Route
             path="/login/oauth/callback/kakao"
