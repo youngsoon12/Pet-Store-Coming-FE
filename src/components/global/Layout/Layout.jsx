@@ -22,6 +22,8 @@ import { activeTabState } from '@recoil/atom/tabState';
 
 function Layout({ children }) {
   const [type, setType] = useState(1);
+  const [title, setTitle] = useState('');
+  const [noIcons, setNoIcons] = useState(false);
 
   const modalConfig = useRecoilValue(modalState);
 
@@ -108,7 +110,7 @@ function Layout({ children }) {
 
   return (
     <>
-      {type >= 1 && <Header type={type} />}
+      {type >= 1 && <Header type={type} title={title} noIcons={noIcons} />}
 
       <MainLayout direction="column" height="auto" align="center">
         {children}
