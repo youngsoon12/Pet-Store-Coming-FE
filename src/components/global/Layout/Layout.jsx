@@ -97,7 +97,8 @@ function Layout({ children }) {
         break;
       case '/my':
         setActiveTab('my');
-        setType(0);
+        setTitle('MY PAGE');
+        setType(3);
         break;
       case '/login':
         setType(2);
