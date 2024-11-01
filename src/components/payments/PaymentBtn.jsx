@@ -24,7 +24,7 @@ const PaymentButton = ({ totalAmount, active }) => {
           orderId: `${randomId}`, // 고유 주문 ID
           orderName: orderInfo.orderName, // 주문명
           customerName: orderInfo.receiverName, // 고객 이름
-          successUrl: `${originUrl}/order/success`, // 결제 성공시 리다이렉션 URL
+          successUrl: `${originUrl}/success`, // 결제 성공시 리다이렉션 URL
           failUrl: `${originUrl}`, // 결제 실패시 리다이렉션 URL
         })
         .catch(function (error) {

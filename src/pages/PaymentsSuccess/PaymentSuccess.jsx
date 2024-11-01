@@ -44,7 +44,7 @@ const PaymentSuccess = () => {
         setIsApproved(true);
         sessionStorage.removeItem('deliveryInfo');
         // 성공 시 페이지 이동
-        navigate('/success', { replace: true });
+        navigate('/order/success', { replace: true });
       } catch (error) {
         console.error(
           '결제 승인 실패:',
