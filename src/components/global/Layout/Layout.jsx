@@ -91,7 +91,7 @@ function Layout({ children }) {
         break;
       case '/search':
         setActiveTab('search');
-        setType(0);
+        setType(3);
         break;
       case '/my':
         setActiveTab('my');
