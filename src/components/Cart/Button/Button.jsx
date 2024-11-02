@@ -7,9 +7,13 @@ export default function Button({
   fontWeight,
   padding,
   text,
+  onClick,
 }) {
   return (
-    <button css={styles.button(type, width, fontSize, fontWeight, padding)}>
+    <button
+      css={styles.button(type, width, fontSize, fontWeight, padding)}
+      onClick={onClick}
+    >
       {text}
     </button>
   );
