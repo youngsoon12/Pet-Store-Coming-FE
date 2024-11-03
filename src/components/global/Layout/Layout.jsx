@@ -110,6 +110,7 @@ function Layout({ children }) {
         setType(4);
         setTitle('장바구니');
         setNoIcons(true);
+        break;
       case '/order':
         setType(1);
         break;
