@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import PaymentBtn from '../../components/Payments/PaymentBtn';
+import PaymentBtn from '../../components/payments/PaymentBtn';
 import PaymentProductCard from '../../components/Payments/PaymentProductCard';
 import { styles } from './Payments.style';
 import { useEffect, useState } from 'react';
@@ -46,6 +46,7 @@ const Payments = () => {
     part2: '',
     part3: '',
   });
+  const [payPriceTogle, setPayPriceTogle] = useState(false);
 
   // recoil state 구간
 
@@ -77,7 +78,7 @@ const Payments = () => {
   useEffect(() => {
     setOrderInfo((prev) => ({
       ...prev,
-      userId: 'bef88434-1402-4095-90af-a7a76026fcf3',
+      userId: 'a233338f-0ff7-4cb6-ad90-fbf514720088',
       amount: parseInt(amountList.paymentPrice),
     }));
   }, [amountList]);
@@ -206,10 +207,11 @@ const Payments = () => {
           <div css={styles.payment_title}>
             <div css={styles.title}>결제금액</div>
             <div css={styles.payment_paymentPrice}>
-              {amountList.paymentPrice}원
+              {amountList.paymentPrice.toLocaleString()}원
               <img src={downArrow} css={styles.payment_paymentPrice_icon} />
             </div>
           </div>
+          <div>fsdfs</div>
         </div>
         <div css={styles.horizon} />
         <div css={styles.personalInfoArea}>
