@@ -126,8 +126,7 @@ function Layout({ children }) {
         {children}
       </MainLayout>
 
-      {!['/login', '/sign-up', '/cart', '/order'].includes(location.pathname) && (
-
+      {!['/login', '/sign-up', '/cart', '/order', '/product/detail'].includes(location.pathname) && (
         <TabBar activeTab={activeTab} />
       )}
 

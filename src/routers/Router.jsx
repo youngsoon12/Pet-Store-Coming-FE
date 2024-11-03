@@ -6,8 +6,6 @@ import { Global } from '@emotion/react';
 import { globalStyle } from '@styles/global';
 import Layout from '@components/global/Layout/Layout';
 
-
-
 // 페이지 컴포넌트 import
 import Home from '@pages/Home';
 import PaymentPage from '../pages/Payments/Payments';
@@ -16,6 +14,7 @@ import LoginPage from '@pages/LoginPage';
 import KakaoRedirect from '@pages/LoginPage/Redirect/KakaoRedirect';
 import ShopPage from '../pages/Shop/Shop';
 import SignUp from '@pages/SignUpPage';
+import ProductDetailPage from '../pages/ProductDetail/ProductDetail';
 import PetProfilePage
  from '../pages/PetProfile/PetProfile';
 
@@ -27,8 +26,6 @@ import OrderSuccess from '../pages/OrderSuccess/OrderSuccess';
 import Search from '../pages/Search/Search'
 
 import OrderList from '../pages/OrderList/OrderList';
-
-
 
 const Router = () => {
   return (
@@ -42,31 +39,14 @@ const Router = () => {
           <Route path="/order/success" element={<OrderSuccess />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/sign-up" element={<SignUp />} />
-
           <Route path="/search" element={<Search />} />
-
-
-
           <Route path="/orderList" element={<OrderList />} />
-
-
-          <Route
-            path="/login/oauth/callback/kakao"
-            element={<KakaoRedirect />}
-          />
-
-           <Route path="/petprofile" element={<PetProfilePage />} />
-
-
-          <Route path="/main" element={<Mainpage />}></Route>
-          
-
-
-       <Route path="/shop" element={<ShopPage />}></Route> 
-
-          <Route path="/cart" element={<Cart />}></Route>
-
-
+          <Route path="/login/oauth/callback/kakao" element={<KakaoRedirect />} />
+          <Route path="/product/detail"element={<ProductDetailPage />} />
+          <Route path="/petprofile" element={<PetProfilePage />} />
+          <Route path="/main" element={<Mainpage />} />
+          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </Layout>
     </BrowserRouter>
