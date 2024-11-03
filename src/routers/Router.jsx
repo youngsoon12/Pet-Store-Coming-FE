@@ -20,7 +20,11 @@ import ShopPage from '../pages/Shop/Shop';
 import SignUp from '@pages/SignUpPage';
 import Cart from '@pages/Cart/Cart';
 import OrderSuccess from '../pages/OrderSuccess/OrderSuccess';
+
+import Search from '../pages/Search/Search'
+
 import OrderList from '../pages/OrderList/OrderList';
+
 
 const Router = () => {
   return (
@@ -34,7 +38,13 @@ const Router = () => {
           <Route path="/order/success" element={<OrderSuccess />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/sign-up" element={<SignUp />} />
+
+          <Route path="/search" element={<Search />} />
+
+
+
           <Route path="/orderList" element={<OrderList />} />
+
 
           <Route
             path="/login/oauth/callback/kakao"
