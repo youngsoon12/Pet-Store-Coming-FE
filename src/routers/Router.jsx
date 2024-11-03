@@ -15,15 +15,17 @@ import PaymentSuccess from '../pages/PaymentsSuccess/PaymentSuccess';
 import LoginPage from '@pages/LoginPage';
 import KakaoRedirect from '@pages/LoginPage/Redirect/KakaoRedirect';
 import ShopPage from '../pages/Shop/Shop';
-//import PetProfilePage from '../pages/PetProfile/PetProfile';
-//import Mainpage from '../pages/Main/Main';
 import SignUp from '@pages/SignUpPage';
+
+import Mainpage from '../pages/Main/Main';
+
 import Cart from '@pages/Cart/Cart';
 import OrderSuccess from '../pages/OrderSuccess/OrderSuccess';
 
 import Search from '../pages/Search/Search'
 
 import OrderList from '../pages/OrderList/OrderList';
+
 
 
 const Router = () => {
@@ -51,9 +53,14 @@ const Router = () => {
             element={<KakaoRedirect />}
           />
 
+          <Route path="/main" element={<Mainpage />}></Route>
+          
+
+
        <Route path="/shop" element={<ShopPage />}></Route> 
 
           <Route path="/cart" element={<Cart />}></Route>
+
         </Routes>
       </Layout>
     </BrowserRouter>
