@@ -92,8 +92,8 @@ function LoginPage() {
         const authCode = event.data.code;
 
         try {
-          const accessToken = await apiClass.fetchAccessToken(authCode);
-          await apiClass.fetchUserInfo(accessToken);
+          const accessToken = await apiClass.fetchKakaoToken(authCode);
+          await apiClass.fetchSocialLogin(accessToken);
         } catch (error) {
           console.log(error);
         }

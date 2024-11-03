@@ -77,21 +77,13 @@ export class LoginAPI {
   }
 
   // 카카오 인가 코드 발급
-  async fetchAccessToken(code) {
+  async fetchKakaoToken(code) {
     try {
-      const resposne = await axios
-        .get(`http://localhost:8080/auth/social/kakao?code=${code}`)
-        .then((res) => console.log(res));
-
-      // const res = await axios.get("http://localhost:8080/auth/social/kakao", code)
-
-      // const res = await axios
-      //   .post('http://localhost:8080/auth/social/kakao', code, {
-      //     headers: { 'Content-Type': 'application/json' },
-      //   })
-      //   .then((res) => res.data);
-
-      // return res.accessToken;
+      return await axios
+        .get(
+          `http://localhost:8080/auth/social/kakao/request/token?code=${code}`
+        )
+        .then((res) => res.data);
     } catch (error) {
       console.log('Error fetching access token:', error);
       throw error;
@@ -99,18 +91,26 @@ export class LoginAPI {
   }
 
   // 카카오 인가 코드를 통해서 카카오 사용자 정보 불러오기
-  async fetchUserInfo(data) {
+  async fetchSocialLogin(data) {
     try {
-      const res = await axios.get(
-        'http://localhost:8080/auth/social/userInfo',
-        {
-          headers: {
-            Authorization: `Bearer ${data['access_token']}`,
-          },
-        }
-      );
+      const deviceId = getOrCreateDeviceId();
+      const response = await axios
+        .get(
+          `http://localhost:8080/auth/social/kakao/login?device_id=${deviceId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${data.accessToken}`,
+            },
+          }
+        )
+        .then((res) => res.data)
+        .catch((err) => err?.response?.data);
 
-      console.log('UserInfo:', res.data);
+      // 카카오 정보로 가입하지 않은 경우
+      if (response?.errorCode === 'KAKAO_USER_NOT_FOUND') {
+        localStorage.removeItem('deviceId');
+        location.href = `/sign-up?id=${response.userId}&platform=KAKAO`;
+      }
     } catch (error) {}
   }
 
