@@ -4,8 +4,9 @@ export const styles = {
   footerContainer() {
     return css`
       width: 100%;
+      margin-top: 40px;
       border-top: 1px solid rgba(25, 25, 25, 0.2);
-      padding: 45px 100px;
+      padding: 30px 30px;
       display: flex;
       justify-content: space-between;
       box-sizing: border-box;

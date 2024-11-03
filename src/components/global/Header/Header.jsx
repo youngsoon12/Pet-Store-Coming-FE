@@ -9,7 +9,7 @@ import back from '@assets/images/header/icons/back.svg';
 import cart from '@assets/images/header/icons/cart.svg';
 import search from '@assets/images/header/icons/search.svg';
 
-export default function Header({ type, title, noIcons }) {
+export default function Header({ type, title }) {
   const navigate = useNavigate();
   const handleClickCategory = (category) => {
     navigate(`/${category}`);
@@ -59,14 +59,10 @@ export default function Header({ type, title, noIcons }) {
         <>
           <img css={styles.icon} src={back}></img>
           <div css={styles.title}>{title}</div>
-          {noIcons ? (
-            <div></div>
-          ) : (
-            <div css={styles.icons}>
-              <img src={search} alt="검색 버튼" />
-              <img src={cart} alt="장바구니 버튼" />
-            </div>
-          )}
+          <div css={styles.icons}>
+            <img src={search} alt="검색 버튼" />
+            <img src={cart} alt="장바구니 버튼" />
+          </div>
         </>
       )}
 
