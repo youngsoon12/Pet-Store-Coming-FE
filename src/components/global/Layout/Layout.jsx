@@ -109,6 +109,11 @@ function Layout({ children }) {
         setType(4);
         setTitle('장바구니');
         setNoIcons(true);
+      case '/order':
+        setType(1);
+        break;
+      case '/orderList':
+        setType(4);
         break;
     }
   }, [location]);
@@ -121,7 +126,8 @@ function Layout({ children }) {
         {children}
       </MainLayout>
 
-      {!['/login', '/sign-up', '/cart'].includes(location.pathname) && (
+      {!['/login', '/sign-up', '/cart', '/order'].includes(location.pathname) && (
+
         <TabBar activeTab={activeTab} />
       )}
 
