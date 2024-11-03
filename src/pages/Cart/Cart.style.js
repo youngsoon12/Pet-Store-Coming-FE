@@ -15,7 +15,7 @@ export const styles = {
       return css`
         width: 100%;
         margin-top: 20px;
-        padding: 0 20px;
+        padding: 0 20px 20px 20px;
         min-height: 100vh;
         /* justify-content: flex-start; */
       `;
@@ -115,5 +115,11 @@ export const styles = {
   `,
   totalPriceBox: css`
     border-top: 1px solid #d9d9d9;
+
+    & > div {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 10px;
+    }
   `,
 };

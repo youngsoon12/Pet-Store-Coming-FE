@@ -51,6 +51,30 @@ export default function Cart() {
     setCheckItems([]);
   };
 
+  // 선택된 상품 수량 및 가격 계산
+  const [totalCnt, setTotalCnt] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const calculateTotal = () => {
+    const total = newCartItems.reduce(
+      (acc, item) => {
+        if (checkItems.includes(item.id)) {
+          acc.totalCnt += item.quantity;
+          acc.totalPrice += item.discountPrice * item.quantity;
+        }
+        return acc;
+      },
+      { totalCnt: 0, totalPrice: 0 }
+    );
+
+    setTotalCnt(total.totalCnt);
+    setTotalPrice(total.totalPrice);
+  };
+
+  // 선택된 상품이나 장바구니 항목이 변경될 때마다 총액 재계산
+  useEffect(() => {
+    calculateTotal();
+  }, [checkItems, newCartItems]);
+
   return (
     <>
       {cartItems?.length ? (
@@ -141,11 +165,22 @@ export default function Cart() {
             );
           })}
           <div css={styles.totalPriceBox}>
-            <div>주문 상품수</div>
-
-            <div>총 주문금액</div>
+            <div>
+              <div>주문 상품수</div>
+              <div>{totalCnt}개</div>
+            </div>
+            <div>
+              <div>총 주문금액</div>
+              <div>{totalPrice}원</div>
+            </div>
+            {/* <div>
             <div>총 배송비</div>
-            <div>최종 결제금액</div>
+            <div>{checkItems.length}원</div>
+            </div> */}
+            <div>
+              <div>최종 결제금액</div>
+              <div>{totalPrice}원</div>
+            </div>
           </div>
         </div>
       ) : (

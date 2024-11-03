@@ -8,6 +8,7 @@ export const cartItems = [
     thumbnail_url:
       'https://ecimg.cafe24img.com/pg457b88199529057/onemillimore/web/product/extra/big/20240707/b2f9ee906dccb3f39075d93a4cc05ab4.jpg',
     thumbnail_alt: '상품사진',
+    option: '',
     quantity: 2,
   },
   {
