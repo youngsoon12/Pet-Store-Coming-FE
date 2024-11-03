@@ -93,11 +93,12 @@ function Layout({ children }) {
         break;
       case '/search':
         setActiveTab('search');
-        setType(0);
+        setType(3);
         break;
       case '/my':
         setActiveTab('my');
-        setType(0);
+        setTitle('MY PAGE');
+        setType(3);
         break;
       case '/login':
         setType(2);
@@ -126,8 +127,7 @@ function Layout({ children }) {
         {children}
       </MainLayout>
 
-      {!['/login', '/sign-up', '/cart', '/order'].includes(location.pathname) && (
-
+      {!['/login', '/sign-up', '/cart', '/order', '/product/detail'].includes(location.pathname) && (
         <TabBar activeTab={activeTab} />
       )}
 
