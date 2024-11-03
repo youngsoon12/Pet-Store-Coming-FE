@@ -14,9 +14,18 @@ import PaymentPage from '../pages/Payments/Payments';
 import PaymentSuccess from '../pages/PaymentsSuccess/PaymentSuccess';
 import LoginPage from '@pages/LoginPage';
 import KakaoRedirect from '@pages/LoginPage/Redirect/KakaoRedirect';
+import ShopPage from '../pages/Shop/Shop';
+//import PetProfilePage from '../pages/PetProfile/PetProfile';
+//import Mainpage from '../pages/Main/Main';
 import SignUp from '@pages/SignUpPage';
+import Cart from '@pages/Cart/Cart';
 import OrderSuccess from '../pages/OrderSuccess/OrderSuccess';
+
 import Search from '../pages/Search/Search'
+
+import OrderList from '../pages/OrderList/OrderList';
+
+
 const Router = () => {
   return (
     <BrowserRouter>
@@ -29,14 +38,22 @@ const Router = () => {
           <Route path="/order/success" element={<OrderSuccess />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/sign-up" element={<SignUp />} />
+
           <Route path="/search" element={<Search />} />
 
+
+
+          <Route path="/orderList" element={<OrderList />} />
 
 
           <Route
             path="/login/oauth/callback/kakao"
             element={<KakaoRedirect />}
           />
+
+       <Route path="/shop" element={<ShopPage />}></Route> 
+
+          <Route path="/cart" element={<Cart />}></Route>
         </Routes>
       </Layout>
     </BrowserRouter>
