@@ -106,6 +106,16 @@ function Layout({ children }) {
       case '/sign-up':
         setType(2);
         break;
+      case '/cart':
+        setType(4);
+        setTitle('장바구니');
+        setNoIcons(true);
+      case '/order':
+        setType(1);
+        break;
+      case '/orderList':
+        setType(4);
+        break;
     }
   }, [location]);
 
@@ -117,7 +127,7 @@ function Layout({ children }) {
         {children}
       </MainLayout>
 
-      {!['/login', '/sign-up'].includes(location.pathname) && (
+      {!['/login', '/sign-up', '/cart', '/order', '/product/detail'].includes(location.pathname) && (
         <TabBar activeTab={activeTab} />
       )}
 
