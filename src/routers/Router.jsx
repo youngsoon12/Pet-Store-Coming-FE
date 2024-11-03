@@ -16,6 +16,8 @@ import LoginPage from '@pages/LoginPage';
 import KakaoRedirect from '@pages/LoginPage/Redirect/KakaoRedirect';
 import ShopPage from '../pages/Shop/Shop';
 import SignUp from '@pages/SignUpPage';
+import PetProfilePage
+ from '../pages/PetProfile/PetProfile';
 
 import Mainpage from '../pages/Main/Main';
 
@@ -53,6 +55,9 @@ const Router = () => {
             element={<KakaoRedirect />}
           />
 
+           <Route path="/petprofile" element={<PetProfilePage />} />
+
+
           <Route path="/main" element={<Mainpage />}></Route>
           
 
@@ -60,6 +65,7 @@ const Router = () => {
        <Route path="/shop" element={<ShopPage />}></Route> 
 
           <Route path="/cart" element={<Cart />}></Route>
+
 
         </Routes>
       </Layout>
