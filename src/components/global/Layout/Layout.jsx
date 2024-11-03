@@ -22,6 +22,8 @@ import { activeTabState } from '@recoil/atom/tabState';
 
 function Layout({ children }) {
   const [type, setType] = useState(1);
+  const [title, setTitle] = useState('');
+  const [noIcons, setNoIcons] = useState(false);
 
   const modalConfig = useRecoilValue(modalState);
 
@@ -103,6 +105,10 @@ function Layout({ children }) {
       case '/sign-up':
         setType(2);
         break;
+      case '/cart':
+        setType(4);
+        setTitle('장바구니');
+        setNoIcons(true);
       case '/order':
         setType(1);
         break;
@@ -114,13 +120,14 @@ function Layout({ children }) {
 
   return (
     <>
-      {type >= 1 && <Header type={type} />}
+      {type >= 1 && <Header type={type} title={title} noIcons={noIcons} />}
 
       <MainLayout direction="column" height="auto" align="center">
         {children}
       </MainLayout>
 
-      {!['/login', '/sign-up', '/order'].includes(location.pathname) && (
+      {!['/login', '/sign-up', '/cart', '/order'].includes(location.pathname) && (
+
         <TabBar activeTab={activeTab} />
       )}
 

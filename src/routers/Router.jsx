@@ -15,6 +15,7 @@ import PaymentSuccess from '../pages/PaymentsSuccess/PaymentSuccess';
 import LoginPage from '@pages/LoginPage';
 import KakaoRedirect from '@pages/LoginPage/Redirect/KakaoRedirect';
 import SignUp from '@pages/SignUpPage';
+import Cart from '@pages/Cart/Cart';
 import OrderSuccess from '../pages/OrderSuccess/OrderSuccess';
 import OrderList from '../pages/OrderList/OrderList';
 
@@ -36,6 +37,7 @@ const Router = () => {
             path="/login/oauth/callback/kakao"
             element={<KakaoRedirect />}
           />
+          <Route path="/cart" element={<Cart />}></Route>
         </Routes>
       </Layout>
     </BrowserRouter>
