@@ -79,17 +79,19 @@ export class LoginAPI {
   // 카카오 인가 코드 발급
   async fetchAccessToken(code) {
     try {
-      const res = await axios
-        .post(
-          'http://localhost:8080/auth/social/kakao',
-          { code },
-          {
-            headers: { 'Content-Type': 'application/json' },
-          }
-        )
-        .then((res) => res.data);
+      const resposne = await axios
+        .get(`http://localhost:8080/auth/social/kakao?code=${code}`)
+        .then((res) => console.log(res));
 
-      return res.accessToken;
+      // const res = await axios.get("http://localhost:8080/auth/social/kakao", code)
+
+      // const res = await axios
+      //   .post('http://localhost:8080/auth/social/kakao', code, {
+      //     headers: { 'Content-Type': 'application/json' },
+      //   })
+      //   .then((res) => res.data);
+
+      // return res.accessToken;
     } catch (error) {
       console.log('Error fetching access token:', error);
       throw error;
