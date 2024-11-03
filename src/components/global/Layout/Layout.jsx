@@ -106,6 +106,9 @@ function Layout({ children }) {
       case '/order':
         setType(1);
         break;
+      case '/orderList':
+        setType(4);
+        break;
     }
   }, [location]);
 

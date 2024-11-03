@@ -16,6 +16,7 @@ import LoginPage from '@pages/LoginPage';
 import KakaoRedirect from '@pages/LoginPage/Redirect/KakaoRedirect';
 import SignUp from '@pages/SignUpPage';
 import OrderSuccess from '../pages/OrderSuccess/OrderSuccess';
+import OrderList from '../pages/OrderList/OrderList';
 
 const Router = () => {
   return (
@@ -29,7 +30,7 @@ const Router = () => {
           <Route path="/order/success" element={<OrderSuccess />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/sign-up" element={<SignUp />} />
-
+          <Route path="/orderList" element={<OrderList />} />
 
           <Route
             path="/login/oauth/callback/kakao"
