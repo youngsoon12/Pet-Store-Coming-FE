@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { styles } from './SignupSuccess.style';
 import Button from '@components/global/button';
-import ContentsWrapper from '@components/global/ContentsWrapper/ContentsWrapper';
-import Header from '@components/global/header';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignupSuccess() {
@@ -10,8 +8,6 @@ export default function SignupSuccess() {
   const navigate = useNavigate();
   return (
     <>
-      <Header type={1} />
-      {/* <ContentsWrapper> */}
       <div css={styles.container}>
         <div css={styles.main}>
           <span>{name}</span>님 반가워요
@@ -43,7 +39,6 @@ export default function SignupSuccess() {
           />
         </div>
       </div>
-      {/* </ContentsWrapper> */}
     </>
   );
 }

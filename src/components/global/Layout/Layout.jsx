@@ -106,6 +106,9 @@ function Layout({ children }) {
       case '/sign-up':
         setType(2);
         break;
+      case '/signup/success':
+        setType(1);
+        break;
       case '/cart':
         setType(4);
         setTitle('장바구니');
@@ -127,10 +130,10 @@ function Layout({ children }) {
         {children}
       </MainLayout>
 
-      {!['/login', '/sign-up', '/cart', '/order', '/product/detail'].includes(location.pathname) && (
+      {/* {!['/login', '/sign-up', '/cart', '/order', '/product/detail'].includes(location.pathname) && (
         <TabBar activeTab={activeTab} />
-      )}
-
+      )} */}
+      {activeTab !== '' && <TabBar activeTab={activeTab} />}
       {/* 모달 오픈 */}
       {modalConfig.isVisible && (
         <Modal
