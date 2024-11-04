@@ -15,6 +15,12 @@ export default function EditPetInfo() {
   });
   const [selectedImage, setSelectedImage] = useState(null);
 
+  // 선택된 카테고리의 총 개수 계산
+  const totalSelectedCategories = Object.values(selectedCategories).reduce(
+    (total, categoryArray) => total + categoryArray.length,
+    0
+  );
+
   const handleCategorySelect = (category, categoryType) => {
     setSelectedCategories((prev) => {
       const isSelected = prev[categoryType].includes(category);
@@ -74,85 +80,84 @@ export default function EditPetInfo() {
   ];
 
   return (
-    <>
-      <div css={styles.container}>
-        <input
-          type="file"
-          id="profileImg"
-          style={{ display: 'none' }}
-          accept="image/*"
-          onChange={handleImageChange}
-        />
-        <img
-          src={selectedImage || Camera}
-          alt="Camera Icon"
-          css={styles.cameraIcon}
-          onClick={handleCameraClick}
-        />
+    <div css={styles.container}>
+      <input
+        type="file"
+        id="profileImg"
+        style={{ display: 'none' }}
+        accept="image/*"
+        onChange={handleImageChange}
+      />
+      <img
+        src={selectedImage || Camera}
+        alt="Camera Icon"
+        css={styles.cameraIcon}
+        onClick={handleCameraClick}
+      />
 
-        <div css={styles.inputContainer}>
-          <label css={styles.label}>이름을 입력해주세요</label>
-          <input type="text" css={styles.input} placeholder="ex.꼬미" />
+      <div css={styles.inputContainer}>
+        <label css={styles.label}>이름을 입력해주세요</label>
+        <input type="text" css={styles.input} placeholder="ex.꼬미" />
 
-          <label css={styles.label}>견종을 등록하세요</label>
-          <input type="text" css={styles.input} placeholder="ex.말티즈" />
+        <label css={styles.label}>견종을 등록하세요</label>
+        <input type="text" css={styles.input} placeholder="ex.말티즈" />
 
-          <label css={styles.label}>생일을 입력해주세요</label>
-          <input type="date" css={styles.input} />
+        <label css={styles.label}>생일을 입력해주세요</label>
+        <input type="date" css={styles.input} />
 
-          <label css={styles.label}>성별을 선택해주세요</label>
-          <div css={styles.genderButtonContainer}>
-            <Button
-              text="남아"
-              width={220}
-              height={50}
-              onClick={() => setGender('male')}
-              theme={gender === 'male' ? 'black' : 'white'}
-              fontSize={16}
-              fontWeight={500}
-            />
-            <Button
-              text="여아"
-              width={220}
-              height={50}
-              onClick={() => setGender('female')}
-              theme={gender === 'female' ? 'black' : 'white'}
-              fontSize={16}
-              fontWeight={500}
-            />
-          </div>
+        <label css={styles.label}>성별을 선택해주세요</label>
+        <div css={styles.genderButtonContainer}>
+          <Button
+            text="남아"
+            width={220}
+            height={50}
+            onClick={() => setGender('male')}
+            theme={gender === 'male' ? 'black' : 'white'}
+            fontSize={16}
+            fontWeight={500}
+          />
+          <Button
+            text="여아"
+            width={220}
+            height={50}
+            onClick={() => setGender('female')}
+            theme={gender === 'female' ? 'black' : 'white'}
+            fontSize={16}
+            fontWeight={500}
+          />
+        </div>
 
-          <label css={styles.label}>몸무게를 입력해주세요</label>
-          <input type="text" css={styles.input} placeholder="ex.3.5kg" />
+        <label css={styles.label}>몸무게를 입력해주세요</label>
+        <input type="text" css={styles.input} placeholder="ex.3.5kg" />
 
-          <label css={styles.titleLabel}>
-            우리아이에게 가장 필요한 제품이 있나요? 관심있는 카테고리를
-            골라보세요!
-          </label>
+        <label css={styles.titleLabel}>
+          우리아이에게 가장 필요한 제품이 있나요? 관심있는 카테고리를
+          골라보세요!
+        </label>
+        <div>(최대 5개 선택 가능)</div>
+        {categoryData.map((category) => (
+          <CategoryButton
+            key={category.type}
+            label={category.label}
+            categories={category.items}
+            selectedCategories={selectedCategories[category.type]}
+            handleCategorySelect={handleCategorySelect}
+            categoryType={category.type}
+            disableUnselected={totalSelectedCategories >= 5}
+          />
+        ))}
 
-          {categoryData.map((category) => (
-            <CategoryButton
-              key={category.type}
-              label={category.label}
-              categories={category.items}
-              selectedCategories={selectedCategories[category.type]}
-              handleCategorySelect={handleCategorySelect}
-              categoryType={category.type}
-            />
-          ))}
-
-          <div css={styles.registerButton}>
-            <Button
-              text="등록"
-              width={100}
-              height={50}
-              theme="black"
-              fontSize={16}
-              fontWeight={500}
-            />
-          </div>
+        <div css={styles.registerButton}>
+          <Button
+            text="등록"
+            width={100}
+            height={50}
+            theme="black"
+            fontSize={16}
+            fontWeight={500}
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -10,6 +10,7 @@ export default function Button({
   fontSize,
   fontWeight,
   onClick,
+  disableUnselected,
 }) {
   const buttonStyle = styles.button(theme, fontSize, fontWeight);
 
@@ -23,6 +24,7 @@ export default function Button({
         `,
       ]}
       onClick={onClick}
+      disabled={disableUnselected}
     >
       {text}
     </button>

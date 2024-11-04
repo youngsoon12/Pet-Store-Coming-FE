@@ -40,8 +40,8 @@ const Router = () => {
             path="/login/oauth/callback/kakao"
             element={<KakaoRedirect />}
           />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/mypage/edit/petinfo" element={<EditPetInfo />} />
+          <Route path="/my" element={<MyPage />} />
+          <Route path="/my/edit/petinfo" element={<EditPetInfo />} />
           <Route path="/search" element={<Search />} />
           <Route path="/orderList" element={<OrderList />} />
           <Route

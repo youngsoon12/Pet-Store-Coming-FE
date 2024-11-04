@@ -24,9 +24,16 @@ export default function MyPage() {
         </div>
         <TitleBox title="MY PETS" plus={true} />
 
-        {myPets.map((petInfo, index) => (
-          <PetCard key={index} petInfo={petInfo} />
-        ))}
+        {myPets.length > 0 ? (
+          myPets.map((petInfo, index) => (
+            <PetCard key={index} petInfo={petInfo} />
+          ))
+        ) : (
+          <>
+            <div>등록된 반려견이 없습니다</div>
+            <button css={styles.btn}>우리아이 등록</button>
+          </>
+        )}
       </div>
     </>
   );

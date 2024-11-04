@@ -95,12 +95,12 @@ function Layout({ children }) {
         setActiveTab('search');
         setType(3);
         break;
-      case '/mypage':
+      case '/my':
         setActiveTab('my');
         setTitle('MY PAGE');
         setType(3);
         break;
-      case '/mypage/edit/petinfo':
+      case '/my/edit/petinfo':
         setActiveTab('my');
         setTitle('우리아이 정보 수정');
         setType(4);

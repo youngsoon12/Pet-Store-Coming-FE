@@ -34,7 +34,6 @@ export const styles = {
     display: flex;
     justify-content: space-between;
     margin-bottom: 35px;
-    /* gap: 30px; */
     margin-top: 15px;
   `,
   titleLabel: css`

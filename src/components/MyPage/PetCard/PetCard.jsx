@@ -17,7 +17,7 @@ export default function ({ petInfo }) {
   // 반려견 정보 수정 페이지로 이동
   const editPet = () => {
     // 파라미터로 각 반려견 id 보내줘야함
-    navigate('/mypage/edit/petinfo');
+    navigate('/my/edit/petinfo');
   };
   return (
     <div css={styles.container}>
