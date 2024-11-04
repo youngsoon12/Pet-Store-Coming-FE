@@ -9,7 +9,7 @@ import back from '@assets/images/header/icons/back.svg';
 import cart from '@assets/images/header/icons/cart.svg';
 import search from '@assets/images/header/icons/search.svg';
 
-export default function Header({ type, title, noIcons }) {
+function Header({ type, title, noIcons }) {
   const navigate = useNavigate();
   const handleClickCategory = (category) => {
     navigate(`/${category}`);
@@ -83,3 +83,5 @@ export default function Header({ type, title, noIcons }) {
     </div>
   );
 }
+
+export default Header;
