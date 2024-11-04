@@ -8,6 +8,7 @@ import Layout from '@components/global/Layout/Layout';
 
 // 페이지 컴포넌트 import
 import Home from '@pages/Home';
+import SignupSuccess from '../pages/SignupSuccess/SignupSuccess';
 import PaymentPage from '../pages/Payments/Payments';
 import PaymentSuccess from '../pages/PaymentsSuccess/PaymentSuccess';
 import LoginPage from '@pages/LoginPage';
@@ -30,7 +31,8 @@ const Router = () => {
       <Global styles={globalStyle} />
       <Layout>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />}/>
+          <Route path="/signup/success" element={<SignupSuccess />}/>
           <Route path="/order" element={<PaymentPage />} />
           <Route path="/success" element={<PaymentSuccess />} />
           <Route path="/order/success" element={<OrderSuccess />} />
