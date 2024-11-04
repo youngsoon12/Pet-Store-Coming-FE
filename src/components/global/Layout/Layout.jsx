@@ -93,7 +93,7 @@ function Layout({ children }) {
         break;
       case '/search':
         setActiveTab('search');
-        setType(3);
+        setType(0);
         break;
       case '/my':
         setActiveTab('my');
@@ -113,6 +113,7 @@ function Layout({ children }) {
         setType(4);
         setTitle('장바구니');
         setNoIcons(true);
+        break;
       case '/order':
         setType(1);
         break;
