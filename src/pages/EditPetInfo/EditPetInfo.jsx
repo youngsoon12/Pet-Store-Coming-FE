@@ -149,7 +149,7 @@ export default function EditPetInfo() {
 
         <div css={styles.registerButton}>
           <Button
-            text="등록"
+            text="수정완료"
             width={100}
             height={50}
             theme="black"

@@ -24,6 +24,7 @@ import OrderSuccess from '../pages/OrderSuccess/OrderSuccess';
 import Search from '../pages/Search/Search';
 import OrderList from '../pages/OrderList/OrderList';
 import EditPetInfo from '../pages/EditPetInfo/EditPetInfo';
+import EditMyInfo from '../pages/EditMyInfo/EditMyInfo';
 
 const Router = () => {
   return (
@@ -31,8 +32,8 @@ const Router = () => {
       <Global styles={globalStyle} />
       <Layout>
         <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="/signup/success" element={<SignupSuccess />}/>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup/success" element={<SignupSuccess />} />
           <Route path="/order" element={<PaymentPage />} />
           <Route path="/success" element={<PaymentSuccess />} />
           <Route path="/order/success" element={<OrderSuccess />} />
@@ -44,6 +45,7 @@ const Router = () => {
           />
           <Route path="/my" element={<MyPage />} />
           <Route path="/my/edit/petinfo" element={<EditPetInfo />} />
+          <Route path="/my/edit/myinfo" element={<EditMyInfo />} />
           <Route path="/search" element={<Search />} />
           <Route path="/orderList" element={<OrderList />} />
           <Route

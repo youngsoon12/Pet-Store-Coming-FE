@@ -18,7 +18,7 @@ export const styles = {
     position: sticky;
     top: 0;
     left: 0;
-    z-index: 10000;
+    z-index: 1000;
   `,
 
   logo: css`

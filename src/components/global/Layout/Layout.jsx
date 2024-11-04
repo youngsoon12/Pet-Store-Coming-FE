@@ -106,6 +106,12 @@ function Layout({ children }) {
         setType(4);
         setNoIcons(true);
         break;
+      case '/my/edit/myinfo':
+        setActiveTab('my');
+        setTitle('내 정보 수정');
+        setType(4);
+        setNoIcons(true);
+        break;
       case '/login':
         setType(2);
         break;
