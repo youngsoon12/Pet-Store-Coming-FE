@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { styles } from './OrderList.style';
-import PaymentProductCard from '../../components/Payments/PaymentProductCard';
+import ListCard from './listCard';
 
 const productInfo = [
   {
@@ -24,27 +24,28 @@ const productInfo = [
 
 const OrderList = () => {
   return (
-    // <div css={styles.container}>
-    //   <div css={styles.productArea}>
-    //     <div css={styles.title}>상품 정보</div>
-    //     <div css={styles.productCard_area}>
-    //       {productInfo &&
-    //         productInfo.map((product, idx) => {
-    //           return (
-    //             <PaymentProductCard
-    //               key={idx}
-    //               name={product.name}
-    //               price={product.price}
-    //               discountPrice={product.discountPrice}
-    //               brand={product.brand}
-    //               quantity={product.quantity}
-    //             />
-    //           );
-    //         })}
-    //     </div>
-    //   </div>
-    // </div>
-    <div></div>
+    <>
+      <div css={styles.container}>
+        <div css={styles.productArea}>
+          <div css={styles.title}>주문 내역</div>
+          <div css={styles.productCard_area}>
+            {productInfo &&
+              productInfo.map((product, idx) => {
+                return (
+                  <ListCard
+                    key={idx}
+                    name={product.name}
+                    price={product.price}
+                    discountPrice={product.discountPrice}
+                    brand={product.brand}
+                    quantity={product.quantity}
+                  />
+                );
+              })}
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
