@@ -19,8 +19,15 @@ import useLogoutModal from '@hooks/modal/useLogoutModal';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { modalState } from '@recoil/atom/modalState';
 import { activeTabState } from '@recoil/atom/tabState';
+import axios from 'axios';
+
+import { isMainCategoryInfoState } from '../../../recoil/atom/category';
 
 function Layout({ children }) {
+  const [mainCategory, setMainCategory] = useRecoilState(
+    isMainCategoryInfoState
+  );
+
   const [type, setType] = useState(1);
   const [title, setTitle] = useState('');
   const [noIcons, setNoIcons] = useState(false);
@@ -127,9 +134,9 @@ function Layout({ children }) {
         {children}
       </MainLayout>
 
-      {!['/login', '/sign-up', '/cart', '/order', '/product/detail'].includes(location.pathname) && (
-        <TabBar activeTab={activeTab} />
-      )}
+      {!['/login', '/sign-up', '/cart', '/order', '/product/detail'].includes(
+        location.pathname
+      ) && <TabBar activeTab={activeTab} />}
 
       {/* 모달 오픈 */}
       {modalConfig.isVisible && (

@@ -6,38 +6,40 @@ import wagonImage from '../../assets/images/mainpage/wagon.jpg';
 import shopImage from '../../assets/images/mainpage/shop.jpg';
 import clothesImage from '../../assets/images/mainpage/clothes.jpg';
 
-export default function Slider() {
+export default function Slider(props) {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const slides = [
     {
       image: wagonImage,
-      subjet: "MD’s pick",
-      title: "Mw6 강아지 유모차",
-      description: "캠핑/피크닉 시즌 활용도 만점!",
-      category: "wagon >",
+      subjet: 'MD’s pick',
+      title: 'Mw6 강아지 유모차',
+      description: '캠핑/피크닉 시즌 활용도 만점!',
+      category: 'wagon >',
     },
     {
       image: shopImage,
-      subjet: "10차 리오더 완판",
-      title: "LONTANO BACKPACK",
-      description: "초경량 무게 한정 수량 입고!!",
-      category: "shop >",
+      subjet: '10차 리오더 완판',
+      title: 'LONTANO BACKPACK',
+      description: '초경량 무게 한정 수량 입고!!',
+      category: 'shop >',
     },
     {
       image: clothesImage,
-      subjet: "3pack T-shirts",
-      title: "Born to Basic",
-      description: "데일리 산책 무드 3팩 구성",
-      category: "clothes >",
+      subjet: '3pack T-shirts',
+      title: 'Born to Basic',
+      description: '데일리 산책 무드 3팩 구성',
+      category: 'clothes >',
     },
   ];
 
   useEffect(() => {
+    console.log(props);
+
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 3000); 
+    }, 3000);
     return () => clearInterval(interval);
   }, [slides.length]);
 
@@ -47,6 +49,8 @@ export default function Slider() {
 
   return (
     <div css={styles.sliderContainer}>
+      <div css={[styles.slide, props.id]}></div>
+
       {slides.map((slide, index) => (
         <div
           key={index}
