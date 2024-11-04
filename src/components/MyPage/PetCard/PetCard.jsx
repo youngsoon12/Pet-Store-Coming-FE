@@ -14,6 +14,11 @@ export default function ({ petInfo }) {
   // };
 
   const navigate = useNavigate();
+  // 반려견 정보 수정 페이지로 이동
+  const editPet = () => {
+    // 파라미터로 각 반려견 id 보내줘야함
+    navigate('/mypage/edit/petinfo');
+  };
   return (
     <div css={styles.container}>
       <div css={styles.petProfile}>
@@ -49,10 +54,7 @@ export default function ({ petInfo }) {
           </div>
         </div>
         <div css={styles.buttons}>
-          <button
-            css={styles.editBtn}
-            onClick={() => navigate('/my/edit/petinfo')}
-          >
+          <button css={styles.editBtn} onClick={editPet}>
             수정
           </button>
           <button css={styles.deleteBtn}>삭제</button>

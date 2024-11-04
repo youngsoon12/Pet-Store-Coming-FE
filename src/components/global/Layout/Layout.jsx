@@ -95,10 +95,16 @@ function Layout({ children }) {
         setActiveTab('search');
         setType(3);
         break;
-      case '/my':
+      case '/mypage':
         setActiveTab('my');
         setTitle('MY PAGE');
         setType(3);
+        break;
+      case '/mypage/edit/petinfo':
+        setActiveTab('my');
+        setTitle('우리아이 정보 수정');
+        setType(4);
+        setNoIcons(true);
         break;
       case '/login':
         setType(2);
@@ -127,9 +133,9 @@ function Layout({ children }) {
         {children}
       </MainLayout>
 
-      {!['/login', '/sign-up', '/cart', '/order', '/product/detail'].includes(location.pathname) && (
-        <TabBar activeTab={activeTab} />
-      )}
+      {!['/login', '/sign-up', '/cart', '/order', '/product/detail'].includes(
+        location.pathname
+      ) && <TabBar activeTab={activeTab} />}
 
       {/* 모달 오픈 */}
       {modalConfig.isVisible && (
