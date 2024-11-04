@@ -1,17 +1,19 @@
 /** @jsxImportSource @emotion/react */
+import { useNavigate } from 'react-router-dom';
 import { styles } from './PetCard.style';
 import petProfile from '@assets/images/MyPage/comi.png';
-export default function () {
-  const petInfo = {
-    name: '꼬미',
-    primary: true,
-    subCategory: ['소형견', '건식 사료', '아우터/우비', '상의'],
-    birth: '2017.09.04',
-    breed: '말티즈',
-    gender: '남아',
-    weight: '4',
-  };
+export default function ({ petInfo }) {
+  // const petInfo = {
+  //   name: '꼬미',
+  //   primary: true,
+  //   subCategory: ['소형견', '건식 사료', '아우터/우비', '상의'],
+  //   birth: '2017.09.04',
+  //   breed: '말티즈',
+  //   gender: '남아',
+  //   weight: '4',
+  // };
 
+  const navigate = useNavigate();
   return (
     <div css={styles.container}>
       <div css={styles.petProfile}>
@@ -47,7 +49,12 @@ export default function () {
           </div>
         </div>
         <div css={styles.buttons}>
-          <button css={styles.editBtn}>수정</button>
+          <button
+            css={styles.editBtn}
+            onClick={() => navigate('/my/edit/petinfo')}
+          >
+            수정
+          </button>
           <button css={styles.deleteBtn}>삭제</button>
         </div>
       </div>
