@@ -5,6 +5,12 @@ export const globalStyle = css`
   ${emotionReset} // 모든 브라우저에서 기본적으로 제공하는 CSS 초기화
 
   * {
+    font-family: 'Pretendard', sans-serif;
+  }
+
+  html {
+    font-family: 'Pretendard', sans-serif;
+    box-sizing: border-box; // 요소 크기를 계산할 때 패딩과 테두리 포함
     font-family:
       /* 'Pretendard', */
       'Pretendard Variable',
@@ -31,6 +37,8 @@ export const globalStyle = css`
     padding: 0;
     overflow-x: hidden;
     justify-content: center;
+
+    font-family: 'Pretendard', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -ms-overflow-style: none;
