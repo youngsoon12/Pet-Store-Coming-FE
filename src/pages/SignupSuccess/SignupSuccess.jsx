@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { styles } from './SignupSuccess.style';
 import Button from '@components/global/button';
-import ContentsWrapper from '@components/global/ContentsWrapper/ContentsWrapper';
-import Header from '@components/global/Header/Header';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignupSuccess() {

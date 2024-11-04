@@ -2,11 +2,14 @@
 import ListItem from '../../components/MyPage/ListItem/ListItem';
 import PetCard from '../../components/MyPage/PetCard/PetCard';
 import TitleBox from '../../components/MyPage/TitleBox/TitleBox';
+import Button from '@components/global/button';
 import { styles } from './MyPage.style';
 import { myDatas } from './MyPageData';
+import { useNavigate } from 'react-router-dom';
 
 export default function MyPage() {
   const { name, list, myPets } = myDatas;
+  const navigate = useNavigate();
   return (
     <>
       <div css={styles.container}>
@@ -29,10 +32,18 @@ export default function MyPage() {
             <PetCard key={index} petInfo={petInfo} />
           ))
         ) : (
-          <>
+          <div css={styles.noPets}>
             <div>등록된 반려견이 없습니다</div>
-            <button css={styles.btn}>우리아이 등록</button>
-          </>
+            <Button
+              text={'우리아이 등록 >'}
+              fontSize={'14'}
+              fontWeight={'bold'}
+              width={'130'}
+              onClick={() => {
+                navigate('/petprofile');
+              }}
+            />
+          </div>
         )}
       </div>
     </>
