@@ -70,7 +70,7 @@ const Payments = () => {
       paymentPrice: Math.floor(totalDiscountAmount / 100) * 100,
       totalDiscountPrice: (totalAmount - totalDiscountAmount).toLocaleString(),
       totalAmount: totalAmount.toLocaleString(),
-      totalDiscountAmount: totalDiscountAmount.toLocaleString(),
+      totalDiscountAmount: totalDiscountAmount,
     });
   }, []);
 
@@ -116,6 +116,10 @@ const Payments = () => {
 
       return updatedPhoneNumbers;
     });
+  };
+
+  const onTogglePayPrice = () => {
+    setPayPriceTogle((prev) => !prev);
   };
 
   const btnActive = Object.values(checkedItems).every(Boolean);
@@ -208,10 +212,53 @@ const Payments = () => {
             <div css={styles.title}>결제금액</div>
             <div css={styles.payment_paymentPrice}>
               {amountList.paymentPrice.toLocaleString()}원
-              <img src={downArrow} css={styles.payment_paymentPrice_icon} />
+              {payPriceTogle ? (
+                <img
+                  src={upArrow}
+                  css={styles.payment_paymentPrice_icon}
+                  onClick={onTogglePayPrice}
+                />
+              ) : (
+                <img
+                  src={downArrow}
+                  css={styles.payment_paymentPrice_icon}
+                  onClick={onTogglePayPrice}
+                />
+              )}
             </div>
           </div>
-          <div>fsdfs</div>
+          {console.log(amountList)}
+          {payPriceTogle && (
+            <div>
+              <div css={styles.payment_horizon} />
+              <div css={styles.payment_toggle_area}>
+                <div css={styles.payment_toggle_area_content}>
+                  <div>총 상품 금액</div>
+                  <div css={styles.payment_toggle_area_content_noDiscount}>
+                    {amountList.totalAmount}원
+                  </div>
+                </div>
+                <div css={styles.payment_toggle_area_content}>
+                  <div>스토어 할인 적용</div>
+                  <div css={styles.payment_toggle_area_content_discount}>
+                    - {amountList.totalDiscountPrice}원
+                  </div>
+                </div>
+                <div css={styles.payment_toggle_area_content}>
+                  <div>꼬밍 특별 할인</div>
+                  <div css={styles.payment_toggle_area_content_discount}>
+                    - {amountList.totalDiscountAmount - amountList.paymentPrice}
+                    원
+                  </div>
+                </div>
+                <div css={styles.payment_horizon} />
+                <div css={styles.payment_toggle_content_last_price}>
+                  <div>총 결제 금액</div>
+                  <div>{amountList.paymentPrice.toLocaleString()}원</div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         <div css={styles.horizon} />
         <div css={styles.personalInfoArea}>

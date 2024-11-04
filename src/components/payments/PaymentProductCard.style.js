@@ -3,24 +3,27 @@ import { css } from '@emotion/react';
 export const styles = {
   wrap: css`
     width: 100%;
+    max-width: 480px;
     flex-direction: column;
+    box-sizing: border-box;
+    margin: 0 auto;
   `,
 
   product_info: css`
     display: flex;
+    width: 100%;
     flex-direction: row;
     justify-content: space-between;
     color: #484848;
     gap: 30px;
     flex-wrap: nowrap;
     align-items: center;
-    margin: 0 40px;
     flex-wrap: nowrap;
+    box-sizing: border-box;
     @media (max-width: 480px) {
       flex-direction: row;
       align-items: flex-start;
       gap: 20px;
-      margin: 0 20px;
     }
   `,
 

@@ -16,8 +16,11 @@ export const styles = {
   // Global
   title: css`
     font-weight: 700;
-    font-size: 24px;
+    font-size: 7vw;
     margin-bottom: 18px;
+    @media (min-width: 480px) {
+      font-size: 24px;
+    }
   `,
   title_area: css`
     display: flex;
@@ -131,17 +134,55 @@ export const styles = {
   payment_horizon: css`
     width: 100%;
     border: 0.5px solid #d9d9d9;
+    margin: 20px 0px;
   `,
 
   payment_paymentPrice: css`
-    font-size: 30px;
+    font-size: 7vw;
     font-weight: 800;
     color: #ed5729;
+    @media (min-width: 480px) {
+      font-size: 30px;
+    }
   `,
   payment_paymentPrice_icon: css`
-    width: 24px;
+    width: 6vw;
     margin-left: 15px;
     cursor: pointer;
+    @media (min-width: 480px) {
+      width: 24px;
+    }
+  `,
+  payment_toggle_area: css`
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  `,
+  payment_toggle_area_content: css`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 3.5vw;
+    @media (min-width: 480px) {
+      font-size: 16px;
+    }
+  `,
+  payment_toggle_area_content_noDiscount: css`
+    font-weight: 600;
+  `,
+  payment_toggle_area_content_discount: css`
+    color: #ed5729;
+    font-weight: 600;
+  `,
+  payment_toggle_content_last_price: css`
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 7vw;
+    margin-bottom: 10px;
+    @media (min-width: 480px) {
+      font-size: 24px;
+    }
   `,
 
   // 개인정보
