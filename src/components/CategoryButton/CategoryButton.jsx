@@ -1,9 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import Button from '../global/button/index.jsx';
-import{styles} from './CategoryButton.style.js'
+import { styles } from './CategoryButton.style.js';
 
-export default function CategoryButton({ label, categories, selectedCategories, handleCategorySelect, categoryType }) {
+export default function CategoryButton({
+  label,
+  categories,
+  selectedCategories,
+  handleCategorySelect,
+  categoryType,
+  disableUnselected,
+}) {
   return (
     <>
       <label css={styles.subLabel}>{label}</label>
@@ -18,6 +25,9 @@ export default function CategoryButton({ label, categories, selectedCategories, 
             theme={selectedCategories.includes(category) ? 'black' : 'white'}
             fontSize={16}
             fontWeight={500}
+            disableUnselected={
+              !selectedCategories.includes(category) && disableUnselected
+            }
           />
         ))}
       </div>

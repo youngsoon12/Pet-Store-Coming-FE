@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 import Button from '../../components/global/button';
 import Camera from '../../assets/images/PetProfile/camera.svg';
-import { styles } from './PetProfile.style';
+import { styles } from './EditPetInfo.style';
 import CategoryButton from '../../components/CategoryButton/CategoryButton';
 
-export default function PetProfilePage() {
+export default function EditPetInfo() {
   const [gender, setGender] = useState('male');
   const [selectedCategories, setSelectedCategories] = useState({
     snack: [],
@@ -14,11 +14,13 @@ export default function PetProfilePage() {
     supplies: [],
   });
   const [selectedImage, setSelectedImage] = useState(null);
+
   // 선택된 카테고리의 총 개수 계산
   const totalSelectedCategories = Object.values(selectedCategories).reduce(
     (total, categoryArray) => total + categoryArray.length,
     0
   );
+
   const handleCategorySelect = (category, categoryType) => {
     setSelectedCategories((prev) => {
       const isSelected = prev[categoryType].includes(category);
@@ -132,7 +134,7 @@ export default function PetProfilePage() {
           우리아이에게 가장 필요한 제품이 있나요? 관심있는 카테고리를
           골라보세요!
         </label>
-
+        <div>(최대 5개 선택 가능)</div>
         {categoryData.map((category) => (
           <CategoryButton
             key={category.type}
@@ -147,7 +149,7 @@ export default function PetProfilePage() {
 
         <div css={styles.registerButton}>
           <Button
-            text="등록"
+            text="수정완료"
             width={100}
             height={50}
             theme="black"

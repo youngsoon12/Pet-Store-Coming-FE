@@ -17,13 +17,14 @@ import ShopPage from '../pages/Shop/Shop';
 import SignUp from '@pages/SignUpPage';
 import MyPage from '../pages/MyPage/MyPage';
 import ProductDetailPage from '../pages/ProductDetail/ProductDetail';
-import PetProfilePage
- from '../pages/PetProfile/PetProfile';
+import PetProfilePage from '../pages/PetProfile/PetProfile';
 import Mainpage from '../pages/Main/Main';
 import Cart from '@pages/Cart/Cart';
 import OrderSuccess from '../pages/OrderSuccess/OrderSuccess';
-import Search from '../pages/Search/Search'
+import Search from '../pages/Search/Search';
 import OrderList from '../pages/OrderList/OrderList';
+import EditPetInfo from '../pages/EditPetInfo/EditPetInfo';
+import EditMyInfo from '../pages/EditMyInfo/EditMyInfo';
 
 const Router = () => {
   return (
@@ -31,8 +32,8 @@ const Router = () => {
       <Global styles={globalStyle} />
       <Layout>
         <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="/signup/success" element={<SignupSuccess />}/>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup/success" element={<SignupSuccess />} />
           <Route path="/order" element={<PaymentPage />} />
           <Route path="/success" element={<PaymentSuccess />} />
           <Route path="/order/success" element={<OrderSuccess />} />
@@ -43,10 +44,15 @@ const Router = () => {
             element={<KakaoRedirect />}
           />
           <Route path="/my" element={<MyPage />} />
+          <Route path="/my/edit/petinfo" element={<EditPetInfo />} />
+          <Route path="/my/edit/myinfo" element={<EditMyInfo />} />
           <Route path="/search" element={<Search />} />
           <Route path="/orderList" element={<OrderList />} />
-          <Route path="/login/oauth/callback/kakao" element={<KakaoRedirect />} />
-          <Route path="/product/detail"element={<ProductDetailPage />} />
+          <Route
+            path="/login/oauth/callback/kakao"
+            element={<KakaoRedirect />}
+          />
+          <Route path="/product/detail" element={<ProductDetailPage />} />
           <Route path="/petprofile" element={<PetProfilePage />} />
           <Route path="/main" element={<Mainpage />} />
           <Route path="/shop" element={<ShopPage />} />

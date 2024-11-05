@@ -8,7 +8,11 @@ export default function TitleBox({ title, plus }) {
     <div css={styles.container}>
       <div>{title}</div>
       {plus ? (
-        <img src={plusIcon} onClick={() => navigate('/petprofile')} />
+        <img
+          css={styles.plusIcon}
+          src={plusIcon}
+          onClick={() => navigate('/petprofile')}
+        />
       ) : (
         ''
       )}

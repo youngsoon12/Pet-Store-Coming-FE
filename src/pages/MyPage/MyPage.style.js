@@ -12,4 +12,13 @@ export const styles = {
   section: css`
     margin-bottom: 50px;
   `,
+  noPets: css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    gap: 20px;
+  `,
 };

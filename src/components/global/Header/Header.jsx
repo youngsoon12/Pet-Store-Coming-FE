@@ -60,7 +60,7 @@ function Header({ type, title, noIcons }) {
           <img css={styles.icon} src={back}></img>
           <div css={styles.title}>{title}</div>
           {noIcons ? (
-            <div></div>
+            <div style={{ width: '22px' }}></div>
           ) : (
             <div css={styles.icons}>
               <img src={search} alt="검색 버튼" />
