@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 export const styles = {
     container: css`
-        margin-top: 53px;
+        margin-top: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -27,8 +27,11 @@ export const styles = {
         background-color: transparent;
         font-size: 18px;
     `,
+    
 
     searchIcon: css`
+       border: none;
+       background-color: rgb(244, 244, 244);;
         margin-right: 11px;
         font-size: 20px;
     `,

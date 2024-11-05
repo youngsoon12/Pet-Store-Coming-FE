@@ -6,8 +6,7 @@ export const styles = {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        margin-top: 30px; 
-        padding: 0 96px; 
+        margin-top: 20px; 
     `,
 
     categoryTitle: css`
@@ -27,7 +26,7 @@ export const styles = {
     categoryGridContainer: css`
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 120px; 
+        gap: 30px 120px; 
         margin-top: 24px;
         width: 100%;
     `,
@@ -41,7 +40,6 @@ export const styles = {
     `,
 
     itemGridImageContainer: css`
-        text-align: center;
         margin-top: 10px;
     `,
 
@@ -58,12 +56,14 @@ export const styles = {
         margin-bottom: 6px;
         color: #484848;
         font-weight: 800;
+        margin-left: 30px;
     `,
 
     itemGridPrice: css`
         font-size: 14px;
         color: #9A9A9A;
         font-weight: 800;
+        margin-left: 30px;
     `,
 
     itemList: css`
