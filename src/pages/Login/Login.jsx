@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { styles } from './login_page.style.js';
+import { styles } from './Login.style.js';
 
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useMemo } from 'react';
@@ -15,7 +15,7 @@ import kakaoLogo from '@assets/images/login/logo/kakao.svg';
 import HorizontalRole from '@components/login/ui/horizontal_rule';
 
 // 로그인 인풋 관련 import
-import TextInput from '@components/global/input';
+import TextInput from '@components/Global/Input/Input.jsx';
 import { loginInputType } from '@components/login/data/login';
 
 import Container from '@components/login/container';
@@ -28,8 +28,6 @@ import useLoginValidation from '@hooks/auth/useLoginValidation';
 
 import { useSetRecoilState } from 'recoil';
 import { isActhenticatedState } from '@recoil/atom/authState.js';
-import Header from '../../components/global/Header/Header.jsx';
-import ContentsWrapper from '../../components/global/ContentsWrapper/ContentsWrapper.jsx';
 
 function LoginPage() {
   const apiClass = useMemo(() => new LoginAPI(), []);

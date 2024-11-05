@@ -2,15 +2,21 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styles } from './PurchaseModal.style';
-import Button from '../../global/button';
+import Button from '../../global/Button/Button';
 
-export default function PurchaseModal({ discountPrice, initialQuantity, options, closeModal }) {
+export default function PurchaseModal({
+  discountPrice,
+  initialQuantity,
+  options,
+  closeModal,
+}) {
   const [quantity, setQuantity] = useState(initialQuantity || 1);
   const [selectedOption, setSelectedOption] = useState(null);
   const navigate = useNavigate();
 
   // 선택된 옵션의 addPrice를 합산한 총 가격
-  const totalPrice = (discountPrice + (selectedOption?.addPrice || 0)) * quantity;
+  const totalPrice =
+    (discountPrice + (selectedOption?.addPrice || 0)) * quantity;
 
   const handleQuantityChange = (change) => {
     setQuantity((prev) => Math.max(1, prev + change));
@@ -18,7 +24,9 @@ export default function PurchaseModal({ discountPrice, initialQuantity, options,
 
   const handleOptionChange = (e) => {
     const selectedOptionId = e.target.value;
-    const selected = options.find((option) => option.id === parseInt(selectedOptionId, 10));
+    const selected = options.find(
+      (option) => option.id === parseInt(selectedOptionId, 10)
+    );
     setSelectedOption(selected);
   };
 
@@ -40,7 +48,11 @@ export default function PurchaseModal({ discountPrice, initialQuantity, options,
         </div>
 
         <div css={styles.optionSelect}>
-          <select id="options" onChange={handleOptionChange} css={styles.selectBox}>
+          <select
+            id="options"
+            onChange={handleOptionChange}
+            css={styles.selectBox}
+          >
             <option value="">옵션을 선택해주세요</option>
             {options.map((option) => (
               <option key={option.id} value={option.id}>
@@ -51,9 +63,19 @@ export default function PurchaseModal({ discountPrice, initialQuantity, options,
         </div>
 
         <div css={styles.quantityControl}>
-          <button onClick={() => handleQuantityChange(-1)} css={styles.quantityButton}>-</button>
+          <button
+            onClick={() => handleQuantityChange(-1)}
+            css={styles.quantityButton}
+          >
+            -
+          </button>
           <span css={styles.quantityText}>{quantity}</span>
-          <button onClick={() => handleQuantityChange(1)} css={styles.quantityButton}>+</button>
+          <button
+            onClick={() => handleQuantityChange(1)}
+            css={styles.quantityButton}
+          >
+            +
+          </button>
         </div>
 
         <div css={styles.priceInfo}>

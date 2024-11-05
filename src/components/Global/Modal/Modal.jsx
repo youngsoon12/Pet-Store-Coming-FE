@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { styles } from './modal.style';
+import { styles } from './Modal.style';
 
 function Modal({ title, description, actionsBtn }) {
   return (

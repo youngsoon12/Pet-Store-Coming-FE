@@ -2,7 +2,7 @@
 import ListItem from '../../components/MyPage/ListItem/ListItem';
 import PetCard from '../../components/MyPage/PetCard/PetCard';
 import TitleBox from '../../components/MyPage/TitleBox/TitleBox';
-import Button from '@components/global/button';
+import Button from '../../components/global/Button/Button';
 import { styles } from './MyPage.style';
 import { myDatas } from './MyPageData';
 import { useNavigate } from 'react-router-dom';

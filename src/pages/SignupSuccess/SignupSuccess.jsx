@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { styles } from './SignupSuccess.style';
-import Button from '@components/global/button';
+import Button from '../../components/global/Button/Button';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignupSuccess() {
