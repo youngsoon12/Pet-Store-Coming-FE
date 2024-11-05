@@ -7,7 +7,7 @@ import { globalStyle } from '@styles/global';
 import Layout from '@components/global/Layout/Layout';
 
 // 페이지 컴포넌트 import
-import Home from '@pages/Home';
+// import Home from '@pages/Home';
 import SignupSuccess from '../pages/SignupSuccess/SignupSuccess';
 import PaymentPage from '../pages/Payments/Payments';
 import PaymentSuccess from '../pages/PaymentsSuccess/PaymentSuccess';
@@ -32,7 +32,7 @@ const Router = () => {
       <Global styles={globalStyle} />
       <Layout>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Mainpage />} />
           <Route path="/signup/success" element={<SignupSuccess />} />
           <Route path="/order" element={<PaymentPage />} />
           <Route path="/success" element={<PaymentSuccess />} />
@@ -54,7 +54,6 @@ const Router = () => {
           />
           <Route path="/product/detail" element={<ProductDetailPage />} />
           <Route path="/petprofile" element={<PetProfilePage />} />
-          <Route path="/main" element={<Mainpage />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/cart" element={<Cart />} />
         </Routes>

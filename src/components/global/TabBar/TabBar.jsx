@@ -4,26 +4,15 @@ import { activeTabState } from '@/recoil/atom/tabState';
 import { useLocation, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { styles } from './TabBar.style';
-import home from '@assets/images/tab_bar/icons/home.svg';
-import home_active from '@assets/images/tab_bar/icons/home_active.svg';
-import shop from '@assets/images/tab_bar/icons/shop.svg';
-import shop_active from '@assets/images/tab_bar/icons/shop_active.svg';
-import search from '@assets/images/tab_bar/icons/search.svg';
-import search_active from '@assets/images/tab_bar/icons/search_active.svg';
-import my from '@assets/images/tab_bar/icons/my.svg';
-import my_active from '@assets/images/tab_bar/icons/my_active.svg';
+import home from '@assets/images/TabBar/icons/home.svg';
+import home_active from '@assets/images/TabBar/icons/home_active.svg';
+import shop from '@assets/images/TabBar/icons/shop.svg';
+import shop_active from '@assets/images/TabBar/icons/shop_active.svg';
+import search from '@assets/images/TabBar/icons/search.svg';
+import search_active from '@assets/images/TabBar/icons/search_active.svg';
+import my from '@assets/images/TabBar/icons/my.svg';
+import my_active from '@assets/images/TabBar/icons/my_active.svg';
 export default function TabBar({ activeTab }) {
-  // const [activeTab, setActiveTab] = useRecoilState(activeTabState);
-  // const location = useLocation();
-
-  // useEffect(() => {
-  //   const path = location.pathname;
-  //   if (path === '/') setActiveTab('home');
-  //   else if (path === '/shop') setActiveTab('shop');
-  //   else if (path === '/search') setActiveTab('search');
-  //   else if (path === '/my') setActiveTab('my');
-  // }, [location]);
-
   return (
     <nav css={styles.container}>
       <Link to="/" css={styles.menu}>

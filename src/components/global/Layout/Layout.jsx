@@ -93,7 +93,7 @@ function Layout({ children }) {
         break;
       case '/search':
         setActiveTab('search');
-        setType(3);
+        setType(0);
         break;
       case '/my':
         setActiveTab('my');
@@ -118,10 +118,14 @@ function Layout({ children }) {
       case '/sign-up':
         setType(2);
         break;
+      case '/signup/success':
+        setType(1);
+        break;
       case '/cart':
         setType(4);
         setTitle('장바구니');
         setNoIcons(true);
+        break;
       case '/order':
         setType(1);
         break;
@@ -139,9 +143,10 @@ function Layout({ children }) {
         {children}
       </MainLayout>
 
-      {!['/login', '/sign-up', '/cart', '/order', '/product/detail'].includes(
-        location.pathname
-      ) && <TabBar activeTab={activeTab} />}
+      {/* {!['/login', '/sign-up', '/cart', '/order', '/product/detail'].includes(location.pathname) && (
+        <TabBar activeTab={activeTab} />
+      )} */}
+      {activeTab !== '' && <TabBar activeTab={activeTab} />}
 
       {/* 모달 오픈 */}
       {modalConfig.isVisible && (
