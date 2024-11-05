@@ -1,4 +1,3 @@
-
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
@@ -50,7 +49,7 @@ export const styles = {
   `,
   productItem: css`
     width: 200px;
-    text-align: center;
+    text-align: left;
   `,
   productImage: css`
     width: 200px;
@@ -63,15 +62,15 @@ export const styles = {
     font-size: 14px;
     color: #484848;
     font-weight:800;
-    margin-right: 35px;
     margin-bottom: 5px;
+    margin-left: 10px
     
   `,
   productPrice: css`
     font-size: 14px;
     font-weight:800;
-    margin-right: 122px;
     color: #9A9A9A;
+    margin-left: 10px
   `,
   divider: css`
     width: 600px;
@@ -95,7 +94,7 @@ export const styles = {
     margin-top: 24px;
   `,
   itemGridImageContainer: css`
-    text-align: center;
+  //  text-align: center;
     margin-top: 10px;
   `,
   itemGridImage: css`
@@ -108,14 +107,14 @@ export const styles = {
   itemGridTitle: css`
     font-size: 15px;
     margin-bottom: 6px;
-    margin-right: 92px;
     color: #484848;
     font-weight: 800;
+    margin-left: 10px
   `,
   itemGridPrice: css`
     font-size: 14px;
     color: #9A9A9A;
-    margin-right: 189px;
     font-weight: 800;
+    margin-left: 10px
   `,
 };

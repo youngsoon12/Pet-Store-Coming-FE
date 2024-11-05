@@ -8,8 +8,21 @@ import subImage2 from '../../assets/images/mainpage/sub2.jpg';
 import subImage3 from '../../assets/images/mainpage/sub3.jpg';
 import subImage4 from '../../assets/images/mainpage/sub4.jpg';
 import Footer from '../../components/Global/Footer/Footer';
+import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
+
+import {
+  isMainCategoryInfoState,
+  isSubCategoryInfoState,
+} from '../../recoil/atom/category';
+import axios from 'axios';
+
 
 export default function Mainpage() {
+
+  const mainCategory = useRecoilValue(isMainCategoryInfoState);
+  const subCategoryData = useRecoilValue(isSubCategoryInfoState);
+
   const selectedCategory = '취향저격 간식 모음';
 
   const images = {
@@ -22,11 +35,33 @@ export default function Mainpage() {
     ],
   };
 
+  useEffect(() => {
+    console.log(mainCategory);
+    console.log(subCategoryData);
+  }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const mainResponse = await axios
+  //       .get('http://172.16.101.129:8080/category/main-category/list')
+  //       .then((res) => res.data);
+
+  //     const subResponse = await axios
+  //       .get('http://172.16.101.129:8080/category/sub-category/list')
+  //       .then((res) => res.data);
+
+  //     setMainCategory(mainResponse.data);
+  //     setSubCategory(subResponse.data);
+  //   };
+
+  //   fetchData();
+  // }, []);
+
   return (
     <>
       <div css={styles.mainContainer}>
         <Slider />
-        <div css={styles.imageGrid}>
+      <div css={styles.imageGrid}>
           <img
             src={images[selectedCategory][0]}
             alt="main"

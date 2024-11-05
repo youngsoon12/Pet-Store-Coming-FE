@@ -5,6 +5,7 @@ import { Global } from '@emotion/react';
 // Global Component Import
 import { globalStyle } from '@styles/global';
 import Layout from '@components/global/Layout/Layout';
+import axios from 'axios';
 
 // 페이지 컴포넌트 import
 // import Home from '@pages/Home';
@@ -25,8 +26,38 @@ import Search from '../pages/Search/Search';
 import OrderList from '../pages/OrderList/OrderList';
 import EditPetInfo from '../pages/EditPetInfo/EditPetInfo';
 import EditMyInfo from '../pages/EditMyInfo/EditMyInfo';
+import CategoryPage from '../pages/Category/Category';
+import { useEffect } from 'react';
+
+import { isMainCategoryInfoState, isSubCategoryInfoState } from '../recoil/atom/category';
+import { useSetRecoilState } from 'recoil';
 
 const Router = () => {
+
+  const setMainCategory = useSetRecoilState(isMainCategoryInfoState); // 메인 카테고리 정보를 담는 전역 상태 변환 함수 return
+  const setSubCategory = useSetRecoilState(isSubCategoryInfoState); // 서브 카테고리 정보를 담는 전역 상태 변환 함수 return
+
+  // useEffect()를 통해서 페이지 생성 Mount 시 카테고리 정보 response(응답)
+  useEffect(() => {
+    
+    async function getCategoryInfo() {
+      
+      // GET /category/main-category/list Request
+      const mainCategoryResponse = await axios.get(`${process.env.REACT_APP_API_URL}/category/main-category/list`).then(res => res.data);
+      // GET /category/sub-category/list Request
+      const subCategoryResponse = await axios.get(`${process.env.REACT_APP_API_URL}/category/sub-category/list`).then(res => res.data);
+      
+
+      // 전역 상태 데이터 변환
+      setMainCategory([...mainCategoryResponse.data]);
+      setSubCategory([...subCategoryResponse.data]);
+
+    }
+
+    getCategoryInfo();
+
+  }, []);
+
   return (
     <BrowserRouter>
       <Global styles={globalStyle} />
@@ -55,6 +86,10 @@ const Router = () => {
           <Route path="/product/detail" element={<ProductDetailPage />} />
           <Route path="/petprofile" element={<PetProfilePage />} />
           <Route path="/shop" element={<ShopPage />} />
+          {/* <Route path="/shop/:category" element={<ShopPage />} /> */}
+          <Route path="/shop/:category" element={<CategoryPage />} />
+          <Route path="/shop/:category/:subCategory" element={<CategoryPage />} />
+
           <Route path="/cart" element={<Cart />} />
         </Routes>
       </Layout>
