@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import Button from '../global/button/index.jsx';
+import Button from '../Global/Button/Button';
 import { styles } from './CategoryButton.style.js';
 
 export default function CategoryButton({

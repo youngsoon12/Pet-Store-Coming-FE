@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { useNavigate } from 'react-router-dom';
-import { footerOptions } from './data';
+import { footerOptions } from './FooterData';
 import { styles } from './Footer.style';
 
 function Footer() {

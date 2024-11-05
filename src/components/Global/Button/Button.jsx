@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { styles } from './button.style';
+import { styles } from './Button.style';
 
 export default function Button({
   text,
