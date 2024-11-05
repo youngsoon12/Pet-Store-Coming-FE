@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import ContentsWrapper from '../../components/global/ContentsWrapper/ContentsWrapper';
-import Header from '../../components/global/Header/Header';
-import { styles } from './sign_up_page.style';
+import { styles } from './SignUp.style';
 
 function SignUp() {
   const handleSubmit = (event) => {
