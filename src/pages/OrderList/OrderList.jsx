@@ -3,6 +3,8 @@
 import React from 'react';
 import { styles } from './OrderList.style';
 import ListCard from './listCard';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 const productInfo = [
   {
@@ -21,8 +23,23 @@ const productInfo = [
     discountPrice: '73,217',
   },
 ];
-
+const userId = 'a233338f-0ff7-4cb6-ad90-fbf514720088';
 const OrderList = () => {
+  // const orderData = async () => {
+  //   const response = await axios(
+  //     `http://localhost:8080/api/orders/user/a233338f-0ff7-4cb6-ad90-fbf514720088/items`
+  //   );
+  //   return response.data;
+  // };
+
+  // const { data, isLoading, error } = useQuery({
+  //   queryKey: ['orderItems', userId],
+  //   queryFn: orderData,
+  // });
+
+  // if (isLoading) return <p>Loading...</p>;
+  // if (error) return <p>Error: {error.message}</p>;
+  // console.log(data);
   return (
     <>
       <div css={styles.container}>

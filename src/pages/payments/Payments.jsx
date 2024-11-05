@@ -78,11 +78,12 @@ const Payments = () => {
   useEffect(() => {
     setOrderInfo((prev) => ({
       ...prev,
-      userId: 'a233338f-0ff7-4cb6-ad90-fbf514720088',
+      userId: '3e6df3af-d038-4b94-a327-92ab30a88749',
+      productId: 'prod001',
       amount: parseInt(amountList.paymentPrice),
     }));
   }, [amountList]);
-
+  console.log(orderInfo);
   // 핸들러 함수 구간
   const onChangeCheckbox = (e) => {
     const { name, checked } = e.target;
@@ -227,7 +228,6 @@ const Payments = () => {
               )}
             </div>
           </div>
-          {console.log(amountList)}
           {payPriceTogle && (
             <div>
               <div css={styles.payment_horizon} />

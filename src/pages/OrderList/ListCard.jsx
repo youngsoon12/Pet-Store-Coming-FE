@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import { React } from 'react';
 import { styles } from './ListCard.style';
 
 const ListCard = ({ name, price, discountPrice, brand, quantity }) => {

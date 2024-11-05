@@ -46,6 +46,9 @@ export const styles = {
     color: #484848;
     font-size: 13px;
     font-weight: 600;
+    @media (min-width: 480px) {
+      width: 200px;
+    }
     @media (max-width: 480px) {
       font-size: 10px;
     }
@@ -107,6 +110,10 @@ export const styles = {
     outline: none;
     color: gray;
     font-weight: 600;
+    cursor: pointer;
+    :hover {
+      background-color: #f0f0f0;
+    }
     @media (min-width: 480px) {
       font-size: 12px;
       padding: 5px;
@@ -116,7 +123,7 @@ export const styles = {
       padding: 5px;
     }
     @media (max-width: 320px) {
-      font-size: 8px;
+      font-size: 10px;
       padding: 5px;
     }
   `,
