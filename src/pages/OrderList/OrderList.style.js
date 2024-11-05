@@ -6,7 +6,7 @@ export const styles = {
     width: 100%;
     justify-content: center;
     flex-direction: column;
-    margin: 0 auto;
+    margin-bottom: auto;
     min-width: 320px;
     max-width: 600px;
     box-sizing: border-box;
@@ -17,23 +17,7 @@ export const styles = {
   title: css`
     font-weight: 700;
     font-size: 24px;
-    margin-bottom: 18px;
-  `,
-  title_area: css`
-    display: flex;
-    justify-content: space-between;
-  `,
-  warn: css`
-    font-size: 12px;
-    font-weight: 500;
-    color: #5d5d5d;
-    margin-right: 29px;
-    text-align: center;
-  `,
-
-  red_star: css`
-    color: #ed5729;
-    vertical-align: sub;
+    margin-bottom: 40px;
   `,
 
   horizon: css`
