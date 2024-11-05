@@ -44,7 +44,7 @@ function Header({ type, title, noIcons }) {
           <Back handleClick={handleClickIcon} />
           <div css={styles.title}>{title}</div>
           {noIcons ? (
-            <div></div>
+            <div style={{ width: '22px' }}></div>
           ) : (
             <div css={styles.icons}>
               <Search handleClick={handleClickIcon} />
@@ -69,3 +69,4 @@ function Header({ type, title, noIcons }) {
 }
 
 export default Header;
+

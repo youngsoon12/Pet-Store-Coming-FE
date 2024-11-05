@@ -100,6 +100,18 @@ function Layout({ children }) {
         setTitle('MY PAGE');
         setType(3);
         break;
+      case '/my/edit/petinfo':
+        setActiveTab('my');
+        setTitle('우리아이 정보 수정');
+        setType(4);
+        setNoIcons(true);
+        break;
+      case '/my/edit/myinfo':
+        setActiveTab('my');
+        setTitle('내 정보 수정');
+        setType(4);
+        setNoIcons(true);
+        break;
       case '/login':
         setType(2);
         break;
@@ -135,6 +147,7 @@ function Layout({ children }) {
         <TabBar activeTab={activeTab} />
       )} */}
       {activeTab !== '' && <TabBar activeTab={activeTab} />}
+
       {/* 모달 오픈 */}
       {modalConfig.isVisible && (
         <Modal

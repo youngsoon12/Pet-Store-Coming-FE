@@ -8,46 +8,54 @@ import Img2 from '@assets/images/ProductDetail/Img2.jpg';
 import Img3 from '@assets/images/ProductDetail/Img3.gif';
 import Img4 from '@assets/images/ProductDetail/Img4.jpg';
 import Review from '../../components/ProductDetail/Review/Review';
-import Purchase from '../../components/ProductDetail/PurchaseModal/PurchaseModal';
+import PurchaseModal from '../../components/ProductDetail/PurchaseModal/PurchaseModal';
 import PurchaseButton from '../../components/ProductDetail/PurchaseButton/PurchaseButton';
 import InfoSection from '../../components/ProductDetail/InfoSection/InfoSection';
 
 export default function ProductDetailPage() {
+  const products = [
+    {
+      id: 1,
+      sub_category_id: 1,
+      store_id: 1,
+      store_brand: "꼬밍",
+      name: "강아지 유모차",
+      price: 36900,
+      discount_rate: 5,
+      discount_price: 29900,
+      thumbnail_url: Wagon,
+      created_at: "2023-01-01",
+      updated_at: "2023-01-01",
+      options: [
+        { id: 100, productId: 1, description: "사료 100kg(+8000원)", addPrice: 8000 },
+        { id: 200, productId: 1, description: "사료 1000kg(+80000원)", addPrice: 80000 },
+        { id: 500, productId: 1, description: "사료 10000kg(+800000원)", addPrice: 800000 },
+       
+      ],
+    },
+    {
+      id: 2,
+      sub_category_id: 2,
+      store_id: 1,
+      store_brand: "꼬밍",
+      name: "고양이 유모차",
+      price: 39900,
+      discount_rate: 10,
+      discount_price: 35910,
+      thumbnail_url: Wagon,
+      created_at: "2023-01-01",
+      updated_at: "2023-01-01",
+      options: [
+        { id: 101, productId: 2, description: "고양이 사료 500g", addPrice: 5000 },
+        { id: 102, productId: 2, description: "고양이 사료 1kg", addPrice: 9000 },
+      ],
+    },
+  ];
 
-const products = [
-  {
-    id: 1,
-    sub_category_id: 1,
-    store_id: 1,
-    store_brand: "꼬밍",
-    name: "강아지 유모차",
-    price: 36900,
-    discount_rate: 5,
-    discount_price: 29900,
-    thumbnail_url: Wagon,
-    created_at: "2023-01-01",
-    updated_at: "2023-01-01"
-  },
-  {
-    id: 2,
-    sub_category_id: 2,
-    store_id: 1,
-    store_brand: "꼬밍",
-    name: "고양이 유모차",
-    price: 39900,
-    discount_rate: 10,
-    discount_price: 35910,
-    thumbnail_url: Wagon,
-    created_at: "2023-01-01",
-    updated_at: "2023-01-01"
-  }
-];
   const descriptionImages = [Img1, Img2, Img3, Img4];
   const reviewSectionRef = useRef(null);
   const [showAllDescriptions, setShowAllDescriptions] = useState(false);
-  const [showDeliveryInfo, setShowDeliveryInfo] = useState(false);
-  const [showRefundInfo, setShowRefundInfo] = useState(false);
-  const [currentProductIndex, setCurrentProductIndex] = useState(0); 
+  const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -108,13 +116,14 @@ const products = [
         <div css={styles.separatorLine} />
         <InfoSection />
       </div>
-      <PurchaseButton onClick={handlePurchaseButtonClick} /> 
+      <PurchaseButton onClick={handlePurchaseButtonClick} />
 
       {isModalOpen && (
-        <Purchase 
-          discountPrice={product.discount_price} 
-          initialQuantity={quantity} 
-          closeModal={closeModal} 
+        <PurchaseModal
+          options={product.options} 
+          discountPrice={product.discount_price}
+          initialQuantity={quantity}
+          closeModal={closeModal}
         />
       )}
     </>

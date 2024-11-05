@@ -6,7 +6,11 @@ const products = [
     { id: 1, title: '닭고기', price: '₩20,000' },
     { id: 2, title: '닭고기', price: '₩20,000' },
     { id: 3, title: '덴탈껌', price: '₩15,000' },
-    { id: 4, title: '유모차 ', price: '₩100,000' },
+    { id: 4, title: 'wagon 유모차 ', price: '₩100,000' },
+    { id: 5, title: 'wagon 유모차 ', price: '₩100,000' },
+    { id: 6, title: 'wagon 유모차 ', price: '₩100,000' },
+    { id: 7, title: 'wagon 유모차 ', price: '₩100,000' },
+    
 ];
 
 const categories = [
@@ -36,7 +40,6 @@ export default function Category({ searchTerm }) {
             {filteredProducts.length > 0 ? (
                 <>
                     <div css={styles.itemsLabel}>ITEMS</div>
-                    {/* 제품 그리드 컨테이너 사용 */}
                     <div css={styles.productGridContainer}>
                         {filteredProducts.map((product) => (
                             <div key={product.id} css={styles.itemGridImageContainer}>

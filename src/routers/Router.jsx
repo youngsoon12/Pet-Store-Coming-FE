@@ -7,7 +7,7 @@ import { globalStyle } from '@styles/global';
 import Layout from '@components/global/Layout/Layout';
 
 // 페이지 컴포넌트 import
-import Home from '@pages/Home';
+// import Home from '@pages/Home';
 import SignupSuccess from '../pages/SignupSuccess/SignupSuccess';
 import PaymentPage from '../pages/Payments/Payments';
 import PaymentSuccess from '../pages/PaymentsSuccess/PaymentSuccess';
@@ -23,6 +23,8 @@ import Cart from '@pages/Cart/Cart';
 import OrderSuccess from '../pages/OrderSuccess/OrderSuccess';
 import Search from '../pages/Search/Search';
 import OrderList from '../pages/OrderList/OrderList';
+import EditPetInfo from '../pages/EditPetInfo/EditPetInfo';
+import EditMyInfo from '../pages/EditMyInfo/EditMyInfo';
 
 const Router = () => {
   return (
@@ -42,6 +44,8 @@ const Router = () => {
             element={<KakaoRedirect />}
           />
           <Route path="/my" element={<MyPage />} />
+          <Route path="/my/edit/petinfo" element={<EditPetInfo />} />
+          <Route path="/my/edit/myinfo" element={<EditMyInfo />} />
           <Route path="/search" element={<Search />} />
           <Route path="/orderList" element={<OrderList />} />
           <Route

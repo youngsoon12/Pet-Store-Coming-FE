@@ -5,14 +5,20 @@ import Category from '../../components/Search/Category/Category';
 
 export default function SearchPage() {
     const [searchTerm, setSearchTerm] = useState('');
+    const [submittedTerm, setSubmittedTerm] = useState('');
 
     const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
+        setSearchTerm(e.target.value); 
+    };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        setSubmittedTerm(searchTerm); 
     };
 
     return (
         <div css={styles.container}>
-            <div css={styles.searchBox}>
+            <form onSubmit={handleSearchSubmit} css={styles.searchBox}>
                 <input 
                     type="text" 
                     name="keyword" 
@@ -21,9 +27,9 @@ export default function SearchPage() {
                     value={searchTerm}
                     onChange={handleSearchChange}
                 />
-                <span css={styles.searchIcon}>🔍</span>
-            </div>
-            <Category searchTerm={searchTerm} />
+                <button type="submit" css={styles.searchIcon}>🔍</button>
+            </form>
+            <Category searchTerm={submittedTerm} />
         </div>
     );
 }
