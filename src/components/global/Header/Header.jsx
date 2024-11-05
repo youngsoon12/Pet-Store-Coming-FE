@@ -85,3 +85,4 @@ function Header({ type, title, noIcons }) {
 }
 
 export default Header;
+
