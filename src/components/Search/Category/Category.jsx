@@ -12,28 +12,30 @@ const products = [
   { id: 7, title: 'wagon 유모차 ', price: '₩100,000' },
 ];
 
-const categories = [
-  {
-    title: '간식/사료',
-    items: ['영양제', '수제간식', '덴탈껌', '건식사료', '습식사료'],
-  },
-  { title: '유모차', items: ['소형견', '대형견', '다인승', '쿠션'] },
-  {
-    title: '의류',
-    items: ['상의', '원피스', '아우터/우비', '수영복', '악세사리'],
-  },
-  {
-    title: '용품',
-    items: [
-      '미용용품',
-      '장난감',
-      '방석',
-      '위생용품',
-      '산책용품',
-      '가방/카시트',
-    ],
-  },
-];
+// const categories = [
+//   {
+//     title: '간식/사료',
+//     items: ['영양제', '수제간식', '덴탈껌', '건식사료', '습식사료'],
+//   },
+//   { title: '유모차', items: ['소형견', '대형견', '다인승', '쿠션'] },
+//   {
+//     title: '의류',
+//     items: ['상의', '원피스', '아우터/우비', '수영복', '악세사리'],
+//   },
+//   {
+//     title: '용품',
+//     items: [
+//       '미용용품',
+//       '장난감',
+//       '방석',
+//       '위생용품',
+//       '산책용품',
+//       '가방/카시트',
+//     ],
+//   },
+// ];
+
+// const [categories,setCategories] = useState([]);
 
 export default function Category({ searchTerm }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
