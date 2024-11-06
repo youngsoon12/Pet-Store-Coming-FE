@@ -20,10 +20,14 @@ export const styles = {
     align-items: center;
     flex-wrap: nowrap;
     box-sizing: border-box;
+    padding: 0px 20px;
     @media (max-width: 480px) {
       flex-direction: row;
       align-items: flex-start;
       gap: 20px;
+    }
+    @media (max-width: 375px) {
+      padding: 0px;
     }
   `,
 

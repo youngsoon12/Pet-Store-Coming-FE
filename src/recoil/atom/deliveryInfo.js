@@ -10,6 +10,7 @@ export const deliveryInfo = atom({
     receiverName: '',
     phoneNumber: '',
     orderName: '',
+    productList: [],
     amount: 0,
   },
   effects: [

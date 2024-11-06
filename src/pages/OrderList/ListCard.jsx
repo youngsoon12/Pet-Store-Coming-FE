@@ -2,12 +2,13 @@
 import { React } from 'react';
 import { styles } from './ListCard.style';
 
-const ListCard = ({ name, price, discountPrice, brand, quantity }) => {
+const ListCard = ({ name, price, discountPrice, brand, quantity, src }) => {
+  console.log(src);
   return (
     <>
       <div css={styles.wrap}>
         <div css={styles.product_info}>
-          <div css={styles.product_info_img}></div>
+          <img src={src} css={styles.product_info_img} />
           <div css={styles.product_info_text}>
             <div>{brand}</div>
             <div css={styles.product_info_text_name}>{name}</div>

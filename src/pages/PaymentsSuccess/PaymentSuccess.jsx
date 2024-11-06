@@ -1,9 +1,11 @@
 import { React, useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { deliveryInfo } from '../../recoil/atom/deliveryInfo';
 import { useRecoilState } from 'recoil';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import paymentApproveAPI from '../../apis/PaymentSuccess/paymentApproveAPI';
+import getCartListAPI from '../../apis/CartList/getCartListAPI';
+import saveOrderItemAPI from '../../apis/PaymentSuccess/saveOrderItemAPI';
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
@@ -11,45 +13,36 @@ const PaymentSuccess = () => {
   const [orderInfo, setOrderInfo] = useRecoilState(deliveryInfo);
   const [isApproved, setIsApproved] = useState(false); // 승인 여부 상태 추가
 
+  // 장바구니 데이터 가져오기
+  const {
+    data: cartData,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ['cartList01'],
+    queryFn: getCartListAPI,
+  });
+
   // 결제 승인 요청을 처리하는 mutation
   const approvePaymentMutation = useMutation({
-    mutationFn: async (orderData) => {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/api/payments/approve`,
-        orderData
-      );
-      return response.data;
-    },
+    mutationFn: paymentApproveAPI,
     onSuccess: async () => {
-      // orderItem 저장 mutation 호출
-      await saveOrderItemMutation.mutateAsync({
-        orderId: orderInfo.orderId,
-        productId: orderInfo.productId, // 필요한 경우 추가 정보
-        quantity: 2, // 필요한 경우 추가 정보
-      });
+      // orderItem 저장 mutation 호출 (cartData의 전체 아이템을 배열로 전송)
+      if (cartData && cartData.data) {
+        const orderItems = cartData.data.map((item) => ({
+          orderId: orderInfo.orderId,
+          productId: item.productId,
+          quantity: parseInt(item.productQuantity, 10),
+        }));
+
+        await saveOrderItemAPI(orderItems); // 배열로 한 번에 전송
+      }
       sessionStorage.removeItem('deliveryInfo');
       navigate('/order/success', { replace: true });
     },
     onError: (error) => {
       console.error(
         '결제 승인 실패:',
-        error.response ? error.response.data : error.message
-      );
-    },
-  });
-
-  // orderItem 저장을 처리하는 mutation
-  const saveOrderItemMutation = useMutation({
-    mutationFn: async (orderItemData) => {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/api/order-items`,
-        orderItemData
-      );
-      return response.data;
-    },
-    onError: (error) => {
-      console.error(
-        '주문 항목 저장 실패:',
         error.response ? error.response.data : error.message
       );
     },
@@ -83,6 +76,8 @@ const PaymentSuccess = () => {
       setIsApproved(true); // 승인 상태로 변경하여 무한 호출 방지
     }
   }, [orderInfo, approvePaymentMutation, isApproved]);
+
+  if (isLoading) return <div>정보를 불러오는 중입니다...</div>;
 
   return <div>결제 중 입니다.</div>;
 };

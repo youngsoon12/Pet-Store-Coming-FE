@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import React from 'react';
+import { React, useEffect } from 'react';
 import { styles } from './OrderList.style';
 import ListCard from './listCard';
 import { useQuery } from '@tanstack/react-query';
@@ -40,6 +40,12 @@ const OrderList = () => {
   // if (isLoading) return <p>Loading...</p>;
   // if (error) return <p>Error: {error.message}</p>;
   // console.log(data);
+  useEffect(() => {
+    axios(
+      `${import.meta.env.VITE_API_URL}/api/orders/user/3e6df3af-d038-4b94-a327-92ab30a88749/items`
+    ).then((res) => console.log(res));
+  }, []);
+
   return (
     <>
       <div css={styles.container}>
