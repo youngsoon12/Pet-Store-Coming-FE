@@ -5,6 +5,7 @@ import { Global } from '@emotion/react';
 // Global Component Import
 import { globalStyle } from '@styles/global';
 import Layout from '@components/global/Layout/Layout';
+
 import axios from 'axios';
 
 // 페이지 컴포넌트 import
@@ -43,15 +44,22 @@ const Router = () => {
     async function getCategoryInfo() {
       
       // GET /category/main-category/list Request
-      const mainCategoryResponse = await axios.get(`${process.env.REACT_APP_API_URL}/category/main-category/list`).then(res => res.data);
       // GET /category/sub-category/list Request
-      const subCategoryResponse = await axios.get(`${process.env.REACT_APP_API_URL}/category/sub-category/list`).then(res => res.data);
       
+      const mainCategoryResponse = await axios.get("https://mature-leigha-jogyewon-front-4fd9dfe2.koyeb.app/category/main-category/list")
+        .then(res => res.data)
+        .catch(err => console.log(err));
+
+      const subCategoryResponse = await axios.get("https://mature-leigha-jogyewon-front-4fd9dfe2.koyeb.app/category/sub-category/list")
+        .then(res => res.data)
+        .catch(err => console.log(err));
+
+      mainCategoryResponse && setMainCategory([...mainCategoryResponse.data]);
+      subCategoryResponse && setSubCategory([...subCategoryResponse.data]);
 
       // 전역 상태 데이터 변환
-      setMainCategory([...mainCategoryResponse.data]);
-      setSubCategory([...subCategoryResponse.data]);
-
+      // setMainCategory([...mainCategoryResponse.data]);
+      // setSubCategory([...subCategoryResponse.data]);
     }
 
     getCategoryInfo();
@@ -86,9 +94,9 @@ const Router = () => {
           <Route path="/product/detail" element={<ProductDetailPage />} />
           <Route path="/petprofile" element={<PetProfilePage />} />
           <Route path="/shop" element={<ShopPage />} />
-          {/* <Route path="/shop/:category" element={<ShopPage />} /> */}
-          <Route path="/shop/:category" element={<CategoryPage />} />
-          <Route path="/shop/:category/:subCategory" element={<CategoryPage />} />
+          <Route path="/shop/:mainId" element={<CategoryPage />} />
+          <Route path="/shop/:mainId/:subCategory" element={<CategoryPage />} />
+          {/* <Route path="/shop/:category/:subCategory" element={<CategoryPage />} /> */}
 
           <Route path="/cart" element={<Cart />} />
         </Routes>
