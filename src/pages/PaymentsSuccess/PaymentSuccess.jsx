@@ -3,9 +3,9 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { deliveryInfo } from '../../recoil/atom/deliveryInfo';
 import { useRecoilState } from 'recoil';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import paymentApproveAPI from '../../apis/PaymentSuccess/paymentApprovAPI';
 import getCartListAPI from '../../apis/CartList/GetCartListAPI';
-import saveOrderItemAPI from '../../apis/PaymentSuccess/saveOrderIteAPI';
+import saveOrderItemAPI from '../../apis/PaymentSuccess/saveOrderItemAPI';
+import paymentApproveAPI from '../../apis/PaymentSuccess/abc';
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
