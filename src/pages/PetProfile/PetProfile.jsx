@@ -1,19 +1,21 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../../components/global/Button/Button';
 import Camera from '../../assets/images/PetProfile/camera.svg';
 import { styles } from './PetProfile.style';
 import CategoryButton from '../../components/CategoryButton/CategoryButton';
+import TextInput from '../../components/Global/Input/Input';
+import { useRecoilValue } from 'recoil';
+import axios from 'axios';
 
 export default function PetProfilePage() {
-  const [gender, setGender] = useState('male');
+  // const [gender, setGender] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState({
     snack: [],
     clothes: [],
     stroller: [],
     supplies: [],
   });
-  const [selectedImage, setSelectedImage] = useState(null);
   // 선택된 카테고리의 총 개수 계산
   const totalSelectedCategories = Object.values(selectedCategories).reduce(
     (total, categoryArray) => total + categoryArray.length,
@@ -76,7 +78,125 @@ export default function PetProfilePage() {
       ],
     },
   ];
+  // useEffect(() => {
+  const userId = '22ef481b-11e6-487c-b5e1-257efb4895a2';
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = ('0' + (today.getMonth() + 1)).slice(-2);
+  const day = ('0' + today.getDate()).slice(-2);
 
+  const todayString = year + '-' + month + '-' + day;
+  // }, []);
+
+  const [canidaeRequest, setCanidaeRequest] = useState({
+    canidae: {
+      userId: userId,
+      name: '',
+      birth: '',
+      breed: '',
+      gender: 1,
+      weight: null,
+    },
+    interestProduct: [],
+  });
+
+  // canidaeRequest 구조분해할당
+  const {
+    canidae: { name, birth, breed, gender, weight },
+    interestProduct,
+  } = canidaeRequest;
+
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+    setCanidaeRequest((prev) => ({
+      ...prev,
+      canidae: {
+        ...prev.canidae,
+        [name]: name === 'weight' ? parseFloat(value) : value,
+      },
+    }));
+  };
+
+  // 이미지 업로드
+  const [selectedImage, setSelectedImage] = useState(null); // 화면에 보여주는 용도
+  const [profileImage, setProfileImage] = useState(''); // 서버에 보내는 용도
+  const handleImgUpload = async (e) => {
+    const file = e.target.files[0];
+    console.log(e.target.files[0]);
+
+    if (file) {
+      setProfileImage(e.target.files[0]);
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+
+      console.log(reader);
+    }
+  };
+  // 관심 카테고리
+  // const subCategory = useRecoilValue()
+
+  // useEffect(() => {
+  //   console.log(canidaeRequest);
+  // }, [canidaeRequest]);
+
+  // 서버에 반려견 등록
+  const registerPet = async (e) => {
+    const formData = new FormData();
+
+    e.preventDefault();
+
+    formData.append(
+      'canidaeRequest',
+      new Blob([JSON.stringify(canidaeRequest)], { type: 'application/json' })
+    );
+
+    if (profileImage) {
+      formData.append('profilImage', profileImage);
+    }
+
+    for (const [key, value] of formData.entries()) {
+      console.log(`[ ${key}: ]`);
+      console.log(value);
+    }
+
+    const baseURL = import.meta.env.VITE_API_URL;
+    const url = `${baseURL}/canidae/insert`;
+
+    try {
+      const response = await axios.post(url, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    // const headers = { 'Content-type': 'multipart/form-data' };
+    // async function postPet() {
+    //   for (let key of formData.keys()) {
+    //     console.log(`key : ${key}`);
+    //   }
+
+    //   for (let value of formData.values()) {
+    //     console.log(`value : ${value}`);
+    //   }
+
+    //   try {
+    //     const response = await axios.post(url, formData, {
+    //       headers: {
+    //         'Content-type': 'multipart/form-data',
+    //       },
+    //     });
+    //     console.log(response.data);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // }
+    // postPet();
+  };
   return (
     <div css={styles.container}>
       <input
@@ -84,7 +204,7 @@ export default function PetProfilePage() {
         id="profileImg"
         style={{ display: 'none' }}
         accept="image/*"
-        onChange={handleImageChange}
+        onChange={handleImgUpload}
       />
       <img
         src={selectedImage || Camera}
@@ -95,13 +215,34 @@ export default function PetProfilePage() {
 
       <div css={styles.inputContainer}>
         <label css={styles.label}>이름을 입력해주세요</label>
-        <input type="text" css={styles.input} placeholder="ex.꼬미" />
+        <input
+          type="text"
+          css={styles.input}
+          placeholder="ex.꼬미"
+          name="name"
+          value={canidaeRequest.canidae.name}
+          onChange={handleChangeInput}
+        />
 
         <label css={styles.label}>견종을 등록하세요</label>
-        <input type="text" css={styles.input} placeholder="ex.말티즈" />
+        <input
+          type="text"
+          css={styles.input}
+          placeholder="ex.말티즈"
+          name="breed"
+          value={canidaeRequest.canidae.breed}
+          onChange={handleChangeInput}
+        />
 
         <label css={styles.label}>생일을 입력해주세요</label>
-        <input type="date" css={styles.input} />
+        <input
+          type="date"
+          max={todayString}
+          css={styles.input}
+          name="birth"
+          value={canidaeRequest.canidae.birth}
+          onChange={handleChangeInput}
+        />
 
         <label css={styles.label}>성별을 선택해주세요</label>
         <div css={styles.genderButtonContainer}>
@@ -109,8 +250,16 @@ export default function PetProfilePage() {
             text="남아"
             width={220}
             height={50}
-            onClick={() => setGender('male')}
-            theme={gender === 'male' ? 'black' : 'white'}
+            onClick={() =>
+              setCanidaeRequest((prev) => ({
+                ...prev,
+                canidae: {
+                  ...prev.canidae,
+                  gender: 1,
+                },
+              }))
+            }
+            theme={gender ? 'black' : 'white'}
             fontSize={16}
             fontWeight={500}
           />
@@ -118,15 +267,30 @@ export default function PetProfilePage() {
             text="여아"
             width={220}
             height={50}
-            onClick={() => setGender('female')}
-            theme={gender === 'female' ? 'black' : 'white'}
+            onClick={() =>
+              setCanidaeRequest((prev) => ({
+                ...prev,
+                canidae: {
+                  ...prev.canidae,
+                  gender: 0,
+                },
+              }))
+            }
+            theme={!gender ? 'black' : 'white'}
             fontSize={16}
             fontWeight={500}
           />
         </div>
 
         <label css={styles.label}>몸무게를 입력해주세요</label>
-        <input type="text" css={styles.input} placeholder="ex.3.5kg" />
+        <input
+          type="number"
+          css={styles.input}
+          placeholder="ex.3.5"
+          name="weight"
+          value={canidaeRequest.canidae.weight}
+          onChange={handleChangeInput}
+        />
 
         <label css={styles.titleLabel}>
           우리아이에게 가장 필요한 제품이 있나요? 관심있는 카테고리를
@@ -153,6 +317,7 @@ export default function PetProfilePage() {
             theme="black"
             fontSize={16}
             fontWeight={500}
+            onClick={registerPet}
           />
         </div>
       </div>
