@@ -8,6 +8,11 @@ export const styles = {
       align-items: center;
       margin-top: 30px;
       margin-bottom: 30px;
+
+      width: 100%;
+      height: 100px;
+
+      background-image: url(http://localhost:8080/upload/main-category/thumbnail/20241031165304_city-g8626e9130_1920.jpg);
     `;
   },
   headerTitle() {

@@ -90,8 +90,8 @@ function LoginPage() {
         const authCode = event.data.code;
 
         try {
-          const accessToken = await apiClass.fetchAccessToken(authCode);
-          await apiClass.fetchUserInfo(accessToken);
+          const accessToken = await apiClass.fetchKakaoToken(authCode);
+          await apiClass.fetchSocialLogin(accessToken);
         } catch (error) {
           console.log(error);
         }
@@ -120,7 +120,7 @@ function LoginPage() {
           color="#351D1D"
           loginText="카카오 로그인"
           platformIcon={<Icon src={kakaoLogo} alt="kakao_logo" />}
-          // onClick={handleKakaoLogin}
+          onClick={handleKakaoLogin}
         />
       </Container>
 
