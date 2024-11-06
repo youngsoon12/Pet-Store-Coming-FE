@@ -4,49 +4,60 @@ import { styles } from './Cart.style';
 
 import empty_cart from '@assets/images/Cart/empty_cart.svg';
 import Button from '@components/Cart/Button/Button';
-import { cartItems } from './CartData';
 import React, { useState, useEffect } from 'react';
 import CheckBox from '../../components/Cart/CheckBox/CheckBox';
+import getCartListAPI from '../../apis/CartList/GetCartListAPI';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Cart() {
+  const { data: { data: cartData = [] } = {}, isLoading } = useQuery({
+    queryKey: ['cartItems'],
+    queryFn: getCartListAPI,
+  });
   const navigate = useNavigate();
-  const [newCartItems, setNewCartItems] = useState(cartItems);
+  const [newCartItems, setNewCartItems] = useState([]);
   const [checkItems, setCheckItems] = useState([]);
+
+  // cartData 초기화
+  useEffect(() => {
+    if (cartData.length) {
+      setNewCartItems(cartData);
+    }
+  }, [cartData]);
 
   const checkItemHandler = (id, isChecked) => {
     setCheckItems((prev) =>
-      isChecked ? [...prev, id] : checkItems.filter((item) => item !== id)
+      isChecked ? [...prev, id] : prev.filter((item) => item !== id)
     );
   };
-  useEffect(() => {
-    console.log(`check된 item들: ${checkItems}`);
-  }, [checkItems]);
 
   const allCheckedHandler = (e) => {
-    setCheckItems(e.target.checked ? cartItems.map((item) => item.id) : []);
-
-    console.log(`allCheck = `, e.target.checked);
+    setCheckItems(
+      e.target.checked ? newCartItems.map((item) => item.productId) : []
+    );
   };
 
   // 수량 업데이트 함수
   const handleQuantityChange = (id, newQuantity) => {
     setNewCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id ? { ...item, quantity: Math.max(newQuantity, 1) } : item
+        item.productId === id
+          ? {
+              ...item,
+              productQuantity: Math.max(
+                parseInt(newQuantity, 10),
+                1
+              ).toString(),
+            }
+          : item
       )
     );
-  };
-
-  // 장바구니에서 해당 상품 삭제
-  const deleteItem = (id) => {
-    setNewCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-    setCheckItems((prevItems) => prevItems.filter((item) => item !== id));
   };
 
   // 선택된 상품 삭제
   const deleteCheckedItem = () => {
     setNewCartItems((prevItems) =>
-      prevItems.filter((item) => !checkItems.includes(item.id))
+      prevItems.filter((item) => !checkItems.includes(item.productId))
     );
     setCheckItems([]);
   };
@@ -58,10 +69,11 @@ export default function Cart() {
   const calculateTotal = () => {
     const total = newCartItems.reduce(
       (acc, item) => {
-        if (checkItems.includes(item.id)) {
-          acc.totalCnt += item.quantity;
-          acc.totalPrice += item.price * item.quantity;
-          acc.totalDiscountPrice += item.discountPrice * item.quantity;
+        if (checkItems.includes(item.productId)) {
+          const quantity = parseInt(item.productQuantity, 10);
+          acc.totalCnt += quantity;
+          acc.totalPrice += item.productPrice * quantity;
+          acc.totalDiscountPrice += item.productDiscountPrice * quantity;
         }
         return acc;
       },
@@ -78,96 +90,104 @@ export default function Cart() {
     calculateTotal();
   }, [checkItems, newCartItems]);
 
+  if (isLoading) {
+    return <div>장바구니 불러오는 중 ...</div>;
+  }
+
   return (
     <>
-      {cartItems?.length ? (
+      {newCartItems.length ? (
         <>
           <div css={styles.container(false)}>
             <div css={styles.head}>
               <CheckBox
-                id={'all'}
+                id="all"
                 checkItemHandler={allCheckedHandler}
-                checked={checkItems.length === cartItems.length ? true : false}
-                labelText={'전체선택'}
+                checked={checkItems.length === newCartItems.length}
+                labelText="전체선택"
               />
               <div onClick={deleteCheckedItem}>선택삭제</div>
             </div>
-            {newCartItems.map((item) => {
-              return (
-                <div key={item.id} css={styles.itemBox}>
-                  <div>
-                    <CheckBox
-                      id={item.id}
-                      checkItemHandler={checkItemHandler}
-                      checked={checkItems.includes(item.id)}
-                      name={'selected'}
-                      value={item.name}
-                    />
-                    <Button
-                      text={'삭제'}
-                      onClick={() => deleteItem(item.id)}
-                      fontSize={'12px'}
-                    ></Button>
-                  </div>
-                  <div>
-                    <div css={styles.infoBox}>
-                      <div css={styles.name}>{item.name}</div>
-                      <div>{item.price.toLocaleString()}원</div>
-                      <div css={styles.discountBox}>
-                        [{item.discountRate}%]{' '}
-                        {item.discountPrice.toLocaleString()}원
-                      </div>
-                      <div css={styles.quantityBox}>
-                        <button
-                          css={styles.minusBtn}
-                          onClick={() =>
-                            handleQuantityChange(item.id, item.quantity - 1)
-                          }
-                        >
-                          -
-                        </button>
-                        <input
-                          value={item.quantity}
-                          onChange={(e) =>
-                            handleQuantityChange(
-                              item.id,
-                              parseInt(e.target.value, 10) || 1
-                            )
-                          }
-                          css={styles.quantityInput}
-                        ></input>
-                        <button
-                          css={styles.plusBtn}
-                          onClick={() =>
-                            handleQuantityChange(item.id, item.quantity + 1)
-                          }
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                    <img
-                      src={item.thumbnail_url}
-                      alt={item.thumbnail_alt}
-                      css={styles.thumbnail}
-                    ></img>
-                  </div>
-                  <div css={styles.priceBox}>
-                    <div>
-                      <strong>
-                        {(item.discountPrice * item.quantity).toLocaleString()}
-                      </strong>
-                      원
-                    </div>
-                    <Button
-                      text={'주문하기'}
-                      type={'black'}
-                      fontWeight={'bold'}
-                    />
-                  </div>
+            {newCartItems.map((item) => (
+              <div key={item.productId} css={styles.itemBox}>
+                <div>
+                  <CheckBox
+                    id={item.productId}
+                    checkItemHandler={(id, isChecked) =>
+                      checkItemHandler(item.productId, isChecked)
+                    }
+                    checked={checkItems.includes(item.productId)}
+                    name="selected"
+                    value={item.productName}
+                  />
+                  <Button
+                    text="삭제"
+                    onClick={() => deleteCheckedItem(item.productId)}
+                    fontSize="12px"
+                  />
                 </div>
-              );
-            })}
+                <div>
+                  <div css={styles.infoBox}>
+                    <div css={styles.name}>{item.productName}</div>
+                    <div>{item.productPrice.toLocaleString()}원</div>
+                    <div css={styles.discountBox}>
+                      {item.productDiscountPrice.toLocaleString()}원
+                    </div>
+                    <div css={styles.quantityBox}>
+                      <button
+                        css={styles.minusBtn}
+                        onClick={() =>
+                          handleQuantityChange(
+                            item.productId,
+                            parseInt(item.productQuantity) - 1
+                          )
+                        }
+                      >
+                        -
+                      </button>
+                      <input
+                        value={item.productQuantity}
+                        onChange={(e) =>
+                          handleQuantityChange(
+                            item.productId,
+                            parseInt(e.target.value, 10) || 1
+                          )
+                        }
+                        css={styles.quantityInput}
+                      />
+                      <button
+                        css={styles.plusBtn}
+                        onClick={() =>
+                          handleQuantityChange(
+                            item.productId,
+                            parseInt(item.productQuantity) + 1
+                          )
+                        }
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                  <img
+                    src={item.productImageUrl}
+                    alt={item.productName}
+                    css={styles.thumbnail}
+                  />
+                </div>
+                <div css={styles.priceBox}>
+                  <div>
+                    <strong>
+                      {(
+                        item.productDiscountPrice *
+                        parseInt(item.productQuantity)
+                      ).toLocaleString()}
+                    </strong>
+                    원
+                  </div>
+                  <Button text="주문하기" type="black" fontWeight="bold" />
+                </div>
+              </div>
+            ))}
             <div css={styles.totalPriceBox}>
               <div>
                 <div css={styles.title}>주문 상품수</div>
@@ -175,19 +195,8 @@ export default function Cart() {
               </div>
               <div>
                 <div css={styles.title}>총 주문금액</div>
-                <div>
-                  {totalPrice > 0 && (
-                    <span css={styles.totalPrice}>
-                      {totalPrice.toLocaleString()}
-                    </span>
-                  )}
-                  {totalDiscountPrice.toLocaleString()}원
-                </div>
+                <div>{totalPrice.toLocaleString()}원</div>
               </div>
-              {/* <div>
-            <div>총 배송비</div>
-            <div>{checkItems.length}원</div>
-            </div> */}
               <div>
                 <div css={styles.title}>최종 결제금액</div>
                 <div>{totalDiscountPrice.toLocaleString()}원</div>
@@ -204,12 +213,12 @@ export default function Cart() {
         </>
       ) : (
         <div css={styles.container(true)}>
-          <img src={empty_cart} alt="빈 장바구니 이미지"></img>
+          <img src={empty_cart} alt="빈 장바구니 이미지" />
           <div css={styles.phrase}>장바구니에 담긴 상품이 없습니다</div>
           <Button
-            text={'상품 담으러 가기'}
+            text="상품 담으러 가기"
             fontSize={16}
-            fontWeight={'bold'}
+            fontWeight="bold"
             width={200}
             onClick={() => navigate('/shop')}
           />
