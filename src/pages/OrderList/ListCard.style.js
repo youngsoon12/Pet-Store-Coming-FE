@@ -9,6 +9,20 @@ export const styles = {
     margin: 0 auto;
   `,
 
+  status_ok: css`
+    margin: 5px;
+    color: #191919;
+    font-weight: 800;
+    font-size: 16px;
+  `,
+
+  status_fail: css`
+    margin: 5px;
+    color: #ed5729;
+    font-weight: 800;
+    font-size: 16px;
+  `,
+
   product_info: css`
     display: flex;
     width: 100%;
@@ -57,6 +71,7 @@ export const styles = {
   product_info_text_discountPrice: css`
     color: #ed5729;
     font-size: 13px;
+    min-width: 150px;
     font-weight: 600;
     @media (max-width: 480px) {
       font-size: 10px;
@@ -91,9 +106,9 @@ export const styles = {
     margin-top: 5px;
     gap: 10px;
     margin-left: auto;
-    @media (min-width: 480px) {
+    /* @media (min-width: 480px) {
       margin-top: 10px;
-    }
+    } */
     @media (max-width: 480px) {
       width: 60px;
       height: 60px;
@@ -113,6 +128,12 @@ export const styles = {
     cursor: pointer;
     :hover {
       background-color: #f0f0f0;
+    }
+    &:disabled {
+      background-color: #f9f9f9;
+      color: lightgray;
+      border: 1px solid #ddd;
+      cursor: not-allowed; // 포인터 변경으로 비활성화 상태 표시
     }
     @media (min-width: 480px) {
       font-size: 12px;

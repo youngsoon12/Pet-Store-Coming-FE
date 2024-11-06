@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const tosstApproveAPI = async (orderData) => {
+export const tossApproveAPI = async (orderData) => {
   const response = await axios.post(
     `${import.meta.env.VITE_API_URL}/api/payments/approve`,
     orderData

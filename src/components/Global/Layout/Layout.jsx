@@ -36,7 +36,6 @@ function Layout({ children }) {
 
   const location = useLocation(); // location 정보 가져오기
   const navigate = useNavigate();
-
   // // 로그인 이후 쿠키 만료 시간 계산
   // useEffect(() => {
   //   if (isActhenticated) {
@@ -131,6 +130,8 @@ function Layout({ children }) {
         break;
       case '/orderList':
         setType(4);
+        setActiveTab();
+        setTitle('주문 내역');
         break;
     }
   }, [location]);

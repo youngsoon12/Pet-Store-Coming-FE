@@ -26,7 +26,7 @@ export class LoginAPI {
     try {
       const res = await axios
         .get(
-          `http://localhost:8080/auth/sign-in?email=${email}&password=${password}&deviceId=${deviceId}`
+          `${import.meta.env.VITE_API_URL}/auth/sign-in?email=${email}&password=${password}&deviceId=${deviceId}`
         )
         .then((res) => res.data);
 
@@ -81,7 +81,7 @@ export class LoginAPI {
     try {
       return await axios
         .get(
-          `http://localhost:8080/auth/social/kakao/request/token?code=${code}`
+          `${import.meta.env.VITE_API_URL}/auth/social/kakao/request/token?code=${code}`
         )
         .then((res) => res.data);
     } catch (error) {
@@ -94,9 +94,9 @@ export class LoginAPI {
   async fetchSocialLogin(data) {
     try {
       const deviceId = getOrCreateDeviceId();
-      const response = await axios
+      const res = await axios
         .get(
-          `http://localhost:8080/auth/social/kakao/login?device_id=${deviceId}`,
+          `${import.meta.VITE_API_URL}/auth/social/kakao/login?device_id=${deviceId}`,
           {
             headers: {
               Authorization: `Bearer ${data.accessToken}`,
@@ -128,6 +128,7 @@ export class LoginAPI {
         // secure: true, 배포 시 무조건 주석 풀기
         maxAge: Math.floor(res.expirationTime / 1000), // 토큰 만료 시간 설정
       });
+      return true;
     } catch (error) {
       if ('response' in error) {
         const { errorCode, id } = error.response.data; // 에러 코드 가져오기

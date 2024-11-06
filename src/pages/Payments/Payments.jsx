@@ -21,6 +21,7 @@ const Payments = () => {
     queryFn: getCartListAPI,
   });
 
+
   // state 구간
   const [amountList, setAmountList] = useState({
     totalAmount: '',

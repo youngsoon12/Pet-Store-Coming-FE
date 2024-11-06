@@ -47,7 +47,7 @@ const Router = () => {
           <Route path="/my/edit/petinfo" element={<EditPetInfo />} />
           <Route path="/my/edit/myinfo" element={<EditMyInfo />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/orderList" element={<OrderList />} />
+          <Route path="/my/order-history" element={<OrderList />} />
           <Route
             path="/login/oauth/callback/kakao"
             element={<KakaoRedirect />}
