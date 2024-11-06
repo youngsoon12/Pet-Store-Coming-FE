@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { styles } from './PurchaseModal.style';
 import Button from '../../global/Button/Button';
 
+
 export default function PurchaseModal({
   discountPrice,
-  initialQuantity,
   options,
   closeModal,
 }) {
-  const [quantity, setQuantity] = useState(initialQuantity || 1);
+  const [quantity, setQuantity] = useState(1);
   const [selectedOption, setSelectedOption] = useState(null);
   const navigate = useNavigate();
 
@@ -35,11 +35,6 @@ export default function PurchaseModal({
     closeModal();
   };
 
-  const handleBuyNow = () => {
-    navigate('/order');
-    closeModal();
-  };
-
   return (
     <div css={styles.overlay} onClick={closeModal}>
       <div css={styles.controlsContainer} onClick={(e) => e.stopPropagation()}>
@@ -54,11 +49,14 @@ export default function PurchaseModal({
             css={styles.selectBox}
           >
             <option value="">옵션을 선택해주세요</option>
+            
             {options.map((option) => (
               <option key={option.id} value={option.id}>
                 {option.description}
+                {option.addPrice !== 0 ? option.addPrice : " | 변동 없음"}
               </option>
             ))}
+            
           </select>
         </div>
 
@@ -94,19 +92,11 @@ export default function PurchaseModal({
         <div css={styles.buttonContainer}>
           <Button
             text="장바구니 담기"
-            theme="reverse"
-            width={259}
+            theme="black"
+            width={500}
             height={52}
             fontWeight={700}
             onClick={handleAddToCart}
-          />
-          <Button
-            text="바로 구매하기"
-            theme="black"
-            width={259}
-            height={52}
-            fontWeight={700}
-            onClick={handleBuyNow}
           />
         </div>
       </div>

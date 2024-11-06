@@ -26,22 +26,7 @@ export default function Slider() {
 
   }, [mainCategories, currentIndex]);
 
-  
-  // const slides = (mainCategories || []).map((category, index) => {
-  //   console.log('Category data:', category); 
-  //   return {
-  //     image: category.thumbnailUrl,
-  //     name: category.name, 
-  //     subjet: 'MD’s pick',
-  
-  //     description: index === 0
-  //       ? 
-  //       : index === 1
-  //       ? 
-  //       : 
-  //     category: category.slug,  // category slug는 현재 경로에서 사용되지 않음
-  //   };
-  // });
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -54,7 +39,10 @@ export default function Slider() {
   const handleClickCategory = (category) => {
     console.log("category")
     console.log(category)
-    navigate(`/shop/${category.slug}`, { state: category.id });
+    navigate(`/shop/${category.slug}`, { state: {
+      main: category.id,
+      sub: "",
+    } });
   };
 
   return (
@@ -81,42 +69,6 @@ export default function Slider() {
         </div>
       ) }
 
-       {/* <div 
-        css={[
-          styles.slide,
-          slides.index === currentIndex ? styles.activeSlide : styles.inactiveSlide,
-        ]}
-      >
-
-      </div> */}
-      
-      
-       {/* {slides.length > 0 ? (
-          slides.map((slide, index) => (
-          <div
-            key={index}
-            css={[
-              styles.slide,
-              index === currentIndex ? styles.activeSlide : styles.inactiveSlide,
-            ]}
-            style={{ backgroundImage: `url(${slide.image})` }}
-          >
-            <div css={styles.textContainer}>
-              <h2>{slide.subjet}</h2>
-              <h3>{slide.title}</h3>
-              <p css={styles.productDescription}>{slide.description}</p>
-              <button
-                css={styles.categoryButton}
-                onClick={() => handleClickCategory(slide)}  
-              >
-                {slide.name} &gt;
-              </button>
-            </div>
-          </div>
-        ))
-      ) : (
-        <p>슬라이드를 불러오는 중입니다...</p>
-      )} */}
     </div>
   );
 }
