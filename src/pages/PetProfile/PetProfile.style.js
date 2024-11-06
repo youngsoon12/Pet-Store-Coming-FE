@@ -54,4 +54,12 @@ export const styles = {
     margin-top: 25px;
     margin-left: 180px;
   `,
+  notice: css`
+    color: #9a9a9a;
+    margin-top: 10px;
+    & > strong {
+      color: #171717;
+      font-weight: bold;
+    }
+  `,
 };

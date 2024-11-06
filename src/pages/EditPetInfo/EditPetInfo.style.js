@@ -5,13 +5,17 @@ export const styles = {
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* justify-content: center; */
     padding: 20px 0;
+    width: 100%;
   `,
 
   label: css`
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 15px;
     margin-top: 35px;
+    font-weight: bold;
+    color: #9a9a9a;
   `,
   imgContainer: css`
     width: 190px;
@@ -44,10 +48,10 @@ export const styles = {
     margin-bottom: 35px;
     margin-top: 15px;
   `,
-  titleLabel: css`
-    margin-top: 15px;
-    display: flex;
-  `,
+  // titleLabel: css`
+  //   margin-top: 15px;
+  //   display: flex;
+  // `,
   registerButton: css`
     margin-top: 25px;
     margin-left: 180px;

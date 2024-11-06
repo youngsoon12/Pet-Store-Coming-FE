@@ -7,64 +7,17 @@ import CategoryButton from '@components/CategoryButton/CategoryButton';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import {
+  isMainCategoryInfoState,
+  isSubCategoryInfoState,
+} from '@recoil/atom/category';
 
 export default function PetProfilePage() {
   // const [gender, setGender] = useState(true);
-  const [selectedCategories, setSelectedCategories] = useState({
-    snack: [],
-    clothes: [],
-    stroller: [],
-    supplies: [],
-  });
-  // 선택된 카테고리의 총 개수 계산
-  const totalSelectedCategories = Object.values(selectedCategories).reduce(
-    (total, categoryArray) => total + categoryArray.length,
-    0
-  );
-  const handleCategorySelect = (category, categoryType) => {
-    setSelectedCategories((prev) => {
-      const isSelected = prev[categoryType].includes(category);
-      return {
-        ...prev,
-        [categoryType]: isSelected
-          ? prev[categoryType].filter((item) => item !== category)
-          : [...prev[categoryType], category],
-      };
-    });
-  };
 
-  const categoryData = [
-    {
-      label: '간식/사료',
-      type: 'snack',
-      items: ['영양제', '수제간식', '덴탈껌', '건식사료', '습식사료'],
-    },
-    {
-      label: '의류',
-      type: 'clothes',
-      items: ['상의', '원피스', '아우터/우비', '수영복', '악세사리'],
-    },
-    {
-      label: '유모차',
-      type: 'stroller',
-      items: ['소형견', '대형견', '다인승', '쿠션'],
-    },
-    {
-      label: '용품',
-      type: 'supplies',
-      items: [
-        '미용용품',
-        '장난감',
-        '방석',
-        '위생용품',
-        '산책용품',
-        '가방/카시트',
-        '급식기/급수',
-      ],
-    },
-  ];
-
+  ///////////////////////////////////////////////////////////////
   // api 연동
+
   const navigate = useNavigate();
 
   const userId = '22ef481b-11e6-487c-b5e1-257efb4895a2';
@@ -103,6 +56,34 @@ export default function PetProfilePage() {
     }));
   };
 
+  // 관심 카테고리 //
+  // 카테고리 정보 가져오기 (전역 state)
+  const mainCategory = useRecoilValue(isMainCategoryInfoState);
+  const subCategory = useRecoilValue(isSubCategoryInfoState);
+
+  const handleCategorySelect = (categoryId) => {
+    setCanidaeRequest((prevRequest) => {
+      const isAlreadySelected =
+        prevRequest.interestProduct.includes(categoryId);
+
+      // 5개 초과 선택 방지
+      if (!isAlreadySelected && prevRequest.interestProduct.length >= 5) {
+        alert('최대 5개까지만 선택할 수 있습니다.');
+        return prevRequest;
+      }
+
+      // 선택 또는 해제 처리
+      const updatedInterestProduct = isAlreadySelected
+        ? prevRequest.interestProduct.filter((id) => id !== categoryId)
+        : [...prevRequest.interestProduct, categoryId];
+
+      return {
+        ...prevRequest,
+        interestProduct: updatedInterestProduct,
+      };
+    });
+  };
+
   // 이미지 업로드
   const [selectedImage, setSelectedImage] = useState(null); // 화면에 보여주는 용도
   const [profileImage, setProfileImage] = useState(''); // 서버에 보내는 용도
@@ -127,12 +108,6 @@ export default function PetProfilePage() {
       console.log(reader);
     }
   };
-  // 관심 카테고리
-  // const subCategory = useRecoilValue()
-
-  // useEffect(() => {
-  //   console.log(canidaeRequest);
-  // }, [canidaeRequest]);
 
   // 서버에 반려견 등록
   const registerPet = async (e) => {
@@ -259,6 +234,7 @@ export default function PetProfilePage() {
             theme={gender ? 'black' : 'white'}
             fontSize={16}
             fontWeight={500}
+            type="button"
           />
           <Button
             text="여아"
@@ -276,6 +252,7 @@ export default function PetProfilePage() {
             theme={!gender ? 'black' : 'white'}
             fontSize={16}
             fontWeight={500}
+            type="button"
           />
         </div>
 
@@ -294,19 +271,22 @@ export default function PetProfilePage() {
           우리아이에게 가장 필요한 제품이 있나요? 관심있는 카테고리를
           골라보세요!
         </label>
+        <div css={styles.notice}>
+          (최대 <strong>5개</strong> 선택 가능)
+        </div>
 
-        {categoryData.map((category) => (
+        {mainCategory.map((main) => (
           <CategoryButton
-            key={category.type}
-            label={category.label}
-            categories={category.items}
-            selectedCategories={selectedCategories[category.type]}
+            key={main.id}
+            label={main.name}
+            categories={subCategory
+              .filter((sub) => sub.mainCategoryId === main.id)
+              .map((sub) => ({ id: sub.id, name: sub.name }))}
+            selectedCategories={canidaeRequest.interestProduct}
             handleCategorySelect={handleCategorySelect}
-            categoryType={category.type}
-            disableUnselected={totalSelectedCategories >= 5}
+            disableUnselected={canidaeRequest.interestProduct.length >= 5}
           />
         ))}
-
         <div css={styles.registerButton}>
           <Button
             text="등록"
