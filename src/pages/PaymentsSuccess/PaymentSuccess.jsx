@@ -15,7 +15,7 @@ const PaymentSuccess = () => {
   const approvePaymentMutation = useMutation({
     mutationFn: async (orderData) => {
       const response = await axios.post(
-        'http://localhost:8080/api/payments/approve',
+        `${import.meta.env.VITE_BASE_URL}/api/payments/approve`,
         orderData
       );
       return response.data;
@@ -42,7 +42,7 @@ const PaymentSuccess = () => {
   const saveOrderItemMutation = useMutation({
     mutationFn: async (orderItemData) => {
       const response = await axios.post(
-        'http://localhost:8080/api/order-items',
+        `${import.meta.env.VITE_BASE_URL}/api/order-items`,
         orderItemData
       );
       return response.data;
