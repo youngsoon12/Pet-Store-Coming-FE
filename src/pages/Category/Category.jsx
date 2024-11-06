@@ -1,120 +1,179 @@
 /** @jsxImportSource @emotion/react */
 import { useEffect, useState } from 'react';
-import { styles } from './Category.style'; 
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { isMainCategoryInfoState } from '../../recoil/atom/category';
+import { isMainCategoryInfoState, isSubCategoryInfoState } from '../../recoil/atom/category';
 import axios from 'axios';
+import { styles } from './Category.style';
 
 export default function CategoryPage() {
+
+  const { state } = useLocation();
+
   const { category, subcategory } = useParams();
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const [sections, setSections] = useState([]);
+  const[sub, setSub] = useState(null);
+  
   const mainCategoryInfoValues = useRecoilValue(isMainCategoryInfoState);
+  const subCategoryInfoValues = useRecoilValue(isSubCategoryInfoState);
+
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState(category);
+  const [activeTab, setActiveTab] = useState(subcategory);
+  const [products, setProducts] = useState([]);
+ 
+
+  useEffect(()=>{
+    // console.log(state)
+    const baseUrl = import.meta.env.VITE_API_URL;
+
+    if(subcategory) {
+      
+      async function getFindAllProducts() {
+        console.log(state);
+        
+        const data = 
+          await axios
+            .get(`${baseUrl}/product/${state.main}/${state.sub}/find-all`)
+            .then(res => res.data.data)
+            .catch(err => console.log(err));
+        setProducts([ ...data ]);
+      }
+  
+      async function getFilnAllNewProductes() {
+        const data = await axios.get(`${baseUrl}/product/${state.main}/${state.sub}/find-new-product`).then(res => res.data.data);
+        setSections([ ...data ]);
+      }
+
+      getFindAllProducts();
+      getFilnAllNewProductes();
+
+    } else {
+      
+      async function getFindAllProducts() {
+        const data = 
+          await axios
+            .get(`${baseUrl}/product/${state.main}/find-all`)
+            .then(res => res.data.data)
+            .catch(err => console.log(err));
+        setProducts([ ...data ]);
+      }
+  
+      async function getFilnAllNewProductes() {
+        const data = await axios.get(`${baseUrl}/product/${state.main}/find-new-product`).then(res => res.data.data);
+        setSections([ ...data ]);
+      }
+   
+      getFindAllProducts();
+      getFilnAllNewProductes();
+  
+      setSub([
+        ...subCategoryInfoValues.filter((element) => {
+          return element.mainCategoryId === state.main
+        })
+      ]);
+
+    }
+
+    
+},[subcategory])
+
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get(`/category/sub-category/list?mainCategoryId=${mainCategoryId}`);
-        setProducts(response.data.data);
-      } catch (error) {
-        console.error('제품을 가져오는 데 오류가 발생했습니다:', error);
-      }
-    };
+    setActiveTab(subcategory);
+  }, [subcategory]);
 
-    const fetchSections = async () => {
-      const exampleSections = [
-        {
-          label: 'BEST ITEMS',
-          items: [
-            { id: 1, title: '베스트 제품 1', price: '50,000원' },
-            { id: 2, title: '베스트 제품 2', price: '60,000원' },
-            { id: 3, title: '베스트 제품 3', price: '70,000원' },
-            { id: 4, title: '베스트 제품 4', price: '80,000원' },
-          ],
-        },
-        {
-          label: 'NEW ITEMS',
-          items: [
-            { id: 5, title: '추천 제품 1', price: '30,000원' },
-            { id: 6, title: '추천 제품 1', price: '30,000원' },
-            { id: 7, title: '추천 제품 1', price: '30,000원' },
-            
-          ],
-        },
-      ];
-      setSections(exampleSections);
-    };
-
-    fetchProducts();
-    fetchSections();
-  }, [category, subcategory]);
+  // 콘솔 출력 추가
+  useEffect(() => {
+    
+  }, [category, subcategory, mainCategoryInfoValues, subCategoryInfoValues, products, sections]);
 
   const handleTabClick = (categoryName) => {
-    navigate(`/shop/${categoryName}`);
+    const mainid = state.main;
+    navigate(`/shop/${category}/${encodeURIComponent(categoryName.slug)}`, { 
+        state: {
+          ...state,
+          ["sub"]: categoryName.id
+        } 
+    });
+
     setActiveTab(categoryName);
   };
-
-  const dummyProducts = [
-    { id: 1, name: ' 캣만두 라이프 에션셀 치킨', price: '20,000원' },
-    { id: 2, name: '캣만두 라이프 에션셀 치킨 B', price: '30,000원' },
-    { id: 3, name: '캣만두 라이프 에션셀 치킨', price: '40,000원' },
-    { id: 4, name: '상품 D', price: '50,000원' },
-    { id: 5, name: '상품 E', price: '60,000원' },
-  ];
-
-  useEffect(() => {
-    if (products.length === 0) {
-      setProducts(dummyProducts);
-    }
-  }, [products]);
 
   return (
     <>
       <div css={styles.mainContainer}>
+        {/* Tab Bar */}
         <div css={styles.tabBarContainer}>
-          {mainCategoryInfoValues?.map((categoryItem) => (
-            <span
-              key={categoryItem.id}
-              css={styles.tabItem(categoryItem.name === activeTab)}
-              onClick={() => handleTabClick(categoryItem.name)}
-            >
-              {categoryItem.name}
-            </span>
-          ))}
+          {sub?.map((categoryItem) => {
+            return (
+              <span
+                key={categoryItem.id}
+                id={categoryItem.id}
+                css={styles.tabItem(categoryItem.name === activeTab)}
+                onClick={() => handleTabClick(categoryItem)}
+              >
+                {categoryItem.name}
+              </span>
+            )
+          })}
         </div>
 
-        {/* BEST ITEMS Section */}
-        {sections.map((section) => (
-          <div key={section.label}>
-            <div css={styles.bestItemsLabel}>{section.label}</div>
-            <div css={styles.productCarousel}>
-              {section.items.map((product) => (
-                <div key={product.id} css={styles.productItem}>
-                  <div css={styles.productImage} />
-                  <div css={styles.productTitle}>{product.title}</div>
-                  <div css={styles.productPrice}>{product.price}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+  {/* NEW ITEMS Section */}
+  <div css={styles.bestItemsLabel}>NEW ITEMS</div>
+  
+  <div css={styles.productCarousel}>
+  {sections && sections.map((item) => (
+    <div key={item.productId} css={styles.productItem} onClick={() => navigate(`/product/${item.productId}`)}>
+      <div
+        css={styles.itemGridImage}
+        style={{ backgroundImage: `url(${item.productThumbnailImageUrl})` }}
+      />
+      <div css={styles.productTitlePriceContainer}>
+        <div css={styles.productTitle}>{item.storeBrandName}</div>
+        <div css={styles.productTitle}>{item.productName}</div>
+        {item.productDiscountRate > 0 ? (
+          <>
+            <div css={styles.productPrice}>{item.productPrice}원</div>
+            <div css={styles.itemGridDiscount}>{item.productDiscountRate}%</div>
+            <div css={styles.itemPrice}>{item.productDiscountPrice}원</div>
+          </>
+        ) : (
+          <div css={styles.itemPrice}>{item.productPrice}</div>
+        )}
+      </div>
+    </div>
+  ))}
+</div>
 
-        <div css={styles.divider}></div>
+<div css={styles.divider}></div>
+ 
 
-        {/* ITEMS Section */}
-        <div css={styles.itemsLabel}>ITEMS</div>
-        <div css={styles.itemGridContainer}>
-          {products.map((product) => (
-            <div key={product.id} css={styles.itemGridImageContainer}>
-              <div css={styles.itemGridImage}></div>
-              <div css={styles.itemGridTitle}>{product.name}</div>
-              <div css={styles.itemGridPrice}>{product.price}</div>
-            </div>
-          ))}
-        </div>
+{/* ITEMS Section */}
+<div css={styles.itemsLabel}>ITEMS</div>
+<div css={styles.itemGridContainer}>
+  {products && products.map((product) => (
+    <div key={product.productId} css={styles.itemGridImageContainer} onClick={() => navigate(`/product/${product.productId}`)}>
+      <div
+        css={styles.productImage}
+        style={{ backgroundImage: `url(${product.productThumbnailImageUrl})` }}
+      ></div>
+      <div css={styles.itemGridTitle}>{product.storeBrandName}</div>
+      <div css={styles.itemGridTitle}>{product.productName}</div>
+
+      {product.productDiscountRate > 0 ? (
+        <>
+          <div css={styles.itemGridPrice}>{product.productPrice}원</div>
+          <div css={styles.itemGridDiscount}>{product.productDiscountRate}%</div>
+          <div css={styles.itemPrice}>{product.productDiscountPrice}원</div>
+        </>
+      ) : (
+        <div css={styles.itemPrice}>{product.productDiscountPrice}원</div>
+      )}
+    </div>
+  ))}
+</div>
+
       </div>
     </>
   );
