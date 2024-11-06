@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const paymentApproveAPI = async (orderData) => {
+export const tosstApproveAPI = async (orderData) => {
   const response = await axios.post(
     `${import.meta.env.VITE_API_URL}/api/payments/approve`,
     orderData
@@ -8,4 +8,4 @@ export const paymentApproveAPI = async (orderData) => {
   return response.data;
 };
 
-export default paymentApproveAPI;
+export default tossApproveAPI;

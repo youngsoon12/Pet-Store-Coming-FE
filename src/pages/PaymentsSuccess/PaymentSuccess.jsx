@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import getCartListAPI from '../../apis/CartList/GetCartListAPI';
 import saveOrderItemAPI from '../../apis/PaymentSuccess/saveOrderItemAPI';
-import paymentApproveAPI from '../../apis/PaymentSuccess/abc';
+import tossApproveAPI from '../../apis/PaymentSuccess/tossApproveAPI';
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
@@ -25,7 +25,7 @@ const PaymentSuccess = () => {
 
   // 결제 승인 요청을 처리하는 mutation
   const approvePaymentMutation = useMutation({
-    mutationFn: paymentApproveAPI,
+    mutationFn: tossApproveAPI,
     onSuccess: async () => {
       // orderItem 저장 mutation 호출 (cartData의 전체 아이템을 배열로 전송)
       if (cartData && cartData.data) {
