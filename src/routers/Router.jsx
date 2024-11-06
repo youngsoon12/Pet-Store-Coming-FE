@@ -45,12 +45,12 @@ const Router = () => {
       
       // GET /category/main-category/list Request
       // GET /category/sub-category/list Request
-      
-      const mainCategoryResponse = await axios.get("https://mature-leigha-jogyewon-front-4fd9dfe2.koyeb.app/category/main-category/list")
+      const baseUrl = import.meta.env.VITE_API_URL;
+      const mainCategoryResponse = await axios.get(`${baseUrl}/category/main-category/list`)
         .then(res => res.data)
         .catch(err => console.log(err));
 
-      const subCategoryResponse = await axios.get("https://mature-leigha-jogyewon-front-4fd9dfe2.koyeb.app/category/sub-category/list")
+      const subCategoryResponse = await axios.get(`${baseUrl}/category/sub-category/list`)
         .then(res => res.data)
         .catch(err => console.log(err));
 
