@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import Button from '../Global/Button/Button';
+import Button from '@components/Global/Button/Button';
 import { styles } from './CategoryButton.style.js';
 
 export default function CategoryButton({
@@ -8,7 +8,6 @@ export default function CategoryButton({
   categories,
   selectedCategories,
   handleCategorySelect,
-  categoryType,
   disableUnselected,
 }) {
   return (
@@ -17,17 +16,18 @@ export default function CategoryButton({
       <div css={styles.categoryButtonContainer}>
         {categories.map((category) => (
           <Button
-            key={category}
-            text={category}
+            key={category.id}
+            text={category.name}
             width={110}
             height={50}
-            onClick={() => handleCategorySelect(category, categoryType)}
-            theme={selectedCategories.includes(category) ? 'black' : 'white'}
-            fontSize={16}
+            onClick={() => handleCategorySelect(category.id)}
+            theme={selectedCategories.includes(category.id) ? 'black' : 'white'}
+            fontSize={category.name === '급식기/급수기' ? 13 : 16}
             fontWeight={500}
             disableUnselected={
-              !selectedCategories.includes(category) && disableUnselected
+              !selectedCategories.includes(category.id) && disableUnselected
             }
+            type="button"
           />
         ))}
       </div>
