@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react';
-import Button from '../../components/global/Button/Button';
-import Camera from '../../assets/images/PetProfile/camera.svg';
+import Button from '@components/Global/Button/Button';
+import Camera from '@assets/images/PetProfile/camera.svg';
 import { styles } from './PetProfile.style';
-import CategoryButton from '../../components/CategoryButton/CategoryButton';
-import TextInput from '../../components/Global/Input/Input';
+import CategoryButton from '@components/CategoryButton/CategoryButton';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function PetProfilePage() {
   // const [gender, setGender] = useState(true);
@@ -31,21 +31,6 @@ export default function PetProfilePage() {
           : [...prev[categoryType], category],
       };
     });
-  };
-
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setSelectedImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleCameraClick = () => {
-    document.getElementById('profileImg').click();
   };
 
   const categoryData = [
@@ -78,15 +63,16 @@ export default function PetProfilePage() {
       ],
     },
   ];
-  // useEffect(() => {
+
+  // api 연동
+  const navigate = useNavigate();
+
   const userId = '22ef481b-11e6-487c-b5e1-257efb4895a2';
   const today = new Date();
   const year = today.getFullYear();
   const month = ('0' + (today.getMonth() + 1)).slice(-2);
   const day = ('0' + today.getDate()).slice(-2);
-
   const todayString = year + '-' + month + '-' + day;
-  // }, []);
 
   const [canidaeRequest, setCanidaeRequest] = useState({
     canidae: {
@@ -120,6 +106,11 @@ export default function PetProfilePage() {
   // 이미지 업로드
   const [selectedImage, setSelectedImage] = useState(null); // 화면에 보여주는 용도
   const [profileImage, setProfileImage] = useState(''); // 서버에 보내는 용도
+
+  const handleCameraClick = () => {
+    document.getElementById('profileImg').click();
+  };
+
   const handleImgUpload = async (e) => {
     const file = e.target.files[0];
     console.log(e.target.files[0]);
@@ -145,9 +136,9 @@ export default function PetProfilePage() {
 
   // 서버에 반려견 등록
   const registerPet = async (e) => {
-    const formData = new FormData();
-
     e.preventDefault();
+
+    const formData = new FormData();
 
     formData.append(
       'canidaeRequest',
@@ -170,6 +161,7 @@ export default function PetProfilePage() {
       const response = await axios.post(url, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
+      navigate('/my');
     } catch (error) {
       console.log(error);
     }
@@ -198,21 +190,23 @@ export default function PetProfilePage() {
     // postPet();
   };
   return (
-    <div css={styles.container}>
-      <input
-        type="file"
-        id="profileImg"
-        style={{ display: 'none' }}
-        accept="image/*"
-        onChange={handleImgUpload}
-      />
-      <img
-        src={selectedImage || Camera}
-        alt="Camera Icon"
-        css={styles.cameraIcon}
-        onClick={handleCameraClick}
-      />
-
+    <form css={styles.container} onSubmit={registerPet}>
+      <div css={styles.imgContainer}>
+        <input
+          type="file"
+          id="profileImg"
+          style={{ display: 'none' }}
+          accept="image/*"
+          onChange={handleImgUpload}
+          // required
+        />
+        <img
+          src={selectedImage || Camera}
+          alt="Camera Icon"
+          css={styles.cameraIcon}
+          onClick={handleCameraClick}
+        />
+      </div>
       <div css={styles.inputContainer}>
         <label css={styles.label}>이름을 입력해주세요</label>
         <input
@@ -222,6 +216,7 @@ export default function PetProfilePage() {
           name="name"
           value={canidaeRequest.canidae.name}
           onChange={handleChangeInput}
+          required
         />
 
         <label css={styles.label}>견종을 등록하세요</label>
@@ -232,6 +227,7 @@ export default function PetProfilePage() {
           name="breed"
           value={canidaeRequest.canidae.breed}
           onChange={handleChangeInput}
+          required
         />
 
         <label css={styles.label}>생일을 입력해주세요</label>
@@ -242,6 +238,7 @@ export default function PetProfilePage() {
           name="birth"
           value={canidaeRequest.canidae.birth}
           onChange={handleChangeInput}
+          required
         />
 
         <label css={styles.label}>성별을 선택해주세요</label>
@@ -290,6 +287,7 @@ export default function PetProfilePage() {
           name="weight"
           value={canidaeRequest.canidae.weight}
           onChange={handleChangeInput}
+          required
         />
 
         <label css={styles.titleLabel}>
@@ -317,10 +315,9 @@ export default function PetProfilePage() {
             theme="black"
             fontSize={16}
             fontWeight={500}
-            onClick={registerPet}
           />
         </div>
       </div>
-    </div>
+    </form>
   );
 }

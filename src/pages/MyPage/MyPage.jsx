@@ -23,9 +23,10 @@ export default function MyPage() {
         .then((res) => res.data)
         .catch((err) => console.log(err));
       myPetsResponse && setMyPets([...myPetsResponse.data]);
+      console.log(myPetsResponse);
     }
     getMyPets();
-    console.log(myPets);
+    // console.log(myPets);
   }, []);
 
   const deletePet = (petId) => {

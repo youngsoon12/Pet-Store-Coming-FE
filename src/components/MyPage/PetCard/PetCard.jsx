@@ -4,21 +4,11 @@ import { styles } from './PetCard.style';
 import petProfile from '@assets/images/MyPage/comi.png';
 import axios from 'axios';
 export default function ({ petInfo, deletePet }) {
-  // const petInfo = {
-  //   name: '꼬미',
-  //   primary: true,
-  //   subCategory: ['소형견', '건식 사료', '아우터/우비', '상의'],
-  //   birth: '2017.09.04',
-  //   breed: '말티즈',
-  //   gender: '남아',
-  //   weight: '4',
-  // };
-
   const navigate = useNavigate();
   // 반려견 정보 수정 페이지로 이동
   const editPet = () => {
-    // 파라미터로 각 반려견 id 보내줘야함
-    navigate('/my/edit/petinfo');
+    // 파라미터로 각 반려견 정보 보내주기
+    navigate('/my/edit/petinfo', { state: { petInfo: petInfo } });
   };
 
   const handleDelete = async () => {

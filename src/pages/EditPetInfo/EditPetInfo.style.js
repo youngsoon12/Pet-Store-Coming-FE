@@ -13,11 +13,19 @@ export const styles = {
     margin-bottom: 15px;
     margin-top: 35px;
   `,
-  cameraIcon: css`
-    margin-bottom: 60px;
+  imgContainer: css`
     width: 190px;
-    height: 190px;
+    aspect-ratio: 1;
+    margin-bottom: 60px;
+  `,
+
+  cameraIcon: css`
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
     border-radius: 10px;
+    cursor: pointer;
   `,
 
   input: css`
