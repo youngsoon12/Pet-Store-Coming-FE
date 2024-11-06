@@ -10,10 +10,11 @@ export const styles = {
   `,
 
   categoryTitle: css`
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 900;
     color: #000;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
+    cursor: pointer;
   `,
 
   itemsLabel: css`
@@ -73,12 +74,13 @@ export const styles = {
   `,
 
   item: css`
-    font-size: 18px;
-    font-weight: 300;
+    font-size: 14px;
+    font-weight: 600;
     color: #000;
     width: 130px;
-    margin-bottom: 18px;
-    padding-bottom: 5px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
     border-bottom: 1px solid #9a9a9a;
+    cursor: pointer;
   `,
 };

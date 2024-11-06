@@ -16,8 +16,10 @@ export default function SearchPage() {
     setSubmittedTerm(searchTerm);
   };
 
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
 
+  const [searchResults, setSearchResults] = useState([]);
+  const [hasSearched, setHasSearched] = useState(false);
   return (
     <div css={styles.container}>
       <form onSubmit={handleSearchSubmit} css={styles.searchBox}>
@@ -33,7 +35,13 @@ export default function SearchPage() {
           🔍
         </button>
       </form>
-      <Category searchTerm={submittedTerm} />
+      {/* <Category searchTerm={submittedTerm} /> */}
+      <Category
+        style={{
+          display: hasSearched && searchResults.length > 0 ? 'none' : 'block',
+        }}
+        aria-hidden={hasSearched && searchResults.length > 0}
+      />
     </div>
   );
 }

@@ -1,7 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { useState, useEffect } from 'react';
 import { styles } from './Category.style';
+import { useRecoilValue } from 'recoil';
 
+import {
+  isMainCategoryInfoState,
+  isSubCategoryInfoState,
+} from '@recoil/atom/category';
+import { useNavigate } from 'react-router-dom';
 const products = [
   { id: 1, title: '닭고기', price: '₩20,000' },
   { id: 2, title: '닭고기', price: '₩20,000' },
@@ -38,22 +44,46 @@ const products = [
 // const [categories,setCategories] = useState([]);
 
 export default function Category({ searchTerm }) {
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  // const [filteredProducts, setFilteredProducts] = useState([]);
 
+  // useEffect(() => {
+  //   if (searchTerm) {
+  //     const results = products.filter((product) =>
+  //       product.title.includes(searchTerm)
+  //     );
+  //     setFilteredProducts(results);
+  //   } else {
+  //     setFilteredProducts([]);
+  //   }
+  // }, [searchTerm]);
+
+  ////////////////////////
+  // 카테고리 목록 가져오기
+  const mainCategory = useRecoilValue(isMainCategoryInfoState);
+  const subCategory = useRecoilValue(isSubCategoryInfoState);
+
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
-    if (searchTerm) {
-      const results = products.filter((product) =>
-        product.title.includes(searchTerm)
-      );
-      setFilteredProducts(results);
-    } else {
-      setFilteredProducts([]);
+    // console.log(mainCategory, subCategory);
+    // mainCategory와 subCategory를 매핑하는 함수
+    if (mainCategory && subCategory) {
+      const mappedCategories = mainCategory?.map((main) => ({
+        main: main.slug.toUpperCase(),
+        mainSlug: main.slug,
+        subs: subCategory
+          .filter((sub) => sub.mainCategoryId === main.id)
+          .map((sub) => ({ sub: sub.name, subSlug: sub.slug })),
+      }));
+
+      setCategories(mappedCategories);
     }
-  }, [searchTerm]);
+  }, []);
+
+  const navigate = useNavigate();
 
   return (
     <div css={styles.categoryContainer}>
-      {filteredProducts.length > 0 ? (
+      {/* {filteredProducts.length > 0 ? (
         <>
           <div css={styles.itemsLabel}>ITEMS</div>
           <div css={styles.productGridContainer}>
@@ -66,25 +96,34 @@ export default function Category({ searchTerm }) {
             ))}
           </div>
         </>
-      ) : (
-        <>
-          {/* 기본 카테고리 목록 렌더링 */}
-          <div css={styles.categoryGridContainer}>
-            {categories.map((category) => (
-              <div css={styles.categorySection} key={category.title}>
-                <h2 css={styles.categoryTitle}>{category.title}</h2>
-                <ul css={styles.itemList}>
-                  {category.items.map((item, index) => (
-                    <li css={styles.item} key={index}>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
+      ) : ( */}
+      <>
+        {/* 기본 카테고리 목록 렌더링 */}
+        <div css={styles.categoryGridContainer}>
+          {categories.map((main) => (
+            <div css={styles.categorySection} key={main.mainSlug}>
+              <h2
+                css={styles.categoryTitle}
+                onClick={() => navigate(`/shop/${main.mainSlug}`)}
+              >
+                {main.main}
+              </h2>
+              <ul css={styles.itemList}>
+                {main.subs.map((sub, index) => (
+                  <li
+                    css={styles.item}
+                    key={index}
+                    onClick={() => navigate(`/shop/${sub.subSlug}`)}
+                  >
+                    {sub.sub}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </>
+      {/* )} */}
     </div>
   );
 }
