@@ -2,7 +2,8 @@
 import { useNavigate } from 'react-router-dom';
 import { styles } from './PetCard.style';
 import petProfile from '@assets/images/MyPage/comi.png';
-export default function ({ petInfo }) {
+import axios from 'axios';
+export default function ({ petInfo, deletePet }) {
   // const petInfo = {
   //   name: '꼬미',
   //   primary: true,
@@ -19,22 +20,43 @@ export default function ({ petInfo }) {
     // 파라미터로 각 반려견 id 보내줘야함
     navigate('/my/edit/petinfo');
   };
+
+  const handleDelete = async () => {
+    const baseURL = import.meta.env.VITE_API_URL;
+    try {
+      await axios.delete(`${baseURL}/canidae/delete?id=${petInfo.id}`);
+      deletePet(petInfo.id); // 삭제 후 상태 업데이트
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div css={styles.container}>
       <div css={styles.petProfile}>
-        <img src={petProfile} alt="반려견 프로필 사진"></img>
+        {/* <img src={petProfile} alt="반려견 프로필 사진"></img> */}
+        <img src={petInfo.profileImageUrl} alt={petInfo.profileImageAlt}></img>
       </div>
       <div css={styles.infoBox}>
         <div css={styles.row1}>
           <div>{petInfo.name}</div>
-          {petInfo.primary && <div css={styles.primary}>대표</div>}
+          {petInfo.isPrimary && <div css={styles.primary}>대표</div>}
         </div>
 
-        <div css={styles.row2}>
+        {/* <div css={styles.row2}>
           {petInfo.subCategory.map((category) => (
             <div>{category}</div>
           ))}
-        </div>
+        </div> */}
+        {petInfo.subCategory?.length > 0 ? (
+          <div css={styles.row2}>
+            {petInfo.subCategory.map((category) => (
+              <div>{category}</div>
+            ))}
+          </div>
+        ) : (
+          ''
+        )}
         <div css={styles.row3}>
           <div>
             <div css={styles.title}>BIRTH DAY</div>
@@ -46,7 +68,7 @@ export default function ({ petInfo }) {
           </div>
           <div>
             <div css={styles.title}>GENDER</div>
-            <div>{petInfo.gender}</div>
+            <div>{petInfo.gender ? '남아' : '여아'}</div>
           </div>
           <div>
             <div css={styles.title}>WEIGHT</div>
@@ -57,7 +79,9 @@ export default function ({ petInfo }) {
           <button css={styles.editBtn} onClick={editPet}>
             수정
           </button>
-          <button css={styles.deleteBtn}>삭제</button>
+          <button css={styles.deleteBtn} onClick={handleDelete}>
+            삭제
+          </button>
         </div>
       </div>
     </div>
