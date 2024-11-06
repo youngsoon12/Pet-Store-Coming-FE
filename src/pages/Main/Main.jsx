@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-//import { useState } from 'react';
+import { useState } from 'react';
 import Slider from '../../components/Silder/Slider';
 import { styles } from './Main.style';
 import mainImage from '../../assets/images/mainpage/main.jpg';
@@ -15,7 +15,6 @@ import {
   isMainCategoryInfoState,
   isSubCategoryInfoState,
 } from '../../recoil/atom/category';
-import axios from 'axios';
 
 
 export default function Mainpage() {
@@ -34,28 +33,6 @@ export default function Mainpage() {
       subImage4,
     ],
   };
-
-  useEffect(() => {
-    console.log(mainCategory);
-    console.log(subCategoryData);
-  }, []);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const mainResponse = await axios
-  //       .get('http://172.16.101.129:8080/category/main-category/list')
-  //       .then((res) => res.data);
-
-  //     const subResponse = await axios
-  //       .get('http://172.16.101.129:8080/category/sub-category/list')
-  //       .then((res) => res.data);
-
-  //     setMainCategory(mainResponse.data);
-  //     setSubCategory(subResponse.data);
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   return (
     <>
