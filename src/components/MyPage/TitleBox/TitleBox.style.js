@@ -11,8 +11,7 @@ export const styles = {
     justify-content: space-between;
     align-items: flex-end;
   `,
-  plus: css`
-    font-size: 28px;
-    margin-right: 5px;
+  plusIcon: css`
+    cursor: pointer;
   `,
 };

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
-import Button from '../../components/global/button';
+import Button from '../../components/global/Button/Button';
 import Camera from '../../assets/images/PetProfile/camera.svg';
 import { styles } from './PetProfile.style';
 import CategoryButton from '../../components/CategoryButton/CategoryButton';
@@ -14,7 +14,11 @@ export default function PetProfilePage() {
     supplies: [],
   });
   const [selectedImage, setSelectedImage] = useState(null);
-
+  // 선택된 카테고리의 총 개수 계산
+  const totalSelectedCategories = Object.values(selectedCategories).reduce(
+    (total, categoryArray) => total + categoryArray.length,
+    0
+  );
   const handleCategorySelect = (category, categoryType) => {
     setSelectedCategories((prev) => {
       const isSelected = prev[categoryType].includes(category);
@@ -43,14 +47,38 @@ export default function PetProfilePage() {
   };
 
   const categoryData = [
-    { label: '간식/사료', type: 'snack', items: ['영양제', '수제간식', '덴탈껌', '건식사료', '습식사료'] },
-    { label: '의류', type: 'clothes', items: ['상의', '원피스', '아우터/우비', '수영복', '악세사리'] },
-    { label: '유모차', type: 'stroller', items: ['소형견', '대형견', '다인승', '쿠션'] },
-    { label: '용품', type: 'supplies', items: ['미용용품', '장난감', '방석', '위생용품', '산책용품', '가방/카시트', '급식기/급수'] },
+    {
+      label: '간식/사료',
+      type: 'snack',
+      items: ['영양제', '수제간식', '덴탈껌', '건식사료', '습식사료'],
+    },
+    {
+      label: '의류',
+      type: 'clothes',
+      items: ['상의', '원피스', '아우터/우비', '수영복', '악세사리'],
+    },
+    {
+      label: '유모차',
+      type: 'stroller',
+      items: ['소형견', '대형견', '다인승', '쿠션'],
+    },
+    {
+      label: '용품',
+      type: 'supplies',
+      items: [
+        '미용용품',
+        '장난감',
+        '방석',
+        '위생용품',
+        '산책용품',
+        '가방/카시트',
+        '급식기/급수',
+      ],
+    },
   ];
 
   return (
-    <>
+    <div css={styles.container}>
       <input
         type="file"
         id="profileImg"
@@ -101,7 +129,8 @@ export default function PetProfilePage() {
         <input type="text" css={styles.input} placeholder="ex.3.5kg" />
 
         <label css={styles.titleLabel}>
-          우리아이에게 가장 필요한 제품이 있나요? 관심있는 카테고리를 골라보세요!
+          우리아이에게 가장 필요한 제품이 있나요? 관심있는 카테고리를
+          골라보세요!
         </label>
 
         {categoryData.map((category) => (
@@ -112,6 +141,7 @@ export default function PetProfilePage() {
             selectedCategories={selectedCategories[category.type]}
             handleCategorySelect={handleCategorySelect}
             categoryType={category.type}
+            disableUnselected={totalSelectedCategories >= 5}
           />
         ))}
 
@@ -126,6 +156,6 @@ export default function PetProfilePage() {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+
 export const styles = {
-    overlay: css`
+  overlay: css`
     position: fixed;
     inset: 0;
     background-color: rgba(0, 0, 0, 0.3);
@@ -24,7 +25,7 @@ export const styles = {
     bottom: 0;
     background-color: white;
     border-radius: 20px 20px 0 0;
-    padding: 20px;
+    padding: 50px;
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     display: flex;
@@ -51,6 +52,14 @@ export const styles = {
     height: 4px;
     border-radius: 2px;
   `,
+  optionSelect: css`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 20px;
+  `,
+
   quantityControl: css`
     display: flex;
     align-items: center;
@@ -88,6 +97,16 @@ export const styles = {
   price: css`
     margin-left: 355px;
   `,
+   
+  selectBox: css`
+    width: 500px;
+    height: 40px;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    padding: 8px; 
+    font-size: 14px;
+    color: #333;
+    `,
   divider: css`
     width: 532px;
     height: 3px;

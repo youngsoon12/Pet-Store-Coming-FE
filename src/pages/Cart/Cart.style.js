@@ -15,7 +15,7 @@ export const styles = {
       return css`
         width: 100%;
         margin-top: 20px;
-        padding: 0 20px 20px 20px;
+        padding: 0 20px 30px 20px;
         min-height: 100vh;
         /* justify-content: flex-start; */
       `;
@@ -115,11 +115,33 @@ export const styles = {
   `,
   totalPriceBox: css`
     border-top: 1px solid #d9d9d9;
-
+    font-size: 18px;
+    font-weight: bold;
     & > div {
       display: flex;
       justify-content: space-between;
-      padding-top: 10px;
+      padding-top: 20px;
     }
+  `,
+  title: css`
+    /* color: #9a9a9a; */
+    font-weight: normal;
+  `,
+  totalPrice: css`
+    color: #a9a9a9;
+    text-decoration: line-through;
+    padding-right: 5px;
+  `,
+  orderBtn: css`
+    width: 100%;
+    border: none;
+    background-color: #171717;
+    color: white;
+    padding: 18px;
+    font-size: 18px;
+    font-weight: bold;
+    position: sticky;
+    bottom: 0;
+    cursor: pointer;
   `,
 };

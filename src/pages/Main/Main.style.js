@@ -11,17 +11,16 @@ export const styles = {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 30px;
+    margin: 30px 20px 0 20px;
   `,
   mainImage: css`
-    width: 540px;
-    height: 540px;
+    width: 100%;
     border-radius: 15px;
-    margin: 0 20px;
+    /* margin: 0 20px; */
   `,
   textContainer: css`
-        margin-top: 20px;
-        margin-right: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
   `,
   title: css`
     font-size: 22px;
@@ -34,12 +33,11 @@ export const styles = {
   subImagesContainer: css`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 12px;
     margin-top: 30px;
   `,
   subImage: css`
-    width: 260px;
-    height: 260px;
+    width: 100%;
     border-radius: 15px;
   `,
 };

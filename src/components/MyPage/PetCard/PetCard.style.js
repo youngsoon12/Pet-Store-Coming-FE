@@ -82,19 +82,20 @@ export const styles = {
     margin-left: auto;
     justify-content: flex-end;
     gap: 10px;
+    & > button {
+      border-radius: 4px;
+      padding: 0.2em 1em;
+      cursor: pointer;
+    }
   `,
   editBtn: css`
     border: none;
     background-color: #171717;
-    border-radius: 4px;
     color: white;
-    padding: 0.2em 1em;
   `,
   deleteBtn: css`
     border: 1px solid #f4f4f4;
     background-color: white;
-    border-radius: 4px;
     color: #171717;
-    padding: 0.2em 1em;
   `,
 };

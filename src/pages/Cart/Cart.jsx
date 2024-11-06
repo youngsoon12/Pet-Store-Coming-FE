@@ -54,20 +54,23 @@ export default function Cart() {
   // 선택된 상품 수량 및 가격 계산
   const [totalCnt, setTotalCnt] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [totalDiscountPrice, setTotalDiscountPrice] = useState(0);
   const calculateTotal = () => {
     const total = newCartItems.reduce(
       (acc, item) => {
         if (checkItems.includes(item.id)) {
           acc.totalCnt += item.quantity;
-          acc.totalPrice += item.discountPrice * item.quantity;
+          acc.totalPrice += item.price * item.quantity;
+          acc.totalDiscountPrice += item.discountPrice * item.quantity;
         }
         return acc;
       },
-      { totalCnt: 0, totalPrice: 0 }
+      { totalCnt: 0, totalPrice: 0, totalDiscountPrice: 0 }
     );
 
     setTotalCnt(total.totalCnt);
     setTotalPrice(total.totalPrice);
+    setTotalDiscountPrice(total.totalDiscountPrice);
   };
 
   // 선택된 상품이나 장바구니 항목이 변경될 때마다 총액 재계산
@@ -78,111 +81,127 @@ export default function Cart() {
   return (
     <>
       {cartItems?.length ? (
-        <div css={styles.container(false)}>
-          <div css={styles.head}>
-            <CheckBox
-              id={'all'}
-              checkItemHandler={allCheckedHandler}
-              checked={checkItems.length === cartItems.length ? true : false}
-              labelText={'전체선택'}
-            />
-            <div onClick={deleteCheckedItem}>선택삭제</div>
-          </div>
-          {newCartItems.map((item) => {
-            return (
-              <div key={item.id} css={styles.itemBox}>
-                <div>
-                  <CheckBox
-                    id={item.id}
-                    checkItemHandler={checkItemHandler}
-                    checked={checkItems.includes(item.id)}
-                    name={'selected'}
-                    value={item.name}
-                  />
-                  <Button
-                    text={'삭제'}
-                    onClick={() => deleteItem(item.id)}
-                    fontSize={'12px'}
-                  ></Button>
-                </div>
-                <div>
-                  <div css={styles.infoBox}>
-                    <div css={styles.name}>{item.name}</div>
-                    <div>{item.price.toLocaleString()}원</div>
-                    <div css={styles.discountBox}>
-                      [{item.discountRate}%]{' '}
-                      {item.discountPrice.toLocaleString()}원
-                    </div>
-                    <div css={styles.quantityBox}>
-                      <button
-                        css={styles.minusBtn}
-                        onClick={() =>
-                          handleQuantityChange(item.id, item.quantity - 1)
-                        }
-                      >
-                        -
-                      </button>
-                      <input
-                        value={item.quantity}
-                        onChange={(e) =>
-                          handleQuantityChange(
-                            item.id,
-                            parseInt(e.target.value, 10) || 1
-                          )
-                        }
-                        css={styles.quantityInput}
-                      ></input>
-                      <button
-                        css={styles.plusBtn}
-                        onClick={() =>
-                          handleQuantityChange(item.id, item.quantity + 1)
-                        }
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                  <img
-                    src={item.thumbnail_url}
-                    alt={item.thumbnail_alt}
-                    css={styles.thumbnail}
-                  ></img>
-                </div>
-                <div css={styles.priceBox}>
+        <>
+          <div css={styles.container(false)}>
+            <div css={styles.head}>
+              <CheckBox
+                id={'all'}
+                checkItemHandler={allCheckedHandler}
+                checked={checkItems.length === cartItems.length ? true : false}
+                labelText={'전체선택'}
+              />
+              <div onClick={deleteCheckedItem}>선택삭제</div>
+            </div>
+            {newCartItems.map((item) => {
+              return (
+                <div key={item.id} css={styles.itemBox}>
                   <div>
-                    <strong>
-                      {(item.discountPrice * item.quantity).toLocaleString()}
-                    </strong>
-                    원
+                    <CheckBox
+                      id={item.id}
+                      checkItemHandler={checkItemHandler}
+                      checked={checkItems.includes(item.id)}
+                      name={'selected'}
+                      value={item.name}
+                    />
+                    <Button
+                      text={'삭제'}
+                      onClick={() => deleteItem(item.id)}
+                      fontSize={'12px'}
+                    ></Button>
                   </div>
-                  <Button
-                    text={'주문하기'}
-                    type={'black'}
-                    fontWeight={'bold'}
-                  />
+                  <div>
+                    <div css={styles.infoBox}>
+                      <div css={styles.name}>{item.name}</div>
+                      <div>{item.price.toLocaleString()}원</div>
+                      <div css={styles.discountBox}>
+                        [{item.discountRate}%]{' '}
+                        {item.discountPrice.toLocaleString()}원
+                      </div>
+                      <div css={styles.quantityBox}>
+                        <button
+                          css={styles.minusBtn}
+                          onClick={() =>
+                            handleQuantityChange(item.id, item.quantity - 1)
+                          }
+                        >
+                          -
+                        </button>
+                        <input
+                          value={item.quantity}
+                          onChange={(e) =>
+                            handleQuantityChange(
+                              item.id,
+                              parseInt(e.target.value, 10) || 1
+                            )
+                          }
+                          css={styles.quantityInput}
+                        ></input>
+                        <button
+                          css={styles.plusBtn}
+                          onClick={() =>
+                            handleQuantityChange(item.id, item.quantity + 1)
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <img
+                      src={item.thumbnail_url}
+                      alt={item.thumbnail_alt}
+                      css={styles.thumbnail}
+                    ></img>
+                  </div>
+                  <div css={styles.priceBox}>
+                    <div>
+                      <strong>
+                        {(item.discountPrice * item.quantity).toLocaleString()}
+                      </strong>
+                      원
+                    </div>
+                    <Button
+                      text={'주문하기'}
+                      type={'black'}
+                      fontWeight={'bold'}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+            <div css={styles.totalPriceBox}>
+              <div>
+                <div css={styles.title}>주문 상품수</div>
+                <div>{totalCnt}개</div>
+              </div>
+              <div>
+                <div css={styles.title}>총 주문금액</div>
+                <div>
+                  {totalPrice > 0 && (
+                    <span css={styles.totalPrice}>
+                      {totalPrice.toLocaleString()}
+                    </span>
+                  )}
+                  {totalDiscountPrice.toLocaleString()}원
                 </div>
               </div>
-            );
-          })}
-          <div css={styles.totalPriceBox}>
-            <div>
-              <div>주문 상품수</div>
-              <div>{totalCnt}개</div>
-            </div>
-            <div>
-              <div>총 주문금액</div>
-              <div>{totalPrice}원</div>
-            </div>
-            {/* <div>
+              {/* <div>
             <div>총 배송비</div>
             <div>{checkItems.length}원</div>
             </div> */}
-            <div>
-              <div>최종 결제금액</div>
-              <div>{totalPrice}원</div>
+              <div>
+                <div css={styles.title}>최종 결제금액</div>
+                <div>{totalDiscountPrice.toLocaleString()}원</div>
+              </div>
             </div>
           </div>
-        </div>
+          <button
+            css={styles.orderBtn}
+            onClick={() => navigate('/order')}
+            disabled={totalDiscountPrice === 0}
+          >
+            {totalDiscountPrice.toLocaleString()}원 구매하기
+          </button>
+        </>
       ) : (
         <div css={styles.container(true)}>
           <img src={empty_cart} alt="빈 장바구니 이미지"></img>
