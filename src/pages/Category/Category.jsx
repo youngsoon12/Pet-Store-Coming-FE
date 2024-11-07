@@ -158,11 +158,9 @@ export default function CategoryPage() {
                   {item.productDiscountRate > 0 ? (
                     <>
                       <div css={styles.productPrice}>{item.productPrice}원</div>
-                      <div css={styles.itemGridDiscount}>
-                        {item.productDiscountRate}%
-                      </div>
-                      <div css={styles.itemPrice}>
-                        {item.productDiscountPrice}원
+                      <div css={styles.productWrapper}>
+                      <div css={styles.itemGridDiscount}> {item.productDiscountRate}% </div>
+                      <div css={styles.itemPrice}> {item.productDiscountPrice}원</div>
                       </div>
                     </>
                   ) : (
@@ -190,8 +188,10 @@ export default function CategoryPage() {
       {product.productDiscountRate > 0 ? (
         <>
           <div css={styles.itemGridPrice}>{product.productPrice}원</div>
+          <div css={styles.productWrapper}>
           <div css={styles.itemGridDiscount}>{product.productDiscountRate}%</div>
           <div css={styles.itemPrice}>{product.productDiscountPrice}원</div>
+          </div>
         </>
       ) : (
         <div css={styles.itemPrice}>{product.productDiscountPrice}원</div>

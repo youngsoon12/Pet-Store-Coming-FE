@@ -88,6 +88,11 @@ export const styles = {
     margin-left: 10px
     
   `,
+  productWrapper: css`
+    display: flex;
+    margin-top: 2px;
+  `,
+  
   productPrice: css`
   text-decoration: line-through;
     font-size: 14px;
