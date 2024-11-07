@@ -51,14 +51,14 @@ const Payments = () => {
 
   // UseEffect 구간
   useEffect(() => {
-    if (cartData) {
+    if (selectedItems) {
       // 총 금액과 할인 금액 계산
-      const totalAmount = cartData.data.reduce((acc, item) => {
+      const totalAmount = selectedItems.reduce((acc, item) => {
         const itemTotal = item.productPrice * parseInt(item.productQuantity);
         return acc + itemTotal;
       }, 0);
 
-      const totalDiscountAmount = cartData.data.reduce((acc, item) => {
+      const totalDiscountAmount = selectedItems.reduce((acc, item) => {
         const itemTotal =
           item.productDiscountPrice * parseInt(item.productQuantity);
         return acc + itemTotal;
@@ -75,7 +75,7 @@ const Payments = () => {
         totalDiscountAmount: totalDiscountAmount,
       });
     }
-  }, [cartData]);
+  }, [selectedItems]);
 
   // 두 번째 useEffect: amountList가 업데이트된 후 orderInfo에 반영
   useEffect(() => {

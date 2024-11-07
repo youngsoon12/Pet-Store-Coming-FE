@@ -11,21 +11,22 @@ export const styles = {
   productInfo: css`
     font-size: 25px;
     color: #000;
-    width: 100%;
+    width: 90%;
   `,
 
   
   
   productTitle: css`
     display: flex;
+    margin-top: 30px;
     justify-content: space-between;
-    padding: 20px;
+    padding: 0 25px;
   `,
 
   productInfo_left_panel: css`
     display: flex;
     flex-direction: column;
-    font-size: 14px;
+    font-size: 16px;
 
     gap: 6px;
 
@@ -36,8 +37,12 @@ export const styles = {
   `,
 
   starsWrapper: css`
+    align-items: center;
+    flex-direction: column;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    /* margin-left: 212px; */
   `,
 
   starIcon: css`
@@ -51,7 +56,7 @@ export const styles = {
     font-size: 12px;
     color: #9a9a9a;
     margin-top: 3px;
-    border-bottom: 1px solid #ddd;
+    
     padding-bottom: 2px;
     /* margin-left: 394px; */
   `,
@@ -83,19 +88,22 @@ export const styles = {
   `,
 
   separatorLine: css`
-    width: 470px;
+    width: 550px;
     height: 1px;
     background-color: #D9D9D9;
     margin-top: 30px;
     border-bottom: 1px solid #ddd;
-    margin: 20px 0;
+   // margin: 20px 0;
   `,
 
   descriptionImages: css`
     display: flex;
     flex-direction: column;
     gap: 16px;
+    font-size: 25px;
+    font-weight:500;
     margin-top: 20px;
+    text-align: center;
   `,
 
   descriptionImage: css`
@@ -107,7 +115,7 @@ export const styles = {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 392px;
+    width: 352px;
     height: 52px;
     margin: 0 auto;
     margin-top: 20px;
