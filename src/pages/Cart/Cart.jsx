@@ -54,6 +54,14 @@ export default function Cart() {
     );
   };
 
+  const onBuyClick = () => {
+    const selectedItems = newCartItems.filter((item) =>
+      checkItems.includes(item.productId)
+    );
+    navigate('/order', { state: { selectedItems } });
+  };
+  console.log(checkItems);
+  console.log(newCartItems);
   // 선택된 상품 삭제
   const deleteCheckedItem = () => {
     setNewCartItems((prevItems) =>
@@ -205,7 +213,7 @@ export default function Cart() {
           </div>
           <button
             css={styles.orderBtn}
-            onClick={() => navigate('/order')}
+            onClick={onBuyClick}
             disabled={totalDiscountPrice === 0}
           >
             {totalDiscountPrice.toLocaleString()}원 구매하기

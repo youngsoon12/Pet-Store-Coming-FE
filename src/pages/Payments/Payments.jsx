@@ -6,6 +6,7 @@ import { styles } from './Payments.style';
 import { useEffect, useState } from 'react';
 import upArrow from '@assets/images/payment/up_arrow.svg';
 import downArrow from '@assets/images/payment/down_arrow.svg';
+import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { deliveryInfo } from '../../recoil/atom/deliveryInfo';
 import { useQuery } from '@tanstack/react-query';
@@ -21,7 +22,9 @@ const Payments = () => {
     queryFn: getCartListAPI,
   });
 
-  
+  const location = useLocation();
+  const selectedItems = location.state?.selectedItems || [];
+
   // state 구간
   const [amountList, setAmountList] = useState({
     totalAmount: '',
@@ -49,8 +52,6 @@ const Payments = () => {
   // UseEffect 구간
   useEffect(() => {
     if (cartData) {
-      console.log(cartData);
-
       // 총 금액과 할인 금액 계산
       const totalAmount = cartData.data.reduce((acc, item) => {
         const itemTotal = item.productPrice * parseInt(item.productQuantity);
@@ -85,7 +86,6 @@ const Payments = () => {
     }));
   }, [amountList]);
 
-  console.log(orderInfo);
   // 핸들러 함수 구간
   const onChangeCheckbox = (e) => {
     const { name, checked } = e.target;
@@ -190,8 +190,8 @@ const Payments = () => {
         <div css={styles.productArea}>
           <div css={styles.title}>상품 정보</div>
           <div css={styles.productCard_area}>
-            {cartData?.data &&
-              cartData.data.map((product) => {
+            {selectedItems &&
+              selectedItems.map((product) => {
                 return (
                   <PaymentProductCard
                     key={product.productId}
