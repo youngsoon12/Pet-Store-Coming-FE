@@ -40,7 +40,7 @@ export default function SignupSuccess() {
                   fontWeight={'bold'}
                   width={'130'}
                   onClick={() => {
-                    navigate('/petprofile');
+                    navigate('/petprofile', { state: { id: userInfo.id } });
                   }}
                 />
                 <Button
@@ -60,7 +60,7 @@ export default function SignupSuccess() {
                 fontWeight={'bold'}
                 width={'130'}
                 onClick={() => {
-                  navigate('/petprofile');
+                  navigate('/store/create', { state: userInfo });
                 }}
               />
             )}

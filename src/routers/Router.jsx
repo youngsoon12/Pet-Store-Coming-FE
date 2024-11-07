@@ -25,6 +25,7 @@ import Search from '../pages/Search/Search';
 import OrderList from '../pages/OrderList/OrderList';
 import EditPetInfo from '../pages/EditPetInfo/EditPetInfo';
 import EditMyInfo from '../pages/EditMyInfo/EditMyInfo';
+import StoreCreate from '../pages/Store/Create/StoreCreate';
 
 const Router = () => {
   return (
@@ -56,6 +57,8 @@ const Router = () => {
           <Route path="/petprofile" element={<PetProfilePage />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/cart" element={<Cart />} />
+
+          <Route path="/store/create" element={<StoreCreate />} />
         </Routes>
       </Layout>
     </BrowserRouter>
