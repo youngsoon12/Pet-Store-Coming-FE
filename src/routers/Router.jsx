@@ -27,6 +27,8 @@ import Search from '../pages/Search/Search';
 import OrderList from '../pages/OrderList/OrderList';
 import EditPetInfo from '../pages/EditPetInfo/EditPetInfo';
 import EditMyInfo from '../pages/EditMyInfo/EditMyInfo';
+import StoreCreate from '../pages/Store/Create/StoreCreate';
+
 import CategoryPage from '../pages/Category/Category';
 
 import {
@@ -103,6 +105,8 @@ const Router = () => {
           {/* <Route path="/shop/:category/:subCategory" element={<CategoryPage />} /> */}
 
           <Route path="/cart" element={<Cart />} />
+
+          <Route path="/store/create" element={<StoreCreate />} />
         </Routes>
       </Layout>
     </BrowserRouter>

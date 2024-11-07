@@ -18,16 +18,19 @@ function getOrCreateDeviceId() {
 export class LoginAPI {
   #REST_API_KEY = import.meta.env.VITE_REST_API_KEY;
   #APP_REDIRECT_URL = import.meta.env.VITE_APP_REDIRECT_URL;
+  #BASE_URL = import.meta.env.VITE_API_URL;
 
   // 로그인 시도 API
   async fetchLogin(email, password, setErrorMsg, setIsAuthenticated) {
-    const deviceId = getOrCreateDeviceId(); // 디바이스 아이디 생성 및 가져오기
+    const bodyData = {
+      email,
+      password,
+      deviceId: getOrCreateDeviceId(), // 디바이스 아이디 생성 및 가져오기
+    };
 
     try {
       const res = await axios
-        .get(
-          `http://localhost:8080/auth/sign-in?email=${email}&password=${password}&deviceId=${deviceId}`
-        )
+        .post(`${this.#BASE_URL}/auth/sign-in`, bodyData)
         .then((res) => res.data);
 
       // 예외가 발생하지 않은 경우 - Cookie 생성
@@ -80,11 +83,10 @@ export class LoginAPI {
   async fetchKakaoToken(code) {
     try {
       return await axios
-        .get(
-          `http://localhost:8080/auth/social/kakao/request/token?code=${code}`
-        )
+        .post(`${this.#BASE_URL}/auth/social/kakao/request/token?code=${code}`)
         .then((res) => res.data);
     } catch (error) {
+      f;
       console.log('Error fetching access token:', error);
       throw error;
     }
@@ -94,9 +96,11 @@ export class LoginAPI {
   async fetchSocialLogin(data) {
     try {
       const deviceId = getOrCreateDeviceId();
-      const response = await axios
-        .get(
-          `http://localhost:8080/auth/social/kakao/login?device_id=${deviceId}`,
+
+      const res = await axios
+        .post(
+          `${this.#BASE_URL}/auth/social/kakao/login?device_id=${deviceId}`,
+          {},
           {
             headers: {
               Authorization: `Bearer ${data.accessToken}`,
@@ -128,6 +132,8 @@ export class LoginAPI {
         // secure: true, 배포 시 무조건 주석 풀기
         maxAge: Math.floor(res.expirationTime / 1000), // 토큰 만료 시간 설정
       });
+
+      location.href = '/';
     } catch (error) {
       if ('response' in error) {
         const { errorCode, id } = error.response.data; // 에러 코드 가져오기
@@ -135,7 +141,8 @@ export class LoginAPI {
         switch (errorCode) {
           case 'KAKAO_USER_NOT_FOUND': // 카카오 정보로 가입하지 않은 경우
             localStorage.removeItem('deviceId');
-            location.href = `sign-up?id=${id}&platform=KAKAO`;
+            localStorage.setItem('id', id);
+            location.href = `sign-up?&platform=KAKAO`;
             break;
         }
       }
