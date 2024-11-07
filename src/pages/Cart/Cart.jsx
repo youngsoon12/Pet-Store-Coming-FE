@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 import CheckBox from '../../components/Cart/CheckBox/CheckBox';
 import getCartListAPI from '../../apis/CartList/GetCartListAPI';
 import { useQuery } from '@tanstack/react-query';
+import { decodeToken, getCookie } from '../../util/configCookie';
 
 export default function Cart() {
   const { data: { data: cartData = [] } = {}, isLoading } = useQuery({
@@ -17,6 +18,9 @@ export default function Cart() {
   const navigate = useNavigate();
   const [newCartItems, setNewCartItems] = useState([]);
   const [checkItems, setCheckItems] = useState([]);
+  const token = getCookie('token');
+  const userInfo = decodeToken(token);
+  console.log(userInfo);
 
   // cartData 초기화
   useEffect(() => {
@@ -53,7 +57,7 @@ export default function Cart() {
       )
     );
   };
-
+  console.log(checkItems);
   const onBuyClick = () => {
     const selectedItems = newCartItems.filter((item) =>
       checkItems.includes(item.productId)

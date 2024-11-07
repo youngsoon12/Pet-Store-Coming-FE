@@ -24,7 +24,7 @@ const Payments = () => {
 
   const location = useLocation();
   const selectedItems = location.state?.selectedItems || [];
-
+  console.log(selectedItems);
   // state 구간
   const [amountList, setAmountList] = useState({
     totalAmount: '',
