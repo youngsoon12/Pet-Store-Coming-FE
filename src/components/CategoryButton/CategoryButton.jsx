@@ -24,7 +24,7 @@ export default function CategoryButton({
           <Button
             key={category.id}
             text={category.name}
-            padding="4px 8px"
+            padding="6px 8px"
             border="1px solid rgba(154, 154, 154, 0.6)"
             fontSize={13}
             fontWeight={500}
@@ -36,6 +36,7 @@ export default function CategoryButton({
                 ? 'black'
                 : null
             }
+            onClick={() => handleCategorySelect(category.id)}
           />
         ))}
 

@@ -27,7 +27,7 @@ export default function EditPetInfo() {
   const inputFileRef = useRef(null);
 
   // 사용자가 기존에 작성했던 내용
-  const [originalCanidaeInfo, setOriginalCanidaeInfo] = useState({
+  const originalCanidaeInfo = {
     originalCanidae: {
       id: petInfo.canidae.id,
       userId: userInfo.userId,
@@ -40,148 +40,165 @@ export default function EditPetInfo() {
     },
 
     originalInterstProduct: [...petInfo.interstProductList],
-  });
+  };
 
-  // 사용자가 수정한 입력 필드 (초기값 지정 - id, userId)
+  // 사용자가 수정한 입력 필드 (초기값 지정 - id, userId, isPrimary, gender)
   const [updateCanidaeInfo, setUpdateCanidaeInfo] = useState({
     canidae: {
-      id: petInfo.id,
+      id: petInfo.canidae.id,
       userId: userInfo.userId,
+      isPrimary: originalCanidaeInfo.originalCanidae.isPrimary,
+      gender: originalCanidaeInfo.originalCanidae.gender,
     },
     intersetUpdateProduct: [],
   });
 
-  // const userId = userInfo.userId;
+  // 선택된 카테고리 종류 (화면에 보여지기 위함)
+  const [selectedCategories, setSelectedCategories] = useState(
+    originalCanidaeInfo.originalInterstProduct
+  );
+
+  // 이미지 업로드
+  const [selectedImage, setSelectedImage] = useState(
+    petInfo.canidae.profileImageUrl
+  );
+
+  // 화면에 보여주는 용도
+  const [profileImage, setProfileImage] = useState(''); // 서버에 보내는 용도
+
+  // Input Date 타입 마지막 날짜를 현재 날짜로 설정하기 위한 변수 선언
   const TODAY = new Date();
   const YEAR = TODAY.getFullYear();
   const MONTH = ('0' + (TODAY.getMonth() + 1)).slice(-2);
   const DAY = ('0' + TODAY.getDate()).slice(-2);
   const MAX_TODAY_STRING = YEAR + '-' + MONTH + '-' + DAY;
 
-  // // canidaeRequest 구조분해할당
-  // const {
-  //   orgCanidae: { name, birth, breed, gender, weight, isPrimary },
-  //   interestProduct,
-  // } = originCanidaeRequest;
+  // 대표 반려견 상태를 변경하는 함수
+  const handleChangePrimary = (value) => {
+    setUpdateCanidaeInfo((prev) => ({
+      ...prev,
+      canidae: {
+        ...prev.canidae,
+        isPrimary: value,
+      },
+    }));
+  };
 
-  // const { canidae, intersetUpdateProduct } = canidaeRequest;
+  // 반려견의 성별 상태를 변경하는 함수
+  const handleChangeGender = (value) => {
+    setUpdateCanidaeInfo((prev) => ({
+      ...prev,
+      canidae: {
+        ...prev.canidae,
+        gender: value,
+      },
+    }));
+  };
 
-  // const handleChangePrimary = (isPrimary) => {
-  //   setOriginCanidaeRequest((prev) => ({
-  //     ...prev,
-  //     orgCanidae: {
-  //       ...prev.orgCanidae,
-  //       isPrimary: isPrimary,
-  //     },
-  //   }));
-  //   setCanidaeRequest((prev) => ({
-  //     ...prev,
-  //     canidae: {
-  //       ...prev.canidae,
-  //       isPrimary: isPrimary,
-  //     },
-  //   }));
-  // };
+  // 이름, 견종, 몸무게 입력폼 onChange 이벤트 핸들러
+  const handleChangeInput = (event) => {
+    const { name, value } = event.target;
 
-  // const handleChangeInput = (e) => {
-  //   const { name, value } = e.target;
-  //   setOriginCanidaeRequest((prev) => ({
-  //     ...prev,
-  //     orgCanidae: {
-  //       ...prev.orgCanidae,
-  //       [name]: name === 'weight' ? parseFloat(value) : value,
-  //     },
-  //   }));
-  //   setCanidaeRequest((prev) => ({
-  //     ...prev,
-  //     canidae: {
-  //       ...prev.canidae,
-  //       [name]: name === 'weight' ? parseFloat(value) : value,
-  //     },
-  //   }));
-  // };
+    // 몸무게 입력은 숫자와 소수점만 입력 가능
+    if (name === 'weight' && !/^\d*\.?\d*$/.test(value)) {
+      return;
+    }
 
-  // const handleChangeGender = (gender) => {
-  //   setOriginCanidaeRequest((prev) => ({
-  //     ...prev,
-  //     orgCanidae: {
-  //       ...prev.orgCanidae,
-  //       gender: gender,
-  //     },
-  //   }));
-  //   setCanidaeRequest((prev) => ({
-  //     ...prev,
-  //     canidae: {
-  //       ...prev.canidae,
-  //       gender: gender,
-  //     },
-  //   }));
-  // };
+    // input 값 변경 시 state 값 변환
+    setUpdateCanidaeInfo((prev) => ({
+      ...prev,
+      canidae: {
+        ...prev.canidae,
+        [name]: value,
+      },
+    }));
+  };
 
-  // // 관심 카테고리 //
+  // 관심 상품 수정 핸들러
+  const handleCategorySelect = (subCategoryId) => {
+    setUpdateCanidaeInfo((prev) => {
+      const existingCategory = originalCanidaeInfo.originalInterstProduct.find(
+        (item) => item.subCategoryId === subCategoryId
+      );
 
-  // const handleCategorySelect = (categoryId) => {
-  //   console.log(canidaeRequest.intersetUpdateProduct);
-  //   setOriginCanidaeRequest((prevRequest) => {
-  //     const isAlreadySelected =
-  //       prevRequest.interestProduct.includes(categoryId);
+      const updatedProducts = [...prev.intersetUpdateProduct];
+      let updatedSelectedCategories = [...selectedCategories];
 
-  //     // 5개 초과 선택 방지
-  //     if (!isAlreadySelected && prevRequest.interestProduct.length >= 5) {
-  //       // alert('최대 5개까지만 선택할 수 있습니다.');
-  //       return prevRequest;
-  //     }
+      // 선택된 카테고리가 5개 이상인 경우 추가하지 않음
+      if (
+        !existingCategory &&
+        updatedSelectedCategories.length >= 5 &&
+        !updatedSelectedCategories.some(
+          (item) => item.subCategoryId === subCategoryId
+        )
+      ) {
+        alert('최대 5개의 카테고리만 선택할 수 있습니다.');
+        return prev;
+      }
 
-  //     // 선택 또는 해제 처리
-  //     // const updatedInterestProduct = isAlreadySelected
-  //     //   ? prevRequest.interestProduct.filter((id) => id !== categoryId)
-  //     //   : [...prevRequest.interestProduct, categoryId];
-  //     let updatedInterestProduct;
-  //     if (isAlreadySelected) {
-  //       // 선택 해제
-  //       updatedInterestProduct = prevRequest.interestProduct.filter(
-  //         (id) => id !== categoryId
-  //       );
-  //       setCanidaeRequest((prev) => ({
-  //         ...prev,
-  //         intersetUpdateProduct: [
-  //           ...prev.intersetUpdateProduct,
-  //           { id: petInfo.id, subCategoryId: categoryId, updateStatus: '' },
-  //         ],
-  //       }));
-  //     } else {
-  //       // 선택
-  //       updatedInterestProduct = [...prevRequest.interestProduct, categoryId];
-  //       setCanidaeRequest((prev) => ({
-  //         ...prev,
-  //         intersetUpdateProduct: [
-  //           ...prev.intersetUpdateProduct,
-  //           { id: petInfo.id, subCategoryId: categoryId, updateStatus: '' },
-  //         ],
-  //       }));
-  //     }
-  //     return {
-  //       ...prevRequest,
-  //       interestProduct: updatedInterestProduct,
-  //     };
-  //   });
-  // };
+      if (existingCategory) {
+        // 기존에 있던 카테고리를 제거할 때
+        const deleteIndex = updatedProducts.findIndex(
+          (item) =>
+            item.subCategoryId === subCategoryId &&
+            item.updateStatus === 'DELETE'
+        );
 
-  // // 이미지 업로드
-  const [selectedImage, setSelectedImage] = useState(
-    petInfo.canidae.profileImageUrl
-  );
+        if (deleteIndex > -1) {
+          // DELETE 상태에 있는 항목을 다시 추가하려고 할 때
+          if (updatedSelectedCategories.length >= 5) {
+            alert('최대 5개의 카테고리만 선택할 수 있습니다.');
+            return prev;
+          }
+          updatedProducts.splice(deleteIndex, 1); // DELETE 상태 제거
+          updatedSelectedCategories.push(existingCategory); // 선택된 카테고리에 다시 추가
+        } else {
+          // DELETE 상태 추가
+          updatedProducts.push({
+            id: originalCanidaeInfo.originalCanidae.id,
+            subCategoryId,
+            updateStatus: 'DELETE',
+          });
+          updatedSelectedCategories = updatedSelectedCategories.filter(
+            (item) => item.subCategoryId !== subCategoryId
+          ); // 선택된 카테고리에서 제거
+        }
+      } else {
+        // 새로운 카테고리를 추가할 때
+        const addIndex = updatedProducts.findIndex(
+          (item) =>
+            item.subCategoryId === subCategoryId && item.updateStatus === 'ADD'
+        );
 
-  // 화면에 보여주는 용도
-  // const [profileImage, setProfileImage] = useState(''); // 서버에 보내는 용도
+        if (addIndex > -1) {
+          // 추가된 상태를 제거하는 경우
+          updatedProducts.splice(addIndex, 1);
+          updatedSelectedCategories = updatedSelectedCategories.filter(
+            (item) => item.subCategoryId !== subCategoryId
+          );
+        } else {
+          // ADD 상태 추가
+          updatedProducts.push({
+            id: originalCanidaeInfo.originalCanidae.id,
+            subCategoryId,
+            updateStatus: 'ADD',
+          });
+          updatedSelectedCategories.push({ subCategoryId });
+        }
+      }
 
-  // const handleCameraClick = () => {
-  //   document.getElementById('profileImg').click();
-  // };
+      setSelectedCategories(updatedSelectedCategories);
 
+      return {
+        ...prev,
+        intersetUpdateProduct: updatedProducts,
+      };
+    });
+  };
+
+  // 이미지 업로드 관련 핸들러
   const handleImgUpload = async (e) => {
     const file = e.target.files[0];
-    console.log(e.target.files[0]);
 
     if (file) {
       setProfileImage(e.target.files[0]);
@@ -191,43 +208,84 @@ export default function EditPetInfo() {
         setSelectedImage(reader.result);
       };
       reader.readAsDataURL(file);
-
-      console.log(reader);
     }
   };
-  // // 관심 카테고리
-  // // const subCategory = useRecoilValue()
 
-  // // useEffect(() => {
-  // //   console.log(canidaeRequest);
-  // // }, [canidaeRequest]);
+  // 서버 제출 이베튼
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // 반려견의 기존 정보와 같은 입력 필드의 값은 삭제
+    setUpdateCanidaeInfo((prev) => {
+      const filteredCanidae = { ...prev.canidae };
+
+      // 기존 값과 동일한 프로퍼티 제거
+      Object.keys(filteredCanidae).forEach((key) => {
+        if (key !== 'weight') {
+          if (
+            filteredCanidae[key] === originalCanidaeInfo.originalCanidae[key]
+          ) {
+            delete filteredCanidae[key];
+          }
+        } else {
+          if (
+            Number(filteredCanidae[key]) ===
+            originalCanidaeInfo.originalCanidae.weight
+          ) {
+            delete filteredCanidae[key];
+          }
+        }
+      });
+
+      return {
+        ...prev,
+        canidae: {
+          ...filteredCanidae,
+          isPrimary: prev.canidae.isPrimary,
+          gender: prev.canidae.gender,
+          id: prev.canidae.id,
+          userId: prev.canidae.userId,
+        },
+      };
+    });
+
+    // 서버에 전달하기 위한 formData 구성
+    const formData = new FormData(); // formData 인스턴스 선언
+
+    // 반려견 정보, 관심 상품 수정 정보 저장
+    formData.append(
+      'canidaeRequest',
+      new Blob([JSON.stringify(updateCanidaeInfo)], {
+        type: 'application/json',
+      })
+    );
+
+    // 반려견 대표 이미지를 변경했을 경우 -> formData에 추가
+    if (profileImage) {
+      formData.append('newProfileImage', profileImage);
+    }
+
+    // console.log(updateCanidaeInfo);
+
+    try {
+      const resposne = await axios.put(
+        `${import.meta.env.VITE_API_URL}/canidae/update`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+      navigate('/my');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // // 서버에 수정된 반려견 정보 보내기
   // const editPet = async (e) => {
-  //   e.preventDefault();
-  //   console.log(JSON.stringify(canidaeRequest));
-  //   const formData = new FormData();
-
-  //   formData.append(
-  //     'canidaeRequest',
-  //     new Blob([JSON.stringify(canidaeRequest)], { type: 'application/json' })
-  //   );
-
-  //   // if (profileImage) {
-  //   formData.append('newProfileImage', profileImage);
-  //   // }
-
-  //   // for (const [key, value] of formData.entries()) {
-  //   //   console.log(`[ ${key}: ]`);
-  //   //   console.log(value);
-  //   // }
-  //   for (let key of formData.keys()) {
-  //     console.log(`key : ${key}`);
-  //   }
-
-  //   for (let value of formData.values()) {
-  //     console.log(`value : ${value}`);
-  //   }
 
   //   const baseURL = import.meta.env.VITE_API_URL;
   //   const url = `${baseURL}/canidae/update`;
@@ -268,7 +326,7 @@ export default function EditPetInfo() {
   // };
 
   return (
-    <form css={styles.container}>
+    <form css={styles.container} onSubmit={handleSubmit}>
       {/* 이미지 input */}
       <div css={styles.imgContainer}>
         <input
@@ -297,9 +355,8 @@ export default function EditPetInfo() {
               text="대표"
               width={220}
               padding={'8px'}
-              // onClick={() => handleChangePrimary(1)}
-              // theme={isPrimary ? 'black' : 'white'}
-              // type
+              theme={updateCanidaeInfo.canidae.isPrimary ? 'black' : null}
+              onClick={() => handleChangePrimary(true)}
               border={'1px solid rgba(154, 154, 154, 0.6)'}
               fontSize={14}
               fontWeight={500}
@@ -309,8 +366,8 @@ export default function EditPetInfo() {
             <Button
               text="일반"
               width={220}
-              // onClick={() => handleChangePrimary(0)}
-              // theme={!isPrimary ? 'black' : 'white'}
+              theme={!updateCanidaeInfo.canidae.isPrimary ? 'black' : null}
+              onClick={() => handleChangePrimary(false)}
               fontSize={14}
               border={'1px solid rgba(154, 154, 154, 0.6)'}
               fontWeight={500}
@@ -325,11 +382,13 @@ export default function EditPetInfo() {
           <input
             type="text"
             css={styles.input}
-            placeholder="ex.꼬미"
+            placeholder={originalCanidaeInfo.originalCanidae.name || 'ex.꼬미'}
             name="name"
+            value={updateCanidaeInfo.canidae.name || ''}
+            onChange={handleChangeInput}
             // value={originCanidaeRequest.orgCanidae.name}
             // onChange={handleChangeInput}
-            required
+            // required
           />
         </div>
 
@@ -339,11 +398,13 @@ export default function EditPetInfo() {
           <input
             type="text"
             css={styles.input}
-            placeholder="ex.말티즈"
+            placeholder={
+              originalCanidaeInfo.originalCanidae.breed || 'ex.말티즈'
+            }
             name="breed"
-            // value={originCanidaeRequest.orgCanidae.breed}
-            // onChange={handleChangeInput}
-            required
+            value={updateCanidaeInfo.canidae.breed || ''}
+            onChange={handleChangeInput}
+            // required
           />
         </div>
 
@@ -355,9 +416,8 @@ export default function EditPetInfo() {
             max={MAX_TODAY_STRING}
             css={styles.input}
             name="birth"
-            // value={originCanidaeRequest.orgCanidae.birth}
-            // onChange={handleChangeInput}
-            required
+            value={originalCanidaeInfo.originalCanidae.birth}
+            onChange={handleChangeInput}
           />
         </div>
 
@@ -368,8 +428,8 @@ export default function EditPetInfo() {
               text="남아"
               width={220}
               padding={'8px'}
-              // onClick={() => handleChangeGender(1)}
-              // theme={gender ? 'black' : 'white'}
+              onClick={() => handleChangeGender(true)}
+              theme={updateCanidaeInfo.canidae.gender ? 'black' : null}
               fontSize={14}
               fontWeight={500}
               border={'1px solid rgba(154, 154, 154, 0.6)'}
@@ -379,8 +439,8 @@ export default function EditPetInfo() {
             <Button
               text="여아"
               width={220}
-              // onClick={() => handleChangeGender(0)}
-              // theme={!gender ? 'black' : 'white'}
+              onClick={() => handleChangeGender(false)}
+              theme={!updateCanidaeInfo.canidae.gender ? 'black' : null}
               fontSize={14}
               fontWeight={500}
               border="1px solid rgba(154, 154, 154, 0.6)"
@@ -392,13 +452,13 @@ export default function EditPetInfo() {
         <div>
           <label css={styles.label}>몸무게 (kg)</label>
           <input
-            type="number"
+            type="text"
             css={styles.input}
-            placeholder="ex.3.5"
+            placeholder={originalCanidaeInfo.originalCanidae.weight || 'ex.3.5'}
             name="weight"
-            // value={originCanidaeRequest.orgCanidae.weight}
-            // onChange={handleChangeInput}
-            required
+            value={updateCanidaeInfo.canidae.weight || ''}
+            onChange={handleChangeInput}
+            // required
           />
         </div>
 
@@ -413,148 +473,22 @@ export default function EditPetInfo() {
                 categories={subCategory
                   .filter((sub) => sub.mainCategoryId === main.id)
                   .map((sub) => ({ id: sub.id, name: sub.name }))}
-                selectedCategories={originalCanidaeInfo.originalInterstProduct}
+                selectedCategories={selectedCategories}
+                handleCategorySelect={handleCategorySelect}
               />
             );
           })}
-
-          {/* {mainCategory.map((main) => (
-            <CategoryButton
-              key={main.id}
-              label={main.name}
-              categories={subCategory
-                .filter((sub) => sub.mainCategoryId === main.id)
-                .map((sub) => ({ id: sub.id, name: sub.name }))}
-              selectedCategories={originCanidaeRequest.interestProduct}
-              handleCategorySelect={handleCategorySelect}
-              disableUnselected={
-                originCanidaeRequest.interestProduct.length >= 5
-              }
-            />
-          ))} */}
         </div>
+
+        <Button
+          text="수정완료"
+          theme="black"
+          height={35}
+          fontSize={16}
+          fontWeight={500}
+          // onClick={registerPet}
+        />
       </div>
-
-      {/* 
-      <div css={styles.inputContainer}>
-        <label css={styles.label}>대표여부</label>
-        <div css={styles.genderButtonContainer}>
-          <Button
-            text="대표"
-            width={220}
-            height={50}
-            onClick={() => handleChangePrimary(1)}
-            theme={isPrimary ? 'black' : 'white'}
-            fontSize={16}
-            fontWeight={500}
-            type="button"
-          />
-          <Button
-            text="일반"
-            width={220}
-            height={50}
-            onClick={() => handleChangePrimary(0)}
-            theme={!isPrimary ? 'black' : 'white'}
-            fontSize={16}
-            fontWeight={500}
-            type="button"
-          />
-        </div>
-        <label css={styles.label}>이름</label>
-        <input
-          type="text"
-          css={styles.input}
-          placeholder="ex.꼬미"
-          name="name"
-          value={originCanidaeRequest.orgCanidae.name}
-          onChange={handleChangeInput}
-          required
-        />
-
-        <label css={styles.label}>견종</label>
-        <input
-          type="text"
-          css={styles.input}
-          placeholder="ex.말티즈"
-          name="breed"
-          value={originCanidaeRequest.orgCanidae.breed}
-          onChange={handleChangeInput}
-          required
-        />
-
-        <label css={styles.label}>생일</label>
-        <input
-          type="date"
-          max={todayString}
-          css={styles.input}
-          name="birth"
-          value={originCanidaeRequest.orgCanidae.birth}
-          onChange={handleChangeInput}
-          required
-        />
-
-        <label css={styles.label}>성별</label>
-        <div css={styles.genderButtonContainer}>
-          <Button
-            text="남아"
-            width={220}
-            height={50}
-            onClick={() => handleChangeGender(1)}
-            theme={gender ? 'black' : 'white'}
-            fontSize={16}
-            fontWeight={500}
-            type="button"
-          />
-          <Button
-            text="여아"
-            width={220}
-            height={50}
-            onClick={() => handleChangeGender(0)}
-            theme={!gender ? 'black' : 'white'}
-            fontSize={16}
-            fontWeight={500}
-            type="button"
-          />
-        </div>
-
-        <label css={styles.label}>몸무게 (kg)</label>
-        <input
-          type="number"
-          css={styles.input}
-          placeholder="ex.3.5"
-          name="weight"
-          value={originCanidaeRequest.orgCanidae.weight}
-          onChange={handleChangeInput}
-          required
-        />
-
-        <label css={styles.label}>관심 카테고리</label>
-
-        {mainCategory.map((main) => (
-          <CategoryButton
-            key={main.id}
-            label={main.name}
-            categories={subCategory
-              .filter((sub) => sub.mainCategoryId === main.id)
-              .map((sub) => ({ id: sub.id, name: sub.name }))}
-            selectedCategories={originCanidaeRequest.interestProduct}
-            handleCategorySelect={handleCategorySelect}
-            disableUnselected={originCanidaeRequest.interestProduct.length >= 5}
-          />
-        ))}
-
-        <div css={styles.registerButton}>
-          <Button
-            text="수정완료"
-            width={100}
-            height={50}
-            theme="black"
-            fontSize={16}
-            fontWeight={500}
-            // onClick={registerPet}
-          />
-        </div>
-      </div> */}
     </form>
   );
 }

@@ -67,8 +67,4 @@ export const styles = {
   //   margin-top: 15px;
   //   display: flex;
   // `,
-  registerButton: css`
-    margin-top: 25px;
-    margin-left: 180px;
-  `,
 };
