@@ -9,14 +9,12 @@ import subImage2 from '../../assets/images/mainpage/sub2.jpg';
 import subImage3 from '../../assets/images/mainpage/sub3.jpg';
 import subImage4 from '../../assets/images/mainpage/sub4.jpg';
 import Footer from '../../components/Global/Footer/Footer';
-//import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import {
   isMainCategoryInfoState,
   isSubCategoryInfoState,
 } from '../../recoil/atom/category';
-
 
 import { getCookie } from '@util/configCookie';
 import { isActhenticatedState } from '@recoil/atom/authState';
@@ -60,7 +58,9 @@ export default function Mainpage() {
           .then((res) => res.data);
 
         setRecommendedProduct([...resposne.data]);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     fetchRecommendedProdut();
