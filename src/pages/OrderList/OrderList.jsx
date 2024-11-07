@@ -5,9 +5,12 @@ import { styles } from './OrderList.style';
 import ListCard from './listCard';
 import { useQuery } from '@tanstack/react-query';
 import { getOrderListAPI } from '../../apis/OrderList/getOrderListAPI';
+import { getCookie, decodeToken } from '../../util/configCookie';
 
-const userId = '3e6df3af-d038-4b94-a327-92ab30a88749';
 const OrderList = () => {
+  const token = getCookie('token');
+  const userInfo = decodeToken(token);
+  const userId = userInfo.userId;
   const {
     data: orderList,
     isLoading,
@@ -17,10 +20,21 @@ const OrderList = () => {
     queryFn: () => getOrderListAPI(userId), // queryFn을 함수로 전달
   });
 
-  if (isLoading) return <div>주문내역 불러오는중 ...</div>;
+  if (isLoading)
+    return (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          height: '100%',
+        }}
+      >
+        <div>주문내역 불러오는중 ...</div>
+      </div>
+    );
   if (error) return <p>Error: {error.message}</p>;
 
-  console.log(orderList);
+  console.log(userId);
   return (
     <>
       <div css={styles.container}>

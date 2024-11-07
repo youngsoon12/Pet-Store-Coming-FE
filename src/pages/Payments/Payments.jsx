@@ -10,14 +10,17 @@ import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { deliveryInfo } from '../../recoil/atom/deliveryInfo';
 import { getCookie, decodeToken } from '../../util/configCookie';
+import { paymentProductAtom } from '../../recoil/atom/paymentProductAtom';
 
 const Payments = () => {
   const token = getCookie('token');
   const userId = decodeToken(token);
-
   const location = useLocation();
   const selectedItems = location.state?.selectedItems || [];
-  console.log(selectedItems);
+  const [paymentProduct, setPaymentProduct] =
+    useRecoilState(paymentProductAtom);
+  console.log(userId.userId);
+
   // state 구간
   const [amountList, setAmountList] = useState({
     totalAmount: '',
@@ -41,7 +44,7 @@ const Payments = () => {
   // recoil state 구간
 
   const [orderInfo, setOrderInfo] = useRecoilState(deliveryInfo);
-
+  console.log(orderInfo);
   // UseEffect 구간
   useEffect(() => {
     if (selectedItems) {
@@ -67,9 +70,10 @@ const Payments = () => {
         totalAmount: totalAmount.toLocaleString(),
         totalDiscountAmount: totalDiscountAmount,
       });
+      setPaymentProduct([...selectedItems]);
     }
   }, []);
-
+  console.log(paymentProduct);
   // 두 번째 useEffect: amountList가 업데이트된 후 orderInfo에 반영
   useEffect(() => {
     setOrderInfo((prev) => ({

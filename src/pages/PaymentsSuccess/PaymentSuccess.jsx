@@ -1,35 +1,31 @@
+/** @jsxImportSource @emotion/react */
+
 import { React, useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { deliveryInfo } from '../../recoil/atom/deliveryInfo';
 import { useRecoilState } from 'recoil';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import getCartListAPI from '../../apis/CartList/GetCartListAPI';
+import { useMutation } from '@tanstack/react-query';
 import saveOrderItemAPI from '../../apis/PaymentSuccess/saveOrderItemAPI';
 import tossApproveAPI from '../../apis/PaymentSuccess/tossApproveAPI';
+import { paymentProductAtom } from '../../recoil/atom/paymentProductAtom';
+import { styles } from './PaymentSuccess.style';
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [orderInfo, setOrderInfo] = useRecoilState(deliveryInfo);
+  const [cartItems] = useRecoilState(paymentProductAtom); // 장바구니 데이터를 Recoil에서 바로 가져옴
   const [isApproved, setIsApproved] = useState(false); // 승인 여부 상태 추가
 
-  // 장바구니 데이터 가져오기
-  const {
-    data: cartData,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ['cartList01'],
-    queryFn: getCartListAPI,
-  });
+  console.log(orderInfo);
 
   // 결제 승인 요청을 처리하는 mutation
   const approvePaymentMutation = useMutation({
     mutationFn: tossApproveAPI,
     onSuccess: async () => {
-      // orderItem 저장 mutation 호출 (cartData의 전체 아이템을 배열로 전송)
-      if (cartData && cartData.data) {
-        const orderItems = cartData.data.map((item) => ({
+      // orderItem 저장 mutation 호출 (cartItems의 전체 아이템을 배열로 전송)
+      if (cartItems) {
+        const orderItems = cartItems.map((item) => ({
           orderId: orderInfo.orderId,
           productId: item.productId,
           quantity: parseInt(item.productQuantity, 10),
@@ -77,9 +73,11 @@ const PaymentSuccess = () => {
     }
   }, [orderInfo, approvePaymentMutation, isApproved]);
 
-  if (isLoading) return <div>정보를 불러오는 중입니다...</div>;
-
-  return <div>결제 중 입니다.</div>;
+  return (
+    <div css={styles.wrap}>
+      <div css={styles.container}>결제중 입니다 </div>
+    </div>
+  );
 };
 
 export default PaymentSuccess;
