@@ -32,14 +32,9 @@ export default function Mainpage() {
 
   useEffect(() => {
     async function fetchRecommendedProdut() {
-      console.log(isActhenticated);
       const token = getCookie('token');
 
       try {
-        console.log(token);
-
-        console.log('Fuck You');
-
         const resposne = await axios
           .get(`${import.meta.env.VITE_API_URL}/product/list/main`, {
             headers: {

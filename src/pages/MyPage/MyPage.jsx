@@ -11,7 +11,6 @@ import { useEffect, useState } from 'react';
 import { decodeToken, getCookie } from '@util/configCookie';
 
 export default function MyPage() {
-  // const { name, list, myPets } = myDatas;
   const { list } = myDatas;
 
   const [myPets, setMyPets] = useState([]);
@@ -32,13 +31,9 @@ export default function MyPage() {
         .catch((err) => console.log(err));
 
       myPetsResponse && setMyPets([...myPetsResponse.data]);
-      console.log(myPets);
-
-      // console.log('= = = = =');
-      // console.log('asd', myPetsResponse.data);
     }
+
     getMyPets();
-    // console.log(myPets);
   }, []);
 
   const deletePet = (petId, newPrimaryCanidae) => {
@@ -53,18 +48,6 @@ export default function MyPage() {
     });
 
     setMyPets(updatedPetsWithPrimary);
-
-    // setMyPets((prev) => ({
-    //   ...prev,
-    //   canidae: {
-    //     ...prev.canidae,
-    //     isPrimary: id === newPrimaryCanidae && true
-    //   }
-    // }));
-
-    // const updatedPets = myPets.filter((pet) => pet.canidae.id !== petId);
-
-    // setMyPets(updatedPets); // 상태를 업데이트하여 화면에 반영
   };
 
   const navigate = useNavigate();

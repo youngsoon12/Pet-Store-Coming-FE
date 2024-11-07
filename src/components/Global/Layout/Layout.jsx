@@ -51,25 +51,30 @@ function Layout({ children }) {
     }
   }, [isActhenticated]);
 
-  // // 로그인 이후 쿠키 만료 시간 계산
-  useEffect(() => {
-    const token = getCookie('token');
-    if (token) {
-      const decodeInfo = decodeToken(token);
+  // // // 로그인 이후 쿠키 만료 시간 계산
+  // useEffect(() => {
+  //   const token = getCookie('token');
 
-      if (decodeInfo) {
-        const expirationTime = decodeInfo.exp * 1000;
-        const currentTime = Date.now();
-        if (currentTime > expirationTime) {
-          // 토큰 만료됨
-          removeCookie('token');
-          removeCookie('refreshToken');
-          alert('세션이 만료되었습니다. 다시 로그인 해주세요.');
-          navigate('/login');
-        }
-      }
-    }
-  }, [navigate]);
+  //   if (token) {
+  //     const decodeInfo = decodeToken(token);
+
+  //     if (decodeInfo) {
+  //       const expirationTime = decodeInfo.exp * 1000;
+  //       const currentTime = Date.now();
+
+  //       if (currentTime > expirationTime) {
+  //         // 토큰 만료됨
+  //         removeCookie('token');
+  //         removeCookie('refreshToken');
+  //         removeCookie("tokenExpirationTime")
+  //         localStorage.removeItem("device-id");
+  //         alert('세션이 만료되었습니다. 다시 로그인 해주세요.');
+  //         navigate('/login');
+  //       }
+  //     }
+  //   }
+  // }, [navigate]);
+
   // 페이지 리다이렉션 && Tab Bar
   useEffect(() => {
     const { pathname } = location;
