@@ -15,5 +15,6 @@ export const styles = {
     background-color: ${type === 'black' ? '#171717' : '#ffffff'};
     color: ${type === 'black' ? '#ffffff' : '#5d5d5d'};
     border: 1px solid ${type === 'black' ? '#171717' : '#5d5d5d'};
+    /* cursor: pointer; */
   `,
 };

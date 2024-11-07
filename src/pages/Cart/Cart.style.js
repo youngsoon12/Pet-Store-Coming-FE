@@ -8,7 +8,7 @@ export const styles = {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: -40%;
+        margin-top: 30%;
         gap: 20px;
       `;
     } else {
@@ -16,7 +16,6 @@ export const styles = {
         width: 100%;
         margin-top: 20px;
         padding: 0 20px 30px 20px;
-        min-height: 100vh;
         /* justify-content: flex-start; */
       `;
     }
@@ -32,6 +31,10 @@ export const styles = {
   //     /* border: 1px solid black; */
   //   `;
   // },
+
+  loading: css`
+    margin-top: 20px;
+  `,
   head: css`
     display: flex;
     justify-content: space-between;
@@ -59,7 +62,8 @@ export const styles = {
     font-weight: bold;
   `,
   discountBox: css`
-    color: #ff4801;
+    /* color: #ff4801; */
+    display: flex;
   `,
   quantityBox: css`
     display: flex;
