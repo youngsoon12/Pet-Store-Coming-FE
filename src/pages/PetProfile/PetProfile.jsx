@@ -99,7 +99,6 @@ export default function PetProfilePage() {
 
   const handleImgUpload = async (e) => {
     const file = e.target.files[0];
-    console.log(e.target.files[0]);
 
     if (file) {
       setProfileImage(e.target.files[0]);
@@ -110,7 +109,6 @@ export default function PetProfilePage() {
       };
       reader.readAsDataURL(file);
 
-      console.log(reader);
     }
   };
 
@@ -130,14 +128,13 @@ export default function PetProfilePage() {
     }
 
     for (const [key, value] of formData.entries()) {
-      console.log(`[ ${key}: ]`);
-      console.log(value);
+      // console.log(`[ ${key}: ]`);
+      // console.log(value);
     }
 
     const baseURL = import.meta.env.VITE_API_URL;
     const url = `${baseURL}/canidae/insert`;
 
-    console.log(canidaeRequest);
 
     try {
       const response = await axios.post(url, formData, {

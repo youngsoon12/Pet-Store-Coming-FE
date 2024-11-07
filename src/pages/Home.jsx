@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../components/global/Header/Header';
-import TabBar from '../components/global/TabBar/TabBar';
-import ContentsWrapper from '../components/global/ContentsWrapper/ContentsWrapper';
+import Header from '../components/Global/Header/Header';
+import TabBar from '../components/Global/TabBar/TabBar';
+import ContentsWrapper from '../components/Global/ContentsWrapper/ContentsWrapper';
 
 export default function Home() {
   return (

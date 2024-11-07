@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import cart from '@assets/images/header/icons/cart.svg';
+import cart from '@assets/images/Header/icons/cart.svg';
 
 export default function Cart({ handleClick }) {
   const iconStyle = css`

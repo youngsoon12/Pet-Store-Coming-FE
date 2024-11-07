@@ -34,7 +34,9 @@ export default function SearchPage() {
         .then((res) => res.data);
 
       setSearchResults([...res.data]);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // useEffect(() => {}, []);

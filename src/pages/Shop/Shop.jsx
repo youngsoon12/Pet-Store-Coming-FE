@@ -44,7 +44,6 @@ export default function ShopPage() {
 
   const handleTabClick = (item) => {
     
-    console.log(item.id);
     // console.log(categoryName)
 
     navigate(`/shop/${item.slug}`, { state: {

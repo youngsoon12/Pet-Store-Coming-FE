@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import search from '@assets/images/header/icons/search.svg';
+import search from '@assets/images/Header/icons/search.svg';
 
 export default function Search({ handleClick }) {
   const iconStyle = css`

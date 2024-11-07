@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import logo from '@assets/images/header/logos/logo.svg';
-import dogLogo from '@assets/images/header/logos/dog_logo.svg';
+import logo from '@assets/images/Header/logos/logo.svg';
+import dogLogo from '@assets/images/Header/logos/dog_logo.svg';
 
 export default function Logo({ handleClick, dog }) {
   const logoStyle = css`

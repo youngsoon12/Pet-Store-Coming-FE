@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 
-import { React, useEffect } from 'react';
 import { styles } from './OrderList.style';
 import ListCard from './listCard';
 import { useQuery } from '@tanstack/react-query';
@@ -34,7 +33,6 @@ const OrderList = () => {
     );
   if (error) return <p>Error: {error.message}</p>;
 
-  console.log(userId);
   return (
     <>
       <div css={styles.container}>

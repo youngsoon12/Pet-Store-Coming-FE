@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import home from '@assets/images/header/icons/home.svg';
+import home from '@assets/images/Header/icons/home.svg';
 
 export default function Home({ handleClick }) {
   const iconStyle = css`

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { useNavigate } from 'react-router-dom';
-import styles from './auth_actions.stlye.js';
+import styles from './auth_actions.style.js';
 
 function AuthActions() {
   const navigate = useNavigate();

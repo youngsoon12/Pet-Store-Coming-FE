@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useRecoilValue } from 'recoil';
 import { isSubCategoryInfoState } from '@recoil/atom/category';
 import { styles } from './PetCard.style';
-export default function ({ petInfo, deletePet }) {
+export default function PetCard({ petInfo, deletePet }) {
   const navigate = useNavigate();
   // 반려견 정보 수정 페이지로 이동
   const editPet = () => {

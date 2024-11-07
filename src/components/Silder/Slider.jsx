@@ -37,12 +37,12 @@ export default function Slider() {
 
   // category.name을 사용하여 경로를 설정
   const handleClickCategory = (category) => {
-    console.log("category")
-    console.log(category)
-    navigate(`/shop/${category.slug}`, { state: {
-      main: category.id,
-      sub: "",
-    } });
+    navigate(`/shop/${category.slug}`, {
+      state: {
+        main: category.id,
+        sub: '',
+      },
+    });
   };
 
   return (
