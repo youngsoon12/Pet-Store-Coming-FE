@@ -23,7 +23,7 @@
   resolved "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.25.8.tgz"
   integrity sha512-ZsysZyXY4Tlx+Q53XdnOFmqwfB9QDTHYxaZYajWRoBLuLEAwI2UIbtxOjWh/cFaa9IKUlcB+DDuoskLuKu56JA==
 
-"@babel/core@^7.0.0", "@babel/core@^7.0.0-0", "@babel/core@^7.21.3", "@babel/core@^7.25.2":
+"@babel/core@^7.21.3", "@babel/core@^7.25.2":
   version "7.25.8"
   resolved "https://registry.npmjs.org/@babel/core/-/core-7.25.8.tgz"
   integrity sha512-Oixnb+DzmRT30qu9d3tJSQkxuygWm32DFykT4bRoORPa9hZ/L4KhVB/XiRm6KG+roIEM7DBQlmg27kw2HZkdZg==
@@ -712,7 +712,6 @@
   dependencies:
     "@tanstack/query-core" "5.59.13"
 
-
 "@tosspayments/payment-sdk@^1.9.0":
   version "1.9.0"
   resolved "https://registry.npmjs.org/@tosspayments/payment-sdk/-/payment-sdk-1.9.0.tgz"
@@ -1023,6 +1022,11 @@ color-convert@^2.0.1:
   integrity sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==
   dependencies:
     color-name "~1.1.4"
+
+color-name@1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
+  integrity sha512-72fSenhMw2HZMTVHeCA9KCmpEIbzWiQsjN+BHcBbS9vr1mtt+vJjPdksIBNUmKAW8TFUDPJK5SUU3QhE9NEXDw==
 
 color-name@~1.1.4:
   version "1.1.4"
@@ -2242,10 +2246,6 @@ punycode@^2.1.0:
 react-daum-postcode@^3.1.3:
   version "3.1.3"
   resolved "https://registry.npmjs.org/react-daum-postcode/-/react-daum-postcode-3.1.3.tgz"
-  integrity sha512-qTyzUb1BeszPFO4FXSj6p83Wrn5Zpo6YqI2EZ46XSVRZT+du9CrKg9p3KshBRFKYxXmFE1Mv7wEynzXdRFNlmQ==
-
-react-dom@^18.3.1, react-dom@>=16.8:
-  resolved "https://registry.yarnpkg.com/react-daum-postcode/-/react-daum-postcode-3.1.3.tgz#008a0815a08fb9356fe7845d4376dcc9363f495d"
   integrity sha512-qTyzUb1BeszPFO4FXSj6p83Wrn5Zpo6YqI2EZ46XSVRZT+du9CrKg9p3KshBRFKYxXmFE1Mv7wEynzXdRFNlmQ==
 
 react-dom@^18.3.1:
