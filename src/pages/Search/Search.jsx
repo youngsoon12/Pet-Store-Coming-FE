@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useEffect, useState } from 'react';
 import { styles } from './Search.style';
-import Category from '../../components/Search/Category/Category';
+import CategoryList from '@components/Search/CategoryList/CategoryList';
 
 export default function SearchPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -36,7 +36,7 @@ export default function SearchPage() {
         </button>
       </form>
       {/* <Category searchTerm={submittedTerm} /> */}
-      <Category
+      <CategoryList
         style={{
           display: hasSearched && searchResults.length > 0 ? 'none' : 'block',
         }}
