@@ -8,7 +8,11 @@ import TabBar from '@components/Global/TabBar/TabBar';
 
 // 사용자 활성화 여부 상태 가져오기
 import { isActhenticatedState } from '@recoil/atom/authState';
+
 import Modal from '@components/Global/Modal/Modal';
+import { useRecoilState, useRecoilValue } from 'recoil';
+
+
 import { getCookie, removeCookie, decodeToken } from '@util/configCookie';
 
 // API 불러오기
@@ -16,7 +20,7 @@ import { AuthAPI } from '@apis/authApi';
 
 // 커스텀 훅 import
 import useLogoutModal from '@hooks/modal/useLogoutModal';
-import { useRecoilState, useRecoilValue } from 'recoil';
+
 import { modalState } from '@recoil/atom/modalState';
 import { activeTabState } from '@recoil/atom/tabState';
 
@@ -31,13 +35,22 @@ function Layout({ children }) {
 
   const { openLogoutModal } = useLogoutModal();
 
-  const isActhenticated = useRecoilValue(isActhenticatedState);
+  // const  = useRecoilValue(isActhenticatedState);
+  const [isActhenticated, setIsActhenticated] =
+    useRecoilState(isActhenticatedState);
+
   const [activeTab, setActiveTab] = useRecoilState(activeTabState);
 
   const apiClass = new AuthAPI();
 
   const location = useLocation(); // location 정보 가져오기
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (getCookie('token')) {
+      setIsActhenticated(true);
+    }
+  }, [isActhenticated]);
 
   // // 로그인 이후 쿠키 만료 시간 계산
   useEffect(() => {

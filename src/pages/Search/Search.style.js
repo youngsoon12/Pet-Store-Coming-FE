@@ -12,11 +12,12 @@ export const styles = {
     display: flex;
     align-items: center;
     background-color: rgb(244, 244, 244);
-    border-radius: 16px;
-    padding: 15px;
+    border-radius: 8px;
+    padding: 10px;
     width: 450px;
     height: 40px;
-    margin: 0 58px;
+    margin: 0 auto;
+    border: 1px solid rgba(154, 154, 154, 0.6);
   `,
 
   input: css`
@@ -24,7 +25,7 @@ export const styles = {
     border: none;
     outline: none;
     background-color: transparent;
-    font-size: 18px;
+    font-size: 14px;
   `,
 
   searchIcon: css`

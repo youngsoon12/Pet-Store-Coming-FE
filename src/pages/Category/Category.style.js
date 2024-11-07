@@ -61,17 +61,17 @@ export const styles = {
     border-radius: 7px;
   `,
 
-itemGridImage: css`
-width: 200px;
-height: 200px;
+  itemGridImage: css`
+  width: 200px;
+  height: 200px;
 
-background-position: center;
-background-repeat: no-repeat;
-background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 
-margin-bottom: 10px;
-border-radius: 7px;
-`,
+  margin-bottom: 10px;
+  border-radius: 7px;
+  `,
   productTitle: css`
     font-size: 14px;
     color: #484848;
@@ -80,6 +80,19 @@ border-radius: 7px;
     margin-left: 10px
     
   `,
+  productName: css`
+    font-size: 14px;
+    color: #484848;
+    font-weight:500;
+    margin-bottom: 5px;
+    margin-left: 10px
+    
+  `,
+  productWrapper: css`
+    display: flex;
+    margin-top: 2px;
+  `,
+  
   productPrice: css`
   text-decoration: line-through;
     font-size: 14px;
@@ -135,7 +148,10 @@ border-radius: 7px;
     margin-left: 10px
     
   `,
-  
+  productWrapper: css`
+    display: flex;
+    margin-top: 2px;
+  `,
 
   itemGridDiscount: css`
     font-size: 14px;

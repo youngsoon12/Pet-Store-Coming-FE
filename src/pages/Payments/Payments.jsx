@@ -9,19 +9,8 @@ import downArrow from '@assets/images/payment/down_arrow.svg';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { deliveryInfo } from '../../recoil/atom/deliveryInfo';
-import { useQuery } from '@tanstack/react-query';
-import getCartListAPI from '../../apis/CartList/GetCartListAPI';
 
 const Payments = () => {
-  const {
-    data: cartData,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ['cartList'],
-    queryFn: getCartListAPI,
-  });
-
   const location = useLocation();
   const selectedItems = location.state?.selectedItems || [];
   console.log(selectedItems);
@@ -51,14 +40,14 @@ const Payments = () => {
 
   // UseEffect 구간
   useEffect(() => {
-    if (cartData) {
+    if (selectedItems) {
       // 총 금액과 할인 금액 계산
-      const totalAmount = cartData.data.reduce((acc, item) => {
+      const totalAmount = selectedItems.reduce((acc, item) => {
         const itemTotal = item.productPrice * parseInt(item.productQuantity);
         return acc + itemTotal;
       }, 0);
 
-      const totalDiscountAmount = cartData.data.reduce((acc, item) => {
+      const totalDiscountAmount = selectedItems.reduce((acc, item) => {
         const itemTotal =
           item.productDiscountPrice * parseInt(item.productQuantity);
         return acc + itemTotal;
@@ -75,7 +64,7 @@ const Payments = () => {
         totalDiscountAmount: totalDiscountAmount,
       });
     }
-  }, [cartData]);
+  }, [selectedItems]);
 
   // 두 번째 useEffect: amountList가 업데이트된 후 orderInfo에 반영
   useEffect(() => {
@@ -125,9 +114,6 @@ const Payments = () => {
     setPayPriceTogle((prev) => !prev);
   };
   const btnActive = Object.values(checkedItems).every(Boolean);
-
-  if (isLoading) return <div>장바구니를 불러오는중 입니다...</div>;
-  if (error) return <div>페이지 오류가 발생하였습니다 ...</div>;
 
   return (
     <>

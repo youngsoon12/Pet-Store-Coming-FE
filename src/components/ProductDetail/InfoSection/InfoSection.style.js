@@ -29,7 +29,7 @@ export const styles = {
   `,
 
   separatorLine: css`
-    width: 470px;
+    width: 550px;
     height: 1px;
     background-color: #D9D9D9;
     margin-top: 30px;

@@ -4,14 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { styles } from './PurchaseModal.style';
 import Button from '../../global/Button/Button';
 import axios from 'axios';
+import { decodeToken, getCookie } from '../../../util/configCookie'; 
+
 
 
 export default function PurchaseModal({
   discountPrice,
   options,
   closeModal,
- 
-  productId, // productId를 함께 전송
+  productDetail,
+  productId, 
 
 }) {
   
@@ -19,16 +21,15 @@ export default function PurchaseModal({
   const [quantity, setQuantity] = useState(1);
   const [selectedOption, setSelectedOption] = useState(null);
   const navigate = useNavigate();
-  const userId = import.meta.env.VITE_USER_ID;
-  
-
-  // 선택된 옵션의 addPrice를 합산한 총 가격
+  //const userId = import.meta.env.VITE_USER_ID;
   const totalPrice =
     (discountPrice + (selectedOption?.addPrice || 0)) * quantity;
 
   const handleQuantityChange = (change) => {
     setQuantity((prev) => Math.max(1, prev + change));
   };
+  const token = getCookie('token');
+  const userInfo = decodeToken(token);
 
   const handleOptionChange = (e) => {
     const selectedOptionId = e.target.value;
@@ -37,11 +38,20 @@ export default function PurchaseModal({
     );
     setSelectedOption(selected);
   };
-
+  
+  const handleBuyNow = () => {
+   console.log(productDetail)
+   
+   const selectedItems = [{...productDetail,productImageUrl:productDetail.prodcutThumbnailImageUrl,productQuantity:quantity}]
+    navigate('/order', { state: { selectedItems } });
+    closeModal();
+  };
+  
   const handleAddToCart = async () => {
     try {
+      const userId = userInfo.userId;  
       console.log('Sending request with data:', {
-        userId,     
+        userInfo,     
         productId,  
         quantity,   
       });
@@ -137,13 +147,22 @@ export default function PurchaseModal({
           <Button
             text="장바구니 담기"
             theme="black"
-            width={500}
+            width={250}
             height={52}
             fontWeight={700}
             onClick={handleAddToCart}
+          />
+          <Button
+            text=" 구매하기"
+            theme="reverse"
+            width={250}
+            height={52}
+            fontWeight={700}
+            onClick={handleBuyNow}
           />
         </div>
       </div>
     </div>
   );
 }
+ 

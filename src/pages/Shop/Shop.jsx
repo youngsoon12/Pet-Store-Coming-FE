@@ -79,15 +79,18 @@ export default function ShopPage() {
             return (
               <div key={item.productId} css={styles.productItem} onClick={() => navigate(`/product/${item.productId}`)}>
              <div css={styles.productImage}style={{ backgroundImage: `url(${item.productThumbnailImageUrl})` }} />
-        <div css={styles.productTitlePriceContainer}>
-          <div css={styles.productTitle}>{item.storeBrandName}</div>
-          <div css={styles.productTitle}>{item.productName}</div>
-          {item.productDiscountRate > 0 ? (
+            <div css={styles.productTitlePriceContainer}>
+            <div css={styles.storeBrandName}>{item.storeBrandName}</div>
+            <div css={styles.productName}>{item.productName}</div>
+            {item.productDiscountRate > 0 ? (
             <>
+            
               <div css={styles.productPrice}>{item.productPrice}원</div>
+              <div css={styles.productWrapper}>
               <div css={styles.productRate}>{item.productDiscountRate}%</div>
               <div css={styles.proDiscount}>{item.productDiscountPrice}원</div>
-            </>
+             </div>
+              </>
           ) : (
             <div css={styles.proDiscount}>{item.productPrice}원</div> 
           )}
@@ -111,13 +114,15 @@ export default function ShopPage() {
         />
         <div css={styles.itemGridTitlePriceContainer}>
           <div css={styles.productTitle}>{item.storeBrandName}</div>
-          <div css={styles.itemGridTitle}>{item.productName}</div>
+          <div css={styles.productName}>{item.productName}</div>
           {item.productDiscountRate > 0 ? (
             <>
-              <div css={styles.itemGridPrice}>{item.productPrice}원</div>
+               <div css={styles.itemGridPrice}>{item.productPrice}원</div>
+             <div css={styles.productWrapper}>
               <div css={styles.productRate}>{item.productDiscountRate}%</div>
               <div css={styles.proDiscount}>{item.productDiscountPrice}원</div>
-            </>
+             </div>
+              </>
           ) : (
             <div css={styles.proDiscount}>{item.productPrice}원</div> 
           )}
