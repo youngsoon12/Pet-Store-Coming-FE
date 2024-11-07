@@ -161,9 +161,9 @@ function Layout({ children }) {
       case '/order':
         setType(1);
         break;
-      case '/orderList':
+      case '/my/order-history':
         setType(4);
-        setActiveTab();
+        setActiveTab('my');
         setTitle('주문 내역');
         break;
     }
