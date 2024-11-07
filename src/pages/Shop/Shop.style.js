@@ -54,7 +54,11 @@ export const styles = {
   productImage: css`
     width: 200px;
     height: 200px;
-    background-color: #e0e0e0;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
     margin-bottom: 10px;
     border-radius: 7px;
   `,
@@ -70,8 +74,22 @@ export const styles = {
     font-size: 14px;
     font-weight:800;
     color: #9A9A9A;
+    text-decoration: line-through;
     margin-left: 10px
   `,
+  productRate: css`
+    font-size: 14px;
+    font-weight:800;
+    color: #ed5729;;
+    margin-left: 10px
+  `,
+  proDiscount: css`
+    font-size: 14px;
+    font-weight:800;
+    color: #000000;
+    margin-left: 10px
+  `,
+  
   divider: css`
     width: 600px;
     height: 0.5px;
@@ -100,7 +118,11 @@ export const styles = {
   itemGridImage: css`
     width: 275px;
     height: 265px;
-    background-color: #e0e0e0;
+    
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
     border-radius: 15px;
     margin-bottom: 17px;
   `,
@@ -113,6 +135,7 @@ export const styles = {
   `,
   itemGridPrice: css`
     font-size: 14px;
+    text-decoration: line-through;
     color: #9A9A9A;
     font-weight: 800;
     margin-left: 10px

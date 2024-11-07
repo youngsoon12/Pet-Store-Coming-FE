@@ -91,11 +91,12 @@ const Router = () => {
             path="/login/oauth/callback/kakao"
             element={<KakaoRedirect />}
           />
-          <Route path="/product/detail" element={<ProductDetailPage />} />
+          <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/petprofile" element={<PetProfilePage />} />
           <Route path="/shop" element={<ShopPage />} />
-          <Route path="/shop/:mainId" element={<CategoryPage />} />
-          <Route path="/shop/:mainId/:subCategory" element={<CategoryPage />} />
+
+          <Route path="/shop/:category" element={<CategoryPage />} />
+          <Route path="/shop/:category/:subcategory" element={<CategoryPage />} />
           {/* <Route path="/shop/:category/:subCategory" element={<CategoryPage />} /> */}
 
           <Route path="/cart" element={<Cart />} />
