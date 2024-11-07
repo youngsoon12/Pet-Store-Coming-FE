@@ -6,7 +6,7 @@ export const styles = {
     width: 100%;
     justify-content: center;
     flex-direction: column;
-    margin: 0 auto;
+    margin-bottom: auto;
     min-width: 320px;
     max-width: 600px;
     box-sizing: border-box;
@@ -15,25 +15,24 @@ export const styles = {
 
   // Global
   title: css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-weight: 700;
     font-size: 24px;
-    margin-bottom: 18px;
-  `,
-  title_area: css`
-    display: flex;
-    justify-content: space-between;
-  `,
-  warn: css`
-    font-size: 12px;
-    font-weight: 500;
-    color: #5d5d5d;
-    margin-right: 29px;
-    text-align: center;
-  `,
-
-  red_star: css`
-    color: #ed5729;
-    vertical-align: sub;
+    border-bottom: 1px solid #ededed;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    padding: 10px 0px;
+    margin-bottom: 40px;
+    @media (max-width: 480px) {
+      font-size: 16px;
+    }
+    @media (max-width: 375px) {
+      font-size: 16px;
+      margin-bottom: 30px;
+      padding: 5px 0px;
+    }
   `,
 
   horizon: css`

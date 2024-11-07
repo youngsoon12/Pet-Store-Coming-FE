@@ -8,6 +8,7 @@ const PaymentProductCard = ({
   discountPrice,
   brand,
   quantity,
+  src,
 }) => {
   return (
     <>
@@ -23,7 +24,7 @@ const PaymentProductCard = ({
               할인적용가:{discountPrice}원
             </div>
           </div>
-          <div css={styles.product_info_img}></div>
+          <img src={src} css={styles.product_info_img} />
         </div>
         <div css={styles.product_info_horizon}></div>
       </div>

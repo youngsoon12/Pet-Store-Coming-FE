@@ -6,28 +6,25 @@ import { styles } from './Payments.style';
 import { useEffect, useState } from 'react';
 import upArrow from '@assets/images/payment/up_arrow.svg';
 import downArrow from '@assets/images/payment/down_arrow.svg';
+import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { deliveryInfo } from '../../recoil/atom/deliveryInfo';
-
-const productInfo = [
-  {
-    brand: '버켄스탁',
-    name: '취리히 스웨이드 레더 토프 레귤러',
-    quantity: 3,
-    price: '90,000',
-    discountPrice: '73,217',
-  },
-
-  {
-    brand: '왕티',
-    name: '멀티 채코보드 에코 풀백',
-    quantity: 4,
-    price: '90,000',
-    discountPrice: '73,217',
-  },
-];
+import { useQuery } from '@tanstack/react-query';
+import getCartListAPI from '../../apis/CartList/GetCartListAPI';
 
 const Payments = () => {
+  const {
+    data: cartData,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ['cartList'],
+    queryFn: getCartListAPI,
+  });
+
+  const location = useLocation();
+  const selectedItems = location.state?.selectedItems || [];
+  console.log(selectedItems);
   // state 구간
   const [amountList, setAmountList] = useState({
     totalAmount: '',
@@ -54,31 +51,37 @@ const Payments = () => {
 
   // UseEffect 구간
   useEffect(() => {
-    const totalAmount = productInfo.reduce((acc, item) => {
-      const itemTotal = parseInt(item.price.replace(/,/g, '')) * item.quantity;
-      return acc + itemTotal;
-    }, 0);
+    if (cartData) {
+      // 총 금액과 할인 금액 계산
+      const totalAmount = cartData.data.reduce((acc, item) => {
+        const itemTotal = item.productPrice * parseInt(item.productQuantity);
+        return acc + itemTotal;
+      }, 0);
 
-    const totalDiscountAmount = productInfo.reduce((acc, item) => {
-      const itemTotal =
-        parseInt(item.discountPrice.replace(/,/g, '')) * item.quantity;
-      return acc + itemTotal;
-    }, 0);
+      const totalDiscountAmount = cartData.data.reduce((acc, item) => {
+        const itemTotal =
+          item.productDiscountPrice * parseInt(item.productQuantity);
+        return acc + itemTotal;
+      }, 0);
 
-    setAmountList({
-      ...amountList,
-      paymentPrice: Math.floor(totalDiscountAmount / 100) * 100,
-      totalDiscountPrice: (totalAmount - totalDiscountAmount).toLocaleString(),
-      totalAmount: totalAmount.toLocaleString(),
-      totalDiscountAmount: totalDiscountAmount.toLocaleString(),
-    });
-  }, []);
+      // amountList 업데이트
+      setAmountList({
+        ...amountList,
+        paymentPrice: Math.floor(totalDiscountAmount / 100) * 100,
+        totalDiscountPrice: (
+          totalAmount - totalDiscountAmount
+        ).toLocaleString(),
+        totalAmount: totalAmount.toLocaleString(),
+        totalDiscountAmount: totalDiscountAmount,
+      });
+    }
+  }, [cartData]);
 
   // 두 번째 useEffect: amountList가 업데이트된 후 orderInfo에 반영
   useEffect(() => {
     setOrderInfo((prev) => ({
       ...prev,
-      userId: 'a233338f-0ff7-4cb6-ad90-fbf514720088',
+      userId: '3e6df3af-d038-4b94-a327-92ab30a88749',
       amount: parseInt(amountList.paymentPrice),
     }));
   }, [amountList]);
@@ -118,19 +121,20 @@ const Payments = () => {
     });
   };
 
+  const onTogglePayPrice = () => {
+    setPayPriceTogle((prev) => !prev);
+  };
   const btnActive = Object.values(checkedItems).every(Boolean);
-  console.log(orderInfo);
+
+  if (isLoading) return <div>장바구니를 불러오는중 입니다...</div>;
+  if (error) return <div>페이지 오류가 발생하였습니다 ...</div>;
+
   return (
     <>
       <div css={styles.container}>
         <div css={styles.infoArea}>
           <div css={styles.title_area}>
             <div css={styles.title}>배송 정보</div>
-            <div css={styles.warn}>
-              <span css={styles.red_star}>*</span>표시는 필수
-              <br />
-              입력 항목
-            </div>
           </div>
           <div css={styles.info_input_area}>
             <div css={styles.info_label}>배송지명</div>
@@ -186,16 +190,17 @@ const Payments = () => {
         <div css={styles.productArea}>
           <div css={styles.title}>상품 정보</div>
           <div css={styles.productCard_area}>
-            {productInfo &&
-              productInfo.map((product, idx) => {
+            {selectedItems &&
+              selectedItems.map((product) => {
                 return (
                   <PaymentProductCard
-                    key={idx}
-                    name={product.name}
-                    price={product.price}
-                    discountPrice={product.discountPrice}
-                    brand={product.brand}
-                    quantity={product.quantity}
+                    key={product.productId}
+                    name={product.productName}
+                    src={product.productImageUrl}
+                    price={product.productPrice}
+                    discountPrice={product.productDiscountPrice}
+                    brand={product.storeBrandName}
+                    quantity={product.productQuantity}
                   />
                 );
               })}
@@ -208,10 +213,52 @@ const Payments = () => {
             <div css={styles.title}>결제금액</div>
             <div css={styles.payment_paymentPrice}>
               {amountList.paymentPrice.toLocaleString()}원
-              <img src={downArrow} css={styles.payment_paymentPrice_icon} />
+              {payPriceTogle ? (
+                <img
+                  src={upArrow}
+                  css={styles.payment_paymentPrice_icon}
+                  onClick={onTogglePayPrice}
+                />
+              ) : (
+                <img
+                  src={downArrow}
+                  css={styles.payment_paymentPrice_icon}
+                  onClick={onTogglePayPrice}
+                />
+              )}
             </div>
           </div>
-          <div>fsdfs</div>
+          {payPriceTogle && (
+            <div>
+              <div css={styles.payment_horizon} />
+              <div css={styles.payment_toggle_area}>
+                <div css={styles.payment_toggle_area_content}>
+                  <div>총 상품 금액</div>
+                  <div css={styles.payment_toggle_area_content_noDiscount}>
+                    {amountList.totalAmount}원
+                  </div>
+                </div>
+                <div css={styles.payment_toggle_area_content}>
+                  <div>스토어 할인 적용</div>
+                  <div css={styles.payment_toggle_area_content_discount}>
+                    - {amountList.totalDiscountPrice}원
+                  </div>
+                </div>
+                <div css={styles.payment_toggle_area_content}>
+                  <div>꼬밍 특별 할인</div>
+                  <div css={styles.payment_toggle_area_content_discount}>
+                    - {amountList.totalDiscountAmount - amountList.paymentPrice}
+                    원
+                  </div>
+                </div>
+                <div css={styles.payment_horizon} />
+                <div css={styles.payment_toggle_content_last_price}>
+                  <div>총 결제 금액</div>
+                  <div>{amountList.paymentPrice.toLocaleString()}원</div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         <div css={styles.horizon} />
         <div css={styles.personalInfoArea}>

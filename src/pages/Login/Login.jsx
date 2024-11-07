@@ -92,7 +92,12 @@ function LoginPage() {
 
         try {
           const accessToken = await apiClass.fetchKakaoToken(authCode);
-          await apiClass.fetchSocialLogin(accessToken);
+          const isSuccess = await apiClass.fetchSocialLogin(accessToken);
+          if (!isSuccess) {
+            navigate('/login');
+          } else {
+            navigate('/');
+          }
         } catch (error) {
           console.log(error);
         }
