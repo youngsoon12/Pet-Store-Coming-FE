@@ -39,6 +39,7 @@ export default function PetProfilePage() {
       breed: '',
       gender: 1,
       weight: undefined,
+      isPrimary: false,
     },
     interestProduct: [],
   });
@@ -135,6 +136,8 @@ export default function PetProfilePage() {
 
     const baseURL = import.meta.env.VITE_API_URL;
     const url = `${baseURL}/canidae/insert`;
+
+    console.log(canidaeRequest);
 
     try {
       const response = await axios.post(url, formData, {

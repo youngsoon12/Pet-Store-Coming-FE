@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from 'react';
-import AddressInput from '../../components/global/AddressInput/AddressInput';
+import AddressInput from '@components/Global/AddressInput/AddressInput';
 import { styles } from './EditMyInfo.style';
 
 export default function EditMyInfo() {

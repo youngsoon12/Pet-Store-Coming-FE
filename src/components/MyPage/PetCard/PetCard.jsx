@@ -15,8 +15,12 @@ export default function ({ petInfo, deletePet }) {
   const handleDelete = async () => {
     const baseURL = import.meta.env.VITE_API_URL;
     try {
-      await axios.delete(`${baseURL}/canidae/delete?id=${petInfo.canidae.id}`);
-      deletePet(petInfo.canidae.id); // 삭제 후 상태 업데이트
+      const res = await axios
+        .delete(`${baseURL}/canidae/delete?id=${petInfo.canidae.id}`)
+        .then((res) => res.data);
+      // console.log(res);
+
+      deletePet(petInfo.canidae.id, res.newPrimaryCanidae.id); // 삭제 후 상태 업데이트
     } catch (err) {
       console.log(err);
     }
