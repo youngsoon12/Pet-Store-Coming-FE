@@ -1,149 +1,390 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
-import Button from '../../components/Global/Button/Button';
-import Camera from '../../assets/images/PetProfile/camera.svg';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useRecoilValue } from 'recoil';
+import Button from '@components/Global/Button/Button';
+import Camera from '@assets/images/PetProfile/camera.svg';
 import { styles } from './EditPetInfo.style';
-import CategoryButton from '../../components/CategoryButton/CategoryButton';
+import CategoryButton from '@components/CategoryButton/CategoryButton';
+import {
+  isMainCategoryInfoState,
+  isSubCategoryInfoState,
+} from '@recoil/atom/category';
 
 export default function EditPetInfo() {
-  const [gender, setGender] = useState('male');
-  const [selectedCategories, setSelectedCategories] = useState({
-    snack: [],
-    clothes: [],
-    stroller: [],
-    supplies: [],
+  /////////////////////////////////////////
+  // api 연동
+  // 수정할 반려견 정보 받아오기
+  const { state } = useLocation();
+  const { petInfo } = state;
+  useEffect(() => {
+    console.log(petInfo);
+  }, []);
+
+  const navigate = useNavigate();
+
+  const userId = '22ef481b-11e6-487c-b5e1-257efb4895a2';
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = ('0' + (today.getMonth() + 1)).slice(-2);
+  const day = ('0' + today.getDate()).slice(-2);
+  const todayString = year + '-' + month + '-' + day;
+
+  const [originCanidaeRequest, setOriginCanidaeRequest] = useState({
+    orgCanidae: {
+      id: petInfo.id,
+      userId: userId,
+      name: petInfo.name,
+      birth: petInfo.birth,
+      breed: petInfo.breed,
+      gender: petInfo.gender,
+      weight: petInfo.weight,
+      isPrimary: petInfo.isPrimary,
+    },
+    interestProduct: [],
+    // interestProduct: [...petInfo.interestProduct],
   });
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [canidaeRequest, setCanidaeRequest] = useState({
+    canidae: {
+      id: petInfo.id,
+      userId: userId,
+      weight: petInfo.weight,
+    },
+    intersetUpdateProduct: [],
+  });
 
-  // 선택된 카테고리의 총 개수 계산
-  const totalSelectedCategories = Object.values(selectedCategories).reduce(
-    (total, categoryArray) => total + categoryArray.length,
-    0
-  );
+  // canidaeRequest 구조분해할당
+  const {
+    orgCanidae: { name, birth, breed, gender, weight, isPrimary },
+    interestProduct,
+  } = originCanidaeRequest;
 
-  const handleCategorySelect = (category, categoryType) => {
-    setSelectedCategories((prev) => {
-      const isSelected = prev[categoryType].includes(category);
+  const { canidae, intersetUpdateProduct } = canidaeRequest;
+
+  const handleChangePrimary = (isPrimary) => {
+    setOriginCanidaeRequest((prev) => ({
+      ...prev,
+      orgCanidae: {
+        ...prev.orgCanidae,
+        isPrimary: isPrimary,
+      },
+    }));
+    setCanidaeRequest((prev) => ({
+      ...prev,
+      canidae: {
+        ...prev.canidae,
+        isPrimary: isPrimary,
+      },
+    }));
+  };
+
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+    setOriginCanidaeRequest((prev) => ({
+      ...prev,
+      orgCanidae: {
+        ...prev.orgCanidae,
+        [name]: name === 'weight' ? parseFloat(value) : value,
+      },
+    }));
+    setCanidaeRequest((prev) => ({
+      ...prev,
+      canidae: {
+        ...prev.canidae,
+        [name]: name === 'weight' ? parseFloat(value) : value,
+      },
+    }));
+  };
+
+  const handleChangeGender = (gender) => {
+    setOriginCanidaeRequest((prev) => ({
+      ...prev,
+      orgCanidae: {
+        ...prev.orgCanidae,
+        gender: gender,
+      },
+    }));
+    setCanidaeRequest((prev) => ({
+      ...prev,
+      canidae: {
+        ...prev.canidae,
+        gender: gender,
+      },
+    }));
+  };
+
+  // 관심 카테고리 //
+  // 카테고리 정보 가져오기 (전역 state)
+  const mainCategory = useRecoilValue(isMainCategoryInfoState);
+  const subCategory = useRecoilValue(isSubCategoryInfoState);
+
+  const handleCategorySelect = (categoryId) => {
+    console.log(canidaeRequest.intersetUpdateProduct);
+    setOriginCanidaeRequest((prevRequest) => {
+      const isAlreadySelected =
+        prevRequest.interestProduct.includes(categoryId);
+
+      // 5개 초과 선택 방지
+      if (!isAlreadySelected && prevRequest.interestProduct.length >= 5) {
+        // alert('최대 5개까지만 선택할 수 있습니다.');
+        return prevRequest;
+      }
+
+      // 선택 또는 해제 처리
+      // const updatedInterestProduct = isAlreadySelected
+      //   ? prevRequest.interestProduct.filter((id) => id !== categoryId)
+      //   : [...prevRequest.interestProduct, categoryId];
+      let updatedInterestProduct;
+      if (isAlreadySelected) {
+        // 선택 해제
+        updatedInterestProduct = prevRequest.interestProduct.filter(
+          (id) => id !== categoryId
+        );
+        setCanidaeRequest((prev) => ({
+          ...prev,
+          intersetUpdateProduct: [
+            ...prev.intersetUpdateProduct,
+            { id: petInfo.id, subCategoryId: categoryId, updateStatus: '' },
+          ],
+        }));
+      } else {
+        // 선택
+        updatedInterestProduct = [...prevRequest.interestProduct, categoryId];
+        setCanidaeRequest((prev) => ({
+          ...prev,
+          intersetUpdateProduct: [
+            ...prev.intersetUpdateProduct,
+            { id: petInfo.id, subCategoryId: categoryId, updateStatus: '' },
+          ],
+        }));
+      }
       return {
-        ...prev,
-        [categoryType]: isSelected
-          ? prev[categoryType].filter((item) => item !== category)
-          : [...prev[categoryType], category],
+        ...prevRequest,
+        interestProduct: updatedInterestProduct,
       };
     });
   };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setSelectedImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // 이미지 업로드
+  const [selectedImage, setSelectedImage] = useState(petInfo.profileImageUrl); // 화면에 보여주는 용도
+  const [profileImage, setProfileImage] = useState(''); // 서버에 보내는 용도
 
   const handleCameraClick = () => {
     document.getElementById('profileImg').click();
   };
 
-  const categoryData = [
-    {
-      label: '간식/사료',
-      type: 'snack',
-      items: ['영양제', '수제간식', '덴탈껌', '건식사료', '습식사료'],
-    },
-    {
-      label: '의류',
-      type: 'clothes',
-      items: ['상의', '원피스', '아우터/우비', '수영복', '악세사리'],
-    },
-    {
-      label: '유모차',
-      type: 'stroller',
-      items: ['소형견', '대형견', '다인승', '쿠션'],
-    },
-    {
-      label: '용품',
-      type: 'supplies',
-      items: [
-        '미용용품',
-        '장난감',
-        '방석',
-        '위생용품',
-        '산책용품',
-        '가방/카시트',
-        '급식기/급수',
-      ],
-    },
-  ];
+  const handleImgUpload = async (e) => {
+    const file = e.target.files[0];
+    console.log(e.target.files[0]);
 
+    if (file) {
+      setProfileImage(e.target.files[0]);
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+
+      console.log(reader);
+    }
+  };
+  // 관심 카테고리
+  // const subCategory = useRecoilValue()
+
+  // useEffect(() => {
+  //   console.log(canidaeRequest);
+  // }, [canidaeRequest]);
+
+  // 서버에 수정된 반려견 정보 보내기
+  const editPet = async (e) => {
+    e.preventDefault();
+    console.log(JSON.stringify(canidaeRequest));
+    const formData = new FormData();
+
+    formData.append(
+      'canidaeRequest',
+      new Blob([JSON.stringify(canidaeRequest)], { type: 'application/json' })
+    );
+
+    // if (profileImage) {
+    formData.append('newProfileImage', profileImage);
+    // }
+
+    // for (const [key, value] of formData.entries()) {
+    //   console.log(`[ ${key}: ]`);
+    //   console.log(value);
+    // }
+    for (let key of formData.keys()) {
+      console.log(`key : ${key}`);
+    }
+
+    for (let value of formData.values()) {
+      console.log(`value : ${value}`);
+    }
+
+    const baseURL = import.meta.env.VITE_API_URL;
+    const url = `${baseURL}/canidae/update`;
+
+    // console.log(url);
+
+    try {
+      const response = await axios.put(url, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      navigate('/my');
+    } catch (error) {
+      console.log(error);
+    }
+
+    // const headers = { 'Content-type': 'multipart/form-data' };
+    // async function postPet() {
+    //   for (let key of formData.keys()) {
+    //     console.log(`key : ${key}`);
+    //   }
+
+    //   for (let value of formData.values()) {
+    //     console.log(`value : ${value}`);
+    //   }
+
+    //   try {
+    //     const response = await axios.post(url, formData, {
+    //       headers: {
+    //         'Content-type': 'multipart/form-data',
+    //       },
+    //     });
+    //     console.log(response.data);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // }
+    // postPet();
+  };
   return (
-    <div css={styles.container}>
-      <input
-        type="file"
-        id="profileImg"
-        style={{ display: 'none' }}
-        accept="image/*"
-        onChange={handleImageChange}
-      />
-      <img
-        src={selectedImage || Camera}
-        alt="Camera Icon"
-        css={styles.cameraIcon}
-        onClick={handleCameraClick}
-      />
+    <form css={styles.container} onSubmit={editPet}>
+      <div css={styles.imgContainer}>
+        <input
+          type="file"
+          id="profileImg"
+          style={{ display: 'none' }}
+          accept="image/*"
+          onChange={handleImgUpload}
+          // required
+        />
+        <img
+          src={selectedImage || Camera}
+          alt="Camera Icon"
+          css={styles.cameraIcon}
+          onClick={handleCameraClick}
+          required
+        />
+      </div>
 
       <div css={styles.inputContainer}>
-        <label css={styles.label}>이름을 입력해주세요</label>
-        <input type="text" css={styles.input} placeholder="ex.꼬미" />
+        <label css={styles.label}>대표여부</label>
+        <div css={styles.genderButtonContainer}>
+          <Button
+            text="대표"
+            width={220}
+            height={50}
+            onClick={() => handleChangePrimary(1)}
+            theme={isPrimary ? 'black' : 'white'}
+            fontSize={16}
+            fontWeight={500}
+            type="button"
+          />
+          <Button
+            text="일반"
+            width={220}
+            height={50}
+            onClick={() => handleChangePrimary(0)}
+            theme={!isPrimary ? 'black' : 'white'}
+            fontSize={16}
+            fontWeight={500}
+            type="button"
+          />
+        </div>
+        <label css={styles.label}>이름</label>
+        <input
+          type="text"
+          css={styles.input}
+          placeholder="ex.꼬미"
+          name="name"
+          value={originCanidaeRequest.orgCanidae.name}
+          onChange={handleChangeInput}
+          required
+        />
 
-        <label css={styles.label}>견종을 등록하세요</label>
-        <input type="text" css={styles.input} placeholder="ex.말티즈" />
+        <label css={styles.label}>견종</label>
+        <input
+          type="text"
+          css={styles.input}
+          placeholder="ex.말티즈"
+          name="breed"
+          value={originCanidaeRequest.orgCanidae.breed}
+          onChange={handleChangeInput}
+          required
+        />
 
-        <label css={styles.label}>생일을 입력해주세요</label>
-        <input type="date" css={styles.input} />
+        <label css={styles.label}>생일</label>
+        <input
+          type="date"
+          max={todayString}
+          css={styles.input}
+          name="birth"
+          value={originCanidaeRequest.orgCanidae.birth}
+          onChange={handleChangeInput}
+          required
+        />
 
-        <label css={styles.label}>성별을 선택해주세요</label>
+        <label css={styles.label}>성별</label>
         <div css={styles.genderButtonContainer}>
           <Button
             text="남아"
             width={220}
             height={50}
-            onClick={() => setGender('male')}
-            theme={gender === 'male' ? 'black' : 'white'}
+            onClick={() => handleChangeGender(1)}
+            theme={gender ? 'black' : 'white'}
             fontSize={16}
             fontWeight={500}
+            type="button"
           />
           <Button
             text="여아"
             width={220}
             height={50}
-            onClick={() => setGender('female')}
-            theme={gender === 'female' ? 'black' : 'white'}
+            onClick={() => handleChangeGender(0)}
+            theme={!gender ? 'black' : 'white'}
             fontSize={16}
             fontWeight={500}
+            type="button"
           />
         </div>
 
-        <label css={styles.label}>몸무게를 입력해주세요</label>
-        <input type="text" css={styles.input} placeholder="ex.3.5kg" />
+        <label css={styles.label}>몸무게</label>
+        <input
+          type="number"
+          css={styles.input}
+          placeholder="ex.3.5"
+          name="weight"
+          value={originCanidaeRequest.orgCanidae.weight}
+          onChange={handleChangeInput}
+          required
+        />
 
-        <label css={styles.titleLabel}>
-          우리아이에게 가장 필요한 제품이 있나요? 관심있는 카테고리를
-          골라보세요!
-        </label>
-        <div>(최대 5개 선택 가능)</div>
-        {categoryData.map((category) => (
+        <label css={styles.label}>관심 카테고리</label>
+
+        {mainCategory.map((main) => (
           <CategoryButton
-            key={category.type}
-            label={category.label}
-            categories={category.items}
-            selectedCategories={selectedCategories[category.type]}
+            key={main.id}
+            label={main.name}
+            categories={subCategory
+              .filter((sub) => sub.mainCategoryId === main.id)
+              .map((sub) => ({ id: sub.id, name: sub.name }))}
+            selectedCategories={originCanidaeRequest.interestProduct}
             handleCategorySelect={handleCategorySelect}
-            categoryType={category.type}
-            disableUnselected={totalSelectedCategories >= 5}
+            disableUnselected={originCanidaeRequest.interestProduct.length >= 5}
           />
         ))}
 
@@ -155,9 +396,10 @@ export default function EditPetInfo() {
             theme="black"
             fontSize={16}
             fontWeight={500}
+            // onClick={registerPet}
           />
         </div>
       </div>
-    </div>
+    </form>
   );
 }

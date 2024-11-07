@@ -95,6 +95,10 @@ function Layout({ children }) {
         setActiveTab('search');
         setType(0);
         break;
+      case '/petprofile':
+        setType(3);
+        setTitle('우리아이 등록');
+        break;
       case '/my':
         setActiveTab('my');
         setTitle('MY PAGE');
@@ -125,6 +129,7 @@ function Layout({ children }) {
         setType(4);
         setTitle('장바구니');
         setNoIcons(true);
+        setActiveTab('');
         break;
       case '/order':
         setType(1);
