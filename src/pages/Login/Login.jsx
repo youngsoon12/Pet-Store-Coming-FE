@@ -152,7 +152,7 @@ function LoginPage() {
           />
         ))}
 
-        <Button bgColor="#141414" color="#fff" text="로그인" />
+        <Button bgColor="#171717" color="#fff" text="로그인" />
 
         <AuthActions />
       </Container>
