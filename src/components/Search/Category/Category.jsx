@@ -113,7 +113,9 @@ export default function Category({ searchTerm }) {
                   <li
                     css={styles.item}
                     key={index}
-                    onClick={() => navigate(`/shop/${sub.subSlug}`)}
+                    onClick={() =>
+                      navigate(`/shop/${main.mainSlug}/${sub.subSlug}`)
+                    }
                   >
                     {sub.sub}
                   </li>
