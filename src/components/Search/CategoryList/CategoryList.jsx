@@ -114,7 +114,7 @@ export default function CategoryList({ searchTerm }) {
                   })
                 }
               >
-                {main.main}
+                {main.main} &gt;
               </h2>
               <ul css={styles.itemList}>
                 {main.subs.map((sub, index) => (

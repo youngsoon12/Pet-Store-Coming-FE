@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { styles } from './Search.style';
 import CategoryList from '@components/Search/CategoryList/CategoryList';
-
+import searchIcon from '@assets/images/Header/icons/search.svg';
 export default function SearchPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [submittedTerm, setSubmittedTerm] = useState('');
@@ -32,7 +32,7 @@ export default function SearchPage() {
           onChange={handleSearchChange}
         />
         <button type="submit" css={styles.searchIcon}>
-          🔍
+          <img src={searchIcon}></img>
         </button>
       </form>
       {/* <Category searchTerm={submittedTerm} /> */}

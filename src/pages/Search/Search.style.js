@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 export const styles = {
   container: css`
-    margin-top: 20px;
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,7 +13,7 @@ export const styles = {
     align-items: center;
     background-color: rgb(244, 244, 244);
     border-radius: 16px;
-    padding: 10px;
+    padding: 15px;
     width: 450px;
     height: 40px;
     margin: 0 58px;
@@ -29,8 +29,10 @@ export const styles = {
 
   searchIcon: css`
     border: none;
-    background-color: rgb(244, 244, 244);
-    margin-right: 11px;
-    font-size: 20px;
+    background: none;
+
+    & > img {
+      width: 20px;
+    }
   `,
 };
