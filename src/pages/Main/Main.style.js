@@ -19,8 +19,8 @@ export const styles = {
     /* margin: 0 20px; */
   `,
   textContainer: css`
+    width: 100%;
     margin-top: 20px;
-    margin-right: 20px;
   `,
   title: css`
     font-size: 22px;

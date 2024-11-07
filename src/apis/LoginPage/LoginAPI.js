@@ -109,6 +109,9 @@ export class LoginAPI {
         )
         .then((res) => res.data);
 
+      // const setIsAuthenticated = useRecoilState(isActhenticatedState);
+      // setIsAuthenticated(true);
+
       // 사용자 인증을 위한 토큰을 쿠키값에 설정
       setCookie('token', res.token, {
         path: '/',
@@ -133,7 +136,9 @@ export class LoginAPI {
         maxAge: Math.floor(res.expirationTime / 1000), // 토큰 만료 시간 설정
       });
 
+      console.log('What?');
       location.href = '/';
+      console.log('What?');
     } catch (error) {
       if ('response' in error) {
         const { errorCode, id } = error.response.data; // 에러 코드 가져오기
