@@ -11,6 +11,7 @@ import {
   isMainCategoryInfoState,
   isSubCategoryInfoState,
 } from '@recoil/atom/category';
+import { decodeToken, getCookie } from '@util/configCookie';
 
 export default function PetProfilePage() {
   // const [gender, setGender] = useState(true);
@@ -20,7 +21,10 @@ export default function PetProfilePage() {
 
   const navigate = useNavigate();
 
-  const userId = '22ef481b-11e6-487c-b5e1-257efb4895a2';
+  const token = getCookie('token');
+  const userInfo = decodeToken(token);
+
+  const userId = userInfo.userId;
   const today = new Date();
   const year = today.getFullYear();
   const month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -34,7 +38,7 @@ export default function PetProfilePage() {
       birth: '',
       breed: '',
       gender: 1,
-      weight: null,
+      weight: undefined,
     },
     interestProduct: [],
   });
@@ -256,7 +260,7 @@ export default function PetProfilePage() {
           />
         </div>
 
-        <label css={styles.label}>몸무게를 입력해주세요</label>
+        <label css={styles.label}>몸무게를 입력해주세요 (kg)</label>
         <input
           type="number"
           css={styles.input}

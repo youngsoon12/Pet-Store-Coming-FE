@@ -11,10 +11,15 @@ import {
   isMainCategoryInfoState,
   isSubCategoryInfoState,
 } from '@recoil/atom/category';
+import { decodeToken, getCookie } from '@util/configCookie';
 
 export default function EditPetInfo() {
   /////////////////////////////////////////
   // api 연동
+
+  const token = getCookie('token');
+  const userInfo = decodeToken(token);
+
   // 수정할 반려견 정보 받아오기
   const { state } = useLocation();
   const { petInfo } = state;
@@ -24,7 +29,7 @@ export default function EditPetInfo() {
 
   const navigate = useNavigate();
 
-  const userId = '22ef481b-11e6-487c-b5e1-257efb4895a2';
+  const userId = userInfo.userId;
   const today = new Date();
   const year = today.getFullYear();
   const month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -33,17 +38,17 @@ export default function EditPetInfo() {
 
   const [originCanidaeRequest, setOriginCanidaeRequest] = useState({
     orgCanidae: {
-      id: petInfo.id,
+      id: petInfo.canidae.id,
       userId: userId,
-      name: petInfo.name,
-      birth: petInfo.birth,
-      breed: petInfo.breed,
-      gender: petInfo.gender,
-      weight: petInfo.weight,
-      isPrimary: petInfo.isPrimary,
+      name: petInfo.canidae.name,
+      birth: petInfo.canidae.birth,
+      breed: petInfo.canidae.breed,
+      gender: petInfo.canidae.gender,
+      weight: petInfo.canidae.weight,
+      isPrimary: petInfo.canidae.isPrimary,
     },
-    interestProduct: [],
-    // interestProduct: [...petInfo.interestProduct],
+
+    interestProduct: [...petInfo.interstProductList],
   });
   const [canidaeRequest, setCanidaeRequest] = useState({
     canidae: {
@@ -167,7 +172,9 @@ export default function EditPetInfo() {
   };
 
   // 이미지 업로드
-  const [selectedImage, setSelectedImage] = useState(petInfo.profileImageUrl); // 화면에 보여주는 용도
+  const [selectedImage, setSelectedImage] = useState(
+    petInfo.canidae.profileImageUrl
+  ); // 화면에 보여주는 용도
   const [profileImage, setProfileImage] = useState(''); // 서버에 보내는 용도
 
   const handleCameraClick = () => {
@@ -362,7 +369,7 @@ export default function EditPetInfo() {
           />
         </div>
 
-        <label css={styles.label}>몸무게</label>
+        <label css={styles.label}>몸무게 (kg)</label>
         <input
           type="number"
           css={styles.input}
