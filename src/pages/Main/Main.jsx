@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+
 import { useEffect, useState } from 'react';
 import Slider from '../../components/Silder/Slider';
 import { styles } from './Main.style';
@@ -8,6 +9,14 @@ import subImage2 from '../../assets/images/mainpage/sub2.jpg';
 import subImage3 from '../../assets/images/mainpage/sub3.jpg';
 import subImage4 from '../../assets/images/mainpage/sub4.jpg';
 import Footer from '../../components/Global/Footer/Footer';
+import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
+
+import {
+  isMainCategoryInfoState,
+  isSubCategoryInfoState,
+} from '../../recoil/atom/category';
+
 
 import { getCookie } from '@util/configCookie';
 import { isActhenticatedState } from '@recoil/atom/authState';
@@ -15,6 +24,10 @@ import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 
 export default function Mainpage() {
+
+  const mainCategory = useRecoilValue(isMainCategoryInfoState);
+  const subCategoryData = useRecoilValue(isSubCategoryInfoState);
+
   const selectedCategory = '취향저격 간식 모음';
 
   const isActhenticated = useRecoilValue(isActhenticatedState);

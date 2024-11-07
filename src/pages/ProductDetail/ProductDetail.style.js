@@ -11,19 +11,33 @@ export const styles = {
   productInfo: css`
     font-size: 25px;
     color: #000;
-    margin: 30px 50px;
+    width: 100%;
   `,
+
+  
   
   productTitle: css`
     display: flex;
-    align-items: center;
-    font-weight: bold;
-    font-size: 22px;
+    justify-content: space-between;
+    padding: 20px;
+  `,
+
+  productInfo_left_panel: css`
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+
+    gap: 6px;
+
+    & > span:first-of-type {
+      font-weight: 700;
+    }
+
   `,
 
   starsWrapper: css`
     display: flex;
-    margin-left: 212px;
+    /* margin-left: 212px; */
   `,
 
   starIcon: css`
@@ -39,7 +53,7 @@ export const styles = {
     margin-top: 3px;
     border-bottom: 1px solid #ddd;
     padding-bottom: 2px;
-    margin-left: 394px;
+    /* margin-left: 394px; */
   `,
 
   priceDetails: css`

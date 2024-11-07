@@ -86,7 +86,6 @@ export class LoginAPI {
         .post(`${this.#BASE_URL}/auth/social/kakao/request/token?code=${code}`)
         .then((res) => res.data);
     } catch (error) {
-      f;
       console.log('Error fetching access token:', error);
       throw error;
     }
