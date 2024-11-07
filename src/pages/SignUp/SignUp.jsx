@@ -12,7 +12,7 @@ function SignUp() {
     <>
       <ContentsWrapper>
         <div css={styles.pageContainer()}>
-          <h2 css={styles.headerTitle()}>회원가입</h2>
+          {/* <h2 css={styles.headerTitle()}>회원가입</h2>
 
           <form css={styles.formContainer()} onSubmit={handleSubmit}>
             <div css={styles.formInputContainer()}>
@@ -62,7 +62,7 @@ function SignUp() {
             </div>
 
             <button>회원가입</button>
-          </form>
+          </form> */}
         </div>
       </ContentsWrapper>
     </>
