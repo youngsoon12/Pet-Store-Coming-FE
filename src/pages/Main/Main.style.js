@@ -19,14 +19,16 @@ export const styles = {
     /* margin: 0 20px; */
   `,
   textContainer: css`
+    width: 100%;
     margin-top: 20px;
-    margin-right: 20px;
   `,
   title: css`
+    font-weight: 700;
     font-size: 22px;
     font-weight: bold;
   `,
   subtitle: css`
+    font-weight: 500;
     font-size: 18px;
     margin-top: 10px;
   `,

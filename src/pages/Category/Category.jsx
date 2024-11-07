@@ -158,11 +158,9 @@ export default function CategoryPage() {
                   {item.productDiscountRate > 0 ? (
                     <>
                       <div css={styles.productPrice}>{item.productPrice}원</div>
-                      <div css={styles.itemGridDiscount}>
-                        {item.productDiscountRate}%
-                      </div>
-                      <div css={styles.itemPrice}>
-                        {item.productDiscountPrice}원
+                      <div css={styles.productWrapper}>
+                      <div css={styles.itemGridDiscount}> {item.productDiscountRate}% </div>
+                      <div css={styles.itemPrice}> {item.productDiscountPrice}원</div>
                       </div>
                     </>
                   ) : (
@@ -175,45 +173,33 @@ export default function CategoryPage() {
 
         <div css={styles.divider}></div>
 
-        {/* ITEMS Section */}
-        <div css={styles.itemsLabel}>ITEMS</div>
-        <div css={styles.itemGridContainer}>
-          {products &&
-            products.map((product) => (
-              <div
-                key={product.productId}
-                css={styles.itemGridImageContainer}
-                onClick={() => navigate(`/product/${product.productId}`)}
-              >
-                <div
-                  css={styles.productImage}
-                  style={{
-                    backgroundImage: `url(${product.productThumbnailImageUrl})`,
-                  }}
-                ></div>
-                <div css={styles.itemGridTitle}>{product.storeBrandName}</div>
-                <div css={styles.itemGridTitle}>{product.productName}</div>
+{/* ITEMS Section */}
+<div css={styles.itemsLabel}>ITEMS</div>
+<div css={styles.itemGridContainer}>
+  {products && products.map((product) => (
+    <div key={product.productId} css={styles.itemGridImageContainer} onClick={() => navigate(`/product/${product.productId}`)}>
+      <div
+        css={styles.productImage}
+        style={{ backgroundImage: `url(${product.productThumbnailImageUrl})` }}
+      ></div>
+      <div css={styles.itemGridTitle}>{product.storeBrandName}</div>
+      <div css={styles.itemGridTitle}>{product.productName}</div>
 
-                {product.productDiscountRate > 0 ? (
-                  <>
-                    <div css={styles.itemGridPrice}>
-                      {product.productPrice}원
-                    </div>
-                    <div css={styles.itemGridDiscount}>
-                      {product.productDiscountRate}%
-                    </div>
-                    <div css={styles.itemPrice}>
-                      {product.productDiscountPrice}원
-                    </div>
-                  </>
-                ) : (
-                  <div css={styles.itemPrice}>
-                    {product.productDiscountPrice}원
-                  </div>
-                )}
-              </div>
-            ))}
-        </div>
+      {product.productDiscountRate > 0 ? (
+        <>
+          <div css={styles.itemGridPrice}>{product.productPrice}원</div>
+          <div css={styles.productWrapper}>
+          <div css={styles.itemGridDiscount}>{product.productDiscountRate}%</div>
+          <div css={styles.itemPrice}>{product.productDiscountPrice}원</div>
+          </div>
+        </>
+      ) : (
+        <div css={styles.itemPrice}>{product.productDiscountPrice}원</div>
+      )}
+    </div>
+  ))}
+</div>
+
       </div>
     </>
   );

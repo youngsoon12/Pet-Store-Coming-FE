@@ -7,12 +7,17 @@ import PurchaseModal from '../../components/ProductDetail/PurchaseModal/Purchase
 import PurchaseButton from '../../components/ProductDetail/PurchaseButton/PurchaseButton';
 import InfoSection from '../../components/ProductDetail/InfoSection/InfoSection';
 import axios from 'axios';
+import { useSetRecoilState} from 'recoil';
+import { activeTabState } from '@recoil/atom/tabState';
+
 import { useLocation, useParams } from 'react-router-dom';
+
 
 export default function ProductDetailPage() {
   const { id } = useParams();
   // const userId = import.meta.env.VITE_USER_ID;
-  
+  const setActiveTabValues = useSetRecoilState(activeTabState);
+
 
   const reviewSectionRef = useRef(null);
   
@@ -34,6 +39,9 @@ export default function ProductDetailPage() {
   const closeModal = () => {
     setModalOpen(false);
   };
+  useEffect(() => {
+    setActiveTabValues('');
+  }, []);
 
   useEffect(() => {
     // 상품 상세 설명 정보 가져오기 함수
@@ -76,9 +84,8 @@ export default function ProductDetailPage() {
                 <div css={styles.priceDetails}>
                   <span css={styles.discount}>{productDetail.productDiscountRate}%</span>
                   <span css={styles.price}>{productDetail.productDiscountPrice.toLocaleString()}원</span>
-
-                  <div css={styles.originalPrice}>{productDetail.productPrice.toLocaleString()}원</div>
                 </div>
+                <div css={styles.originalPrice}>{productDetail.productPrice.toLocaleString()}원</div>
               </div>
 
               {/* 나 리뷰 */}
@@ -100,11 +107,11 @@ export default function ProductDetailPage() {
             {/* 상품 설명 */}
             <div css={styles.descriptionImages}>
               {productDetail.productDescription}
+              </div>
               
               {/* {descriptionImages.slice(0, showAllDescriptions ? descriptionImages.length : 2).map((image, index) => (
                 <img key={index} src={image} alt={`Product Detail ${index + 1}`} css={styles.descriptionImage} />
               ))} */}
-            </div>
 
             <button onClick={() => setShowAllDescriptions((prev) => !prev)} css={styles.toggleButton}>
               {showAllDescriptions ? '상품 설명 닫기' : '상품 설명 더보기'}
@@ -125,17 +132,17 @@ export default function ProductDetailPage() {
             <div css={styles.separatorLine} />
 
             <InfoSection />
+            </div>
 
             <PurchaseButton onClick={handlePurchaseButtonClick} />
 
-          </div>
 
           {isModalOpen && (
             <PurchaseModal
               options={productDetail.productOptions} 
               discountPrice={productDetail.productDiscountPrice}
               productId={id}
-             
+              productDetail ={productDetail}
               closeModal={closeModal}
             />
           )}
