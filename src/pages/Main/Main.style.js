@@ -23,10 +23,12 @@ export const styles = {
     margin-right: 20px;
   `,
   title: css`
+    font-weight: 700;
     font-size: 22px;
     font-weight: bold;
   `,
   subtitle: css`
+    font-weight: 500;
     font-size: 18px;
     margin-top: 10px;
   `,
