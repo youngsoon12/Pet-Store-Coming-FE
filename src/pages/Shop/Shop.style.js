@@ -70,6 +70,22 @@ export const styles = {
     margin-left: 10px
     
   `,
+  storeBrandName: css`
+    font-size: 14px;
+    color: #484848;
+    font-weight:800;
+    margin-bottom: 5px;
+    margin-left: 10px
+    
+  `,
+  productName: css`
+    font-size: 14px;
+    color: #484848;
+    font-weight:500;
+    margin-bottom: 5px;
+    margin-left: 10px
+    
+  `,
   productPrice: css`
     font-size: 14px;
     font-weight:800;
@@ -132,6 +148,10 @@ export const styles = {
     color: #484848;
     font-weight: 800;
     margin-left: 10px
+  `,
+  productWrapper: css`
+    display: flex;
+    margin-top: 2px;
   `,
   itemGridPrice: css`
     font-size: 14px;

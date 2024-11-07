@@ -67,14 +67,14 @@ export default function CategoryPage() {
       getFindAllProducts();
       getFilnAllNewProductes();
   
-      setSub([
-        ...subCategoryInfoValues.filter((element) => {
-          return element.mainCategoryId === state.main
-        })
-      ]);
+
 
     }
-
+    setSub([
+      ...subCategoryInfoValues.filter((element) => {
+        return element.mainCategoryId === state.main
+      })
+    ]);
     
 },[subcategory])
 
@@ -131,15 +131,17 @@ export default function CategoryPage() {
       />
       <div css={styles.productTitlePriceContainer}>
         <div css={styles.productTitle}>{item.storeBrandName}</div>
-        <div css={styles.productTitle}>{item.productName}</div>
+        <div css={styles.productName}>{item.productName}</div>
         {item.productDiscountRate > 0 ? (
           <>
             <div css={styles.productPrice}>{item.productPrice}원</div>
+            <div css={styles.productWrapper}>
             <div css={styles.itemGridDiscount}>{item.productDiscountRate}%</div>
             <div css={styles.itemPrice}>{item.productDiscountPrice}원</div>
+            </div>
           </>
         ) : (
-          <div css={styles.itemPrice}>{item.productPrice}</div>
+          <div css={styles.itemPrice}>{item.productPrice}원</div>
         )}
       </div>
     </div>
@@ -159,13 +161,15 @@ export default function CategoryPage() {
         style={{ backgroundImage: `url(${product.productThumbnailImageUrl})` }}
       ></div>
       <div css={styles.itemGridTitle}>{product.storeBrandName}</div>
-      <div css={styles.itemGridTitle}>{product.productName}</div>
+      <div css={styles.productName}>{product.productName}</div>
 
       {product.productDiscountRate > 0 ? (
         <>
           <div css={styles.itemGridPrice}>{product.productPrice}원</div>
+          <div css={styles.productWrapper}>
           <div css={styles.itemGridDiscount}>{product.productDiscountRate}%</div>
           <div css={styles.itemPrice}>{product.productDiscountPrice}원</div>
+          </div>
         </>
       ) : (
         <div css={styles.itemPrice}>{product.productDiscountPrice}원</div>

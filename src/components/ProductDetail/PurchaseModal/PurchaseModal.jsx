@@ -10,8 +10,9 @@ export default function PurchaseModal({
   discountPrice,
   options,
   closeModal,
+  productDetail,
  
-  productId, // productId를 함께 전송
+  productId, 
 
 }) {
   
@@ -20,9 +21,6 @@ export default function PurchaseModal({
   const [selectedOption, setSelectedOption] = useState(null);
   const navigate = useNavigate();
   const userId = import.meta.env.VITE_USER_ID;
-  
-
-  // 선택된 옵션의 addPrice를 합산한 총 가격
   const totalPrice =
     (discountPrice + (selectedOption?.addPrice || 0)) * quantity;
 
@@ -36,6 +34,14 @@ export default function PurchaseModal({
       (option) => option.id === parseInt(selectedOptionId, 10)
     );
     setSelectedOption(selected);
+  };
+
+  const handleBuyNow = () => {
+    console.log(productDetail)
+
+    navigate('/order', { state: { productDetail } });
+
+    closeModal();
   };
 
   const handleAddToCart = async () => {
@@ -137,10 +143,18 @@ export default function PurchaseModal({
           <Button
             text="장바구니 담기"
             theme="black"
-            width={500}
+            width={250}
             height={52}
             fontWeight={700}
             onClick={handleAddToCart}
+          />
+          <Button
+            text=" 구매하기"
+            theme="reverse"
+            width={250}
+            height={52}
+            fontWeight={700}
+            onClick={handleBuyNow}
           />
         </div>
       </div>
