@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 
 import useSignUpForm from '@hooks/auth/useSignUpForm';
 import { SignUpAPI } from '@apis/SignUpPage/SignAPI';
+import Button from '@components/login/ui/forms/button/nomal';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -192,7 +193,13 @@ function SignUp() {
             </div>
           </div>
 
-          <button type="submit">회원가입</button>
+          <Button
+            bgColor="#171717"
+            color="#fff"
+            text="회원가입"
+            width="100%"
+            marginTop="40px"
+          ></Button>
         </form>
       </div>
     </div>

@@ -6,7 +6,7 @@ export const styles = {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: 20px 0;
+    margin: 40px 0;
   `,
 
   categoryTitle: css`

@@ -56,8 +56,8 @@ export default function ShopPage() {
 
   return (
     <>
-    <div>
-      <div css={styles.mainContainer}>
+    <div css={styles.mainContainer}>
+      <div >
         <div css={styles.tabBarContainer}>
           {mainCategoryInfoValues?.map((categoryItem) => {
             return (

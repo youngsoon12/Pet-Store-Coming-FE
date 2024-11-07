@@ -1,10 +1,21 @@
 /** @jsxImportSource @emotion/react */
-import AddressInput from '../../components/global/AddressInput/AddressInput';
+import { useState } from 'react';
+import AddressInput from '@components/Global/AddressInput/AddressInput';
 import { styles } from './EditMyInfo.style';
 
 export default function EditMyInfo() {
   const handleSubmit = (event) => {
     event.preventDefault();
+  };
+  const [role, setRole] = useState('user');
+  const handleChange = (event) => {
+    // const { name, value } = event.target;
+    // setSignUpFormValues((prev) => ({
+    //   ...prev,
+    //   [name]: value,
+    // }));
+    // validateField(name, value);
+    setRole(event.target.value);
   };
 
   return (
@@ -14,11 +25,33 @@ export default function EditMyInfo() {
           <div css={styles.formInputContainer()}>
             <label>회원구분</label>
 
-            <div>개인회원</div>
+            <div className="inputRadioField">
+              <label>
+                <input
+                  type="radio"
+                  name="role"
+                  value="user"
+                  checked={role === 'user'}
+                  onChange={handleChange}
+                />
+                일반 회원
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  name="role"
+                  value="provider"
+                  checked={role === 'provider'}
+                  onChange={handleChange}
+                />
+                판매자 회원
+              </label>
+            </div>
           </div>
 
           <div css={styles.formInputContainer()}>
-            <label>아이디</label>
+            <label>이메일</label>
             coming
           </div>
 
@@ -30,7 +63,7 @@ export default function EditMyInfo() {
           <div css={styles.formInputContainer()}>
             <label>주소</label>
             {/* <input type="text" /> */}
-            <AddressInput containerWidth={'70%'} />
+            <AddressInput containerWidth={'80%'} />
           </div>
 
           <div css={styles.formInputContainer()}>

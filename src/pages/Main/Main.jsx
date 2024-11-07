@@ -18,6 +18,7 @@ import {
 
 import { getCookie } from '@util/configCookie';
 import { isActhenticatedState } from '@recoil/atom/authState';
+//import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 
 export default function Mainpage() {
