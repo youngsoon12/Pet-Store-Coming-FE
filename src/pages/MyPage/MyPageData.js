@@ -8,5 +8,6 @@ export const myDatas = {
     },
     { title: '주문내역', engTitle: 'Order', link: '/my/order-history' },
     { title: '장바구니', engTitle: 'Cart', link: '/cart' },
+    { title: '로그아웃', engTitle: 'Logout' },
   ],
 };

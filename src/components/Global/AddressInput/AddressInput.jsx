@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import DaumPost from '@components/global/DaumPost/DaumPost';
 import { styles } from './AddressInput.style';
 
-export default function AddressInput({ containerWidth }) {
+export default function AddressInput({ containerWidth, handleChange, value }) {
   const [isOpen, setIsOpen] = useState(false);
   const [addressForm, setAddressForm] = useState({
     zonecode: '',
@@ -25,7 +25,7 @@ export default function AddressInput({ containerWidth }) {
           placeholder="우편번호"
           css={styles.zonecode}
         ></input>
-        <button onClick={handleComplete} css={styles.btn}>
+        <button onClick={handleComplete} css={styles.btn} type="button">
           주소 검색
         </button>
       </div>

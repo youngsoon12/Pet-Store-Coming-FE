@@ -2,8 +2,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { styles } from './Search.style';
 import CategoryList from '@components/Search/CategoryList/CategoryList';
+
+import searchIcon from '@assets/images/Header/icons/search.svg';
 import axios from 'axios';
 import SearchResult from '@components/Search/SearchResult/SearchResult';
+
 
 export default function SearchPage() {
   const [searchValue, setSearchValue] = useState(''); // 상품 인풋 텍스트
@@ -49,7 +52,7 @@ export default function SearchPage() {
           ref={inputRef}
         />
         <button type="submit" css={styles.searchIcon}>
-          🔍
+          <img src={searchIcon}></img>
         </button>
       </form>
       {/* <Category searchValue={submittedTerm} /> */}

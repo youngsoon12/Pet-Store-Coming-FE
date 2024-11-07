@@ -3,14 +3,16 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Flex as MainLayout } from './Flex';
 
-import Header from '@components/global/Header/Header';
-import TabBar from '@components/global/TabBar/TabBar';
+import Header from '@components/Global/Header/Header';
+import TabBar from '@components/Global/TabBar/TabBar';
 
 // 사용자 활성화 여부 상태 가져오기
 import { isActhenticatedState } from '@recoil/atom/authState';
+
+import Modal from '@components/Global/Modal/Modal';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import Modal from '@components/global/modal/Modal';
+
 import { getCookie, removeCookie, decodeToken } from '@util/configCookie';
 
 // API 불러오기
@@ -173,7 +175,7 @@ function Layout({ children }) {
         - 단, 해당 위치에서 테스트를 하기 위해 Layout.jsx에 위치해 있을 뿐 나중에 마이페이지로 옮길 예정
       
       */}
-      {isActhenticated && <button onClick={openLogoutModal}>로그아웃</button>}
+      {/* {isActhenticated && <button onClick={openLogoutModal}>로그아웃</button>} */}
     </>
   );
 }

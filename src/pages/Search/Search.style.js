@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 export const styles = {
   container: css`
-    margin-top: 20px;
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,7 +30,10 @@ export const styles = {
 
   searchIcon: css`
     border: none;
-    background-color: rgb(244, 244, 244);
-    font-size: 14px;
+    background: none;
+
+    & > img {
+      width: 20px;
+    }
   `,
 };

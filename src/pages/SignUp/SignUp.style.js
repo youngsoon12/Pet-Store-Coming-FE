@@ -31,21 +31,21 @@ export const styles = {
       justify-content: space-between;
       border-top: 1px solid black;
 
-      margin-top: 40px;
+      margin-top: 30px;
 
-      & > button {
+      /* & > button {
         width: 100%;
         padding: 10px 0;
         margin-top: 40px;
-        /* padding: 10px 20px; */
+        padding: 10px 20px;
         cursor: pointer;
-        background-color: #191919;
+        background-color: #171717;
         color: #fff;
         border: none;
         border-radius: 3px;
         font-size: 14px;
         font-weight: 600;
-      }
+      } */
     `;
   },
 
@@ -83,14 +83,17 @@ export const styles = {
           width: 100%;
           border: 1px solid
             rgba(${errorMsg ? '255, 77, 79, 1' : '154, 154, 154, 0.6'});
-          padding: 5px 10px;
-          border-radius: 5px;
+          /* padding: 8px 10px;
+          border-radius: 5px; */
+          padding: 0 20px 0 12px;
+          height: 40px;
+          border-radius: 7px;
           outline: none;
           transition: border 0.3s;
         }
 
         & > input::placeholder {
-          font-size: 12px;
+          font-size: 14px;
         }
 
         & > input:focus {
@@ -99,7 +102,7 @@ export const styles = {
 
         & > .errorMsg {
           color: red;
-          font-size: 8px;
+          font-size: 11px;
         }
 
         & > .infoMsg {
