@@ -9,7 +9,7 @@ import TabBar from '@components/global/TabBar/TabBar';
 // 사용자 활성화 여부 상태 가져오기
 import { isActhenticatedState } from '@recoil/atom/authState';
 import Modal from '@components/global/modal/Modal';
-import { getCookie, removeCookie } from '@util/configCookie';
+import { getCookie, removeCookie, decodeToken } from '@util/configCookie';
 
 // API 불러오기
 import { AuthAPI } from '@apis/authApi';
@@ -19,6 +19,8 @@ import useLogoutModal from '@hooks/modal/useLogoutModal';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { modalState } from '@recoil/atom/modalState';
 import { activeTabState } from '@recoil/atom/tabState';
+
+// 쿠키
 
 function Layout({ children }) {
   const [type, setType] = useState(1);
@@ -38,39 +40,24 @@ function Layout({ children }) {
   const navigate = useNavigate();
 
   // // 로그인 이후 쿠키 만료 시간 계산
-  // useEffect(() => {
-  //   if (isActhenticated) {
-  //     const token = getCookie('token');
-  //     const expirationTime = getCookie('tokenExpirationTime');
+  useEffect(() => {
+    const token = getCookie('token');
+    if (token) {
+      const decodeInfo = decodeToken(token);
 
-  //     if (token && expirationTime) {
-  //       const timeUntilExpiration = expirationTime - Date.now();
-
-  //       // 현재 남은 쿠키 만료 시간이 5분 이하인 경우 바로 모달창 오픈
-  //       if (timeUntilExpiration <= 5 * 60 * 1000) {
-  //         setShowModal(true);
-  //       } else {
-  //         // setTimeout() 비동기 이벤트를 통해 남은 시간이 5분 이하로 남을 경우 모달창 오픈
-  //         const waringTimeoutId = setTimeout(
-  //           () => setShowModal(true),
-  //           timeUntilExpiration - 5 * 60 * 1000
-  //         );
-
-  //         // 로그인 이후 토큰 만료 시간이 다 된 경우 -> 강제 로그아웃
-  //         const logoutTimeoutId = setTimeout(
-  //           () => handleLogout(),
-  //           timeUntilExpiration
-  //         );
-
-  //         return () => {
-  //           clearTimeout(waringTimeoutId);
-  //           clearTimeout(logoutTimeoutId);
-  //         };
-  //       }
-  //     }
-  //   }
-  // }, [isActhenticated]);
-
+      if (decodeInfo) {
+        const expirationTime = decodeInfo.exp * 1000;
+        const currentTime = Date.now();
+        if (currentTime > expirationTime) {
+          // 토큰 만료됨
+          removeCookie('token');
+          removeCookie('refreshToken');
+          alert('세션이 만료되었습니다. 다시 로그인 해주세요.');
+          navigate('/login');
+        }
+      }
+    }
+  }, [navigate]);
   // 페이지 리다이렉션 && Tab Bar
   useEffect(() => {
     const { pathname } = location;
@@ -136,6 +123,8 @@ function Layout({ children }) {
         break;
       case '/orderList':
         setType(4);
+        setActiveTab();
+        setTitle('주문 내역');
         break;
     }
   }, [location]);
