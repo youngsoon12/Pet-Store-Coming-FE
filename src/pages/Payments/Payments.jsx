@@ -9,19 +9,8 @@ import downArrow from '@assets/images/payment/down_arrow.svg';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { deliveryInfo } from '../../recoil/atom/deliveryInfo';
-import { useQuery } from '@tanstack/react-query';
-import getCartListAPI from '../../apis/CartList/GetCartListAPI';
 
 const Payments = () => {
-  const {
-    data: cartData,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ['cartList'],
-    queryFn: getCartListAPI,
-  });
-
   const location = useLocation();
   const selectedItems = location.state?.selectedItems || [];
   console.log(selectedItems);
@@ -125,9 +114,6 @@ const Payments = () => {
     setPayPriceTogle((prev) => !prev);
   };
   const btnActive = Object.values(checkedItems).every(Boolean);
-
-  if (isLoading) return <div>장바구니를 불러오는중 입니다...</div>;
-  if (error) return <div>페이지 오류가 발생하였습니다 ...</div>;
 
   return (
     <>
