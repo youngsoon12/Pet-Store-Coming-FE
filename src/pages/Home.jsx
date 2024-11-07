@@ -1,12 +1,15 @@
 import React from 'react';
-import GlobalTitle from '../components/global/globaltitle/GlobalTitle';
+import Header from '../components/Global/Header/Header';
+import TabBar from '../components/Global/TabBar/TabBar';
+import ContentsWrapper from '../components/Global/ContentsWrapper/ContentsWrapper';
 
-const Home = () => {
+export default function Home() {
   return (
     <>
-      <GlobalTitle text={'dfd'} />
+      <div>내부 컨텐츠</div>
+      {/* <div
+        style={{ backgroundColor: 'black', height: '2000px', width: '100%' }}
+      ></div> */}
     </>
   );
-};
-
-export default Home;
+}
