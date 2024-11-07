@@ -265,8 +265,6 @@ export default function EditPetInfo() {
       formData.append('newProfileImage', profileImage);
     }
 
-    // console.log(updateCanidaeInfo);
-
     try {
       const resposne = await axios.put(
         `${import.meta.env.VITE_API_URL}/canidae/update`,
@@ -283,47 +281,6 @@ export default function EditPetInfo() {
       console.log(error);
     }
   };
-
-  // // 서버에 수정된 반려견 정보 보내기
-  // const editPet = async (e) => {
-
-  //   const baseURL = import.meta.env.VITE_API_URL;
-  //   const url = `${baseURL}/canidae/update`;
-
-  //   // console.log(url);
-
-  //   try {
-  //     const response = await axios.put(url, formData, {
-  //       headers: { 'Content-Type': 'multipart/form-data' },
-  //     });
-  //     navigate('/my');
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-
-  //   // const headers = { 'Content-type': 'multipart/form-data' };
-  //   // async function postPet() {
-  //   //   for (let key of formData.keys()) {
-  //   //     console.log(`key : ${key}`);
-  //   //   }
-
-  //   //   for (let value of formData.values()) {
-  //   //     console.log(`value : ${value}`);
-  //   //   }
-
-  //   //   try {
-  //   //     const response = await axios.post(url, formData, {
-  //   //       headers: {
-  //   //         'Content-type': 'multipart/form-data',
-  //   //       },
-  //   //     });
-  //   //     console.log(response.data);
-  //   //   } catch (err) {
-  //   //     console.log(err);
-  //   //   }
-  //   // }
-  //   // postPet();
-  // };
 
   return (
     <form css={styles.container} onSubmit={handleSubmit}>

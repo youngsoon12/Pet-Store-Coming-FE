@@ -79,6 +79,7 @@ export default function MyPage() {
               text={'우리아이 등록 >'}
               fontSize={'14'}
               fontWeight={'bold'}
+              padding="6px 2px"
               width={'130'}
               onClick={() => {
                 navigate('/petprofile');
