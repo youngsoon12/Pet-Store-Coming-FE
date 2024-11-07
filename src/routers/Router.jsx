@@ -74,38 +74,50 @@ const Router = () => {
       <Layout>
         <Routes>
           <Route path="/" element={<Mainpage />} />
-          <Route path="/signup/success" element={<SignupSuccess />} />
-          <Route path="/order" element={<PaymentPage />} />
-          <Route path="/success" element={<PaymentSuccess />} />
-          <Route path="/order/success" element={<OrderSuccess />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route
-            path="/login/oauth/callback/kakao"
-            element={<KakaoRedirect />}
-          />
-          <Route path="/my" element={<MyPage />} />
-          <Route path="/my/edit/petinfo" element={<EditPetInfo />} />
-          <Route path="/my/edit/myinfo" element={<EditMyInfo />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/my/order-history" element={<OrderList />} />
-          <Route
-            path="/login/oauth/callback/kakao"
-            element={<KakaoRedirect />}
-          />
-          <Route path="/product/:id" element={<ProductDetailPage />} />
-          <Route path="/petprofile" element={<PetProfilePage />} />
-          <Route path="/shop" element={<ShopPage />} />
 
+          {/* 상품 조회 페이지 */}
+          <Route path="/shop" element={<ShopPage />} />
           <Route path="/shop/:category" element={<CategoryPage />} />
           <Route
             path="/shop/:category/:subcategory"
             element={<CategoryPage />}
           />
-          {/* <Route path="/shop/:category/:subCategory" element={<CategoryPage />} /> */}
+
+          {/* 상품 상세 페이지 */}
+          <Route path="/product/:id" element={<ProductDetailPage />} />
+
+          {/* - 로그인 이후 들어갈 수 없는 곳 */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/login/oauth/callback/kakao"
+            element={<KakaoRedirect />}
+          />
+
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/signup/success" element={<SignupSuccess />} />
+
+          {/* - 로그인 사용자만 들어갈 수 있는 곳 */}
+
+          {/* #1. 주문 내역 */}
+          <Route path="/order" element={<PaymentPage />} />
+
+          {/* #2. 결제하기 리다이렉션 페이지 */}
+          <Route path="/order/success" element={<OrderSuccess />} />
+
+          {/* #3. 결제 완료 펭지 */}
+          <Route path="/success" element={<PaymentSuccess />} />
+
+          {/* 내 정보 페이지 관련 */}
+          <Route path="/my" element={<MyPage />} />
+          <Route path="/my/edit/petinfo" element={<EditPetInfo />} />
+          <Route path="/my/edit/myinfo" element={<EditMyInfo />} />
+          <Route path="/my/order-history" element={<OrderList />} />
 
           <Route path="/cart" element={<Cart />} />
+          <Route path="/petprofile" element={<PetProfilePage />} />
 
+          {/* 보류 */}
           <Route path="/store/create" element={<StoreCreate />} />
         </Routes>
       </Layout>
@@ -114,5 +126,3 @@ const Router = () => {
 };
 
 export default Router;
-
-

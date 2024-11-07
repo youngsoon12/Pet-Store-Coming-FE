@@ -18,11 +18,13 @@ export default function MyPage() {
 
   const token = getCookie('token');
   const userInfo = decodeToken(token);
+
   const name = userInfo.name;
+
   useEffect(() => {
-    console.log(userInfo);
     const baseURL = import.meta.env.VITE_API_URL;
     const userId = userInfo.userId;
+
     async function getMyPets() {
       const myPetsResponse = await axios
         .get(`${baseURL}/canidae/list?user-id=${userId}`)
