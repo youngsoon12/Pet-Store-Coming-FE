@@ -3,12 +3,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Flex as MainLayout } from './Flex';
 
-import Header from '@components/global/Header/Header';
-import TabBar from '@components/global/TabBar/TabBar';
+import Header from '@components/Global/Header/Header';
+import TabBar from '@components/Global/TabBar/TabBar';
 
 // 사용자 활성화 여부 상태 가져오기
 import { isActhenticatedState } from '@recoil/atom/authState';
-import Modal from '@components/global/modal/Modal';
+import Modal from '@components/Global/Modal/Modal';
 import { getCookie, removeCookie, decodeToken } from '@util/configCookie';
 
 // API 불러오기

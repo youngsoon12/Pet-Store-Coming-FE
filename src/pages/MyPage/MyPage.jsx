@@ -8,12 +8,17 @@ import { myDatas } from './MyPageData';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { decodeToken, getCookie } from '../../util/configCookie';
 
 export default function MyPage() {
   // const { name, list, myPets } = myDatas;
   const { name, list } = myDatas;
 
   const [myPets, setMyPets] = useState([]);
+
+  const token = getCookie('token');
+  const userInfo = decodeToken(token);
+
   useEffect(() => {
     const baseURL = import.meta.env.VITE_API_URL;
     const userId = '22ef481b-11e6-487c-b5e1-257efb4895a2';
