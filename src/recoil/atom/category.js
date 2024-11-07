@@ -13,4 +13,6 @@ export const isSubCategoryInfoState = atom({
   key: 'isSubCategoryInfoState',
   default: null,
   effects_UNSTABLE: [persistAtom],
+
 });
+

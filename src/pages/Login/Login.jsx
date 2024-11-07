@@ -80,6 +80,7 @@ function LoginPage() {
     }
   };
 
+  // 소셜 로그인 인증 코드 받은 후 로그인 처리 (해당 정보로 회원가입 한 정보가 없을 시 회원가입 페이지로 이동)
   useEffect(() => {
     const handleMessage = async (event) => {
       if (event.origin !== 'http://localhost:5173') {
@@ -90,8 +91,13 @@ function LoginPage() {
         const authCode = event.data.code;
 
         try {
-          const accessToken = await apiClass.fetchAccessToken(authCode);
-          await apiClass.fetchUserInfo(accessToken);
+          const accessToken = await apiClass.fetchKakaoToken(authCode);
+          const isSuccess = await apiClass.fetchSocialLogin(accessToken);
+          if (!isSuccess) {
+            navigate('/login');
+          } else {
+            navigate('/');
+          }
         } catch (error) {
           console.log(error);
         }
@@ -105,7 +111,16 @@ function LoginPage() {
   }, []);
 
   return (
-    <>
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <Container>
         <div css={styles.paragraphBox()}>
           <h2 css={styles.text(18, 600)}>로그인</h2>
@@ -120,7 +135,7 @@ function LoginPage() {
           color="#351D1D"
           loginText="카카오 로그인"
           platformIcon={<Icon src={kakaoLogo} alt="kakao_logo" />}
-          // onClick={handleKakaoLogin}
+          onClick={handleKakaoLogin}
         />
       </Container>
 
@@ -146,7 +161,7 @@ function LoginPage() {
 
         <AuthActions />
       </Container>
-    </>
+    </div>
   );
 }
 

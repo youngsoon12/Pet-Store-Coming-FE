@@ -16,10 +16,10 @@ export default defineConfig({
   server: {
     proxy: {
       '/auth': {
-        target: 'http://localhost:8080',
+        target: 'https://mature-leigha-jogyewon-front-4fd9dfe2.koyeb.app:5000',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/auth/, ''),
-        secure: false,
+        secure: true,
         ws: true,
       },
     },
