@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { styles } from './PurchaseModal.style';
 import Button from '../../global/Button/Button';
 import axios from 'axios';
+import { decodeToken, getCookie } from '../../../util/configCookie'; 
+
 
 
 export default function PurchaseModal({
@@ -11,7 +13,6 @@ export default function PurchaseModal({
   options,
   closeModal,
   productDetail,
- 
   productId, 
 
 }) {
@@ -20,13 +21,15 @@ export default function PurchaseModal({
   const [quantity, setQuantity] = useState(1);
   const [selectedOption, setSelectedOption] = useState(null);
   const navigate = useNavigate();
-  const userId = import.meta.env.VITE_USER_ID;
+  //const userId = import.meta.env.VITE_USER_ID;
   const totalPrice =
     (discountPrice + (selectedOption?.addPrice || 0)) * quantity;
 
   const handleQuantityChange = (change) => {
     setQuantity((prev) => Math.max(1, prev + change));
   };
+  const token = getCookie('token');
+  const userInfo = decodeToken(token);
 
   const handleOptionChange = (e) => {
     const selectedOptionId = e.target.value;
@@ -35,19 +38,20 @@ export default function PurchaseModal({
     );
     setSelectedOption(selected);
   };
-
+  
   const handleBuyNow = () => {
-    console.log(productDetail)
-
-    navigate('/order', { state: { productDetail } });
-
+   console.log(productDetail)
+   
+   const selectedItems = [{...productDetail,productImageUrl:productDetail.prodcutThumbnailImageUrl,productQuantity:quantity}]
+    navigate('/order', { state: { selectedItems } });
     closeModal();
   };
-
+  
   const handleAddToCart = async () => {
     try {
+      const userId = userInfo.userId;  
       console.log('Sending request with data:', {
-        userId,     
+        userInfo,     
         productId,  
         quantity,   
       });
@@ -161,3 +165,4 @@ export default function PurchaseModal({
     </div>
   );
 }
+ 
