@@ -144,7 +144,7 @@ function Layout({ children }) {
     <>
       {type >= 1 && <Header type={type} title={title} noIcons={noIcons} />}
 
-      <MainLayout direction="column" height="auto" align="center">
+      <MainLayout direction="column" height="auto" justify="flex-start">
         {children}
       </MainLayout>
 

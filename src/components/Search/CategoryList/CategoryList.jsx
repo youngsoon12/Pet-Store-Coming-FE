@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useState, useEffect } from 'react';
-import { styles } from './Category.style';
+import { styles } from './CategoryList.style';
 import { useRecoilValue } from 'recoil';
 
 import {
@@ -43,7 +43,7 @@ const products = [
 
 // const [categories,setCategories] = useState([]);
 
-export default function Category({ searchTerm }) {
+export default function CategoryList({ searchTerm }) {
   // const [filteredProducts, setFilteredProducts] = useState([]);
 
   // useEffect(() => {
@@ -70,9 +70,10 @@ export default function Category({ searchTerm }) {
       const mappedCategories = mainCategory?.map((main) => ({
         main: main.slug.toUpperCase(),
         mainSlug: main.slug,
+        mainId: main.id,
         subs: subCategory
           .filter((sub) => sub.mainCategoryId === main.id)
-          .map((sub) => ({ sub: sub.name, subSlug: sub.slug })),
+          .map((sub) => ({ sub: sub.name, subSlug: sub.slug, subId: sub.id })),
       }));
 
       setCategories(mappedCategories);
@@ -104,7 +105,14 @@ export default function Category({ searchTerm }) {
             <div css={styles.categorySection} key={main.mainSlug}>
               <h2
                 css={styles.categoryTitle}
-                onClick={() => navigate(`/shop/${main.mainSlug}`)}
+                onClick={() =>
+                  navigate(`/shop/${main.mainSlug}`, {
+                    state: {
+                      main: main.mainId,
+                      sub: '',
+                    },
+                  })
+                }
               >
                 {main.main}
               </h2>
@@ -114,7 +122,16 @@ export default function Category({ searchTerm }) {
                     css={styles.item}
                     key={index}
                     onClick={() =>
-                      navigate(`/shop/${main.mainSlug}/${sub.subSlug}`)
+                      navigate(
+                        `/shop/${main.mainSlug}/${encodeURIComponent(sub.subSlug)}`,
+                        {
+                          state: {
+                            main: main.mainId,
+                            // sub: '',
+                            ['sub']: sub.subId,
+                          },
+                        }
+                      )
                     }
                   >
                     {sub.sub}
