@@ -80,6 +80,7 @@ function LoginPage() {
     }
   };
 
+  // 소셜 로그인 인증 코드 받은 후 로그인 처리 (해당 정보로 회원가입 한 정보가 없을 시 회원가입 페이지로 이동)
   useEffect(() => {
     const handleMessage = async (event) => {
       if (event.origin !== 'http://localhost:5173') {
@@ -110,7 +111,16 @@ function LoginPage() {
   }, []);
 
   return (
-    <>
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <Container>
         <div css={styles.paragraphBox()}>
           <h2 css={styles.text(18, 600)}>로그인</h2>
@@ -151,7 +161,7 @@ function LoginPage() {
 
         <AuthActions />
       </Container>
-    </>
+    </div>
   );
 }
 

@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { Global } from '@emotion/react';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 // Global Component Import
 import { globalStyle } from '@styles/global';
@@ -25,8 +27,47 @@ import Search from '../pages/Search/Search';
 import OrderList from '../pages/OrderList/OrderList';
 import EditPetInfo from '../pages/EditPetInfo/EditPetInfo';
 import EditMyInfo from '../pages/EditMyInfo/EditMyInfo';
+import StoreCreate from '../pages/Store/Create/StoreCreate';
+
+import CategoryPage from '../pages/Category/Category';
+
+import {
+  isMainCategoryInfoState,
+  isSubCategoryInfoState,
+} from '../recoil/atom/category';
+import { useSetRecoilState } from 'recoil';
 
 const Router = () => {
+  const setMainCategory = useSetRecoilState(isMainCategoryInfoState); // 메인 카테고리 정보를 담는 전역 상태 변환 함수 return
+  const setSubCategory = useSetRecoilState(isSubCategoryInfoState); // 서브 카테고리 정보를 담는 전역 상태 변환 함수 return
+
+  // useEffect()를 통해서 페이지 생성 Mount 시 카테고리 정보 response(응답)
+  useEffect(() => {
+    async function getCategoryInfo() {
+      // GET /category/main-category/list Request
+      // GET /category/sub-category/list Request
+      const baseUrl = import.meta.env.VITE_API_URL;
+      const mainCategoryResponse = await axios
+        .get(`${baseUrl}/category/main-category/list`)
+        .then((res) => res.data)
+        .catch((err) => console.log(err));
+
+      const subCategoryResponse = await axios
+        .get(`${baseUrl}/category/sub-category/list`)
+        .then((res) => res.data)
+        .catch((err) => console.log(err));
+
+      mainCategoryResponse && setMainCategory([...mainCategoryResponse.data]);
+      subCategoryResponse && setSubCategory([...subCategoryResponse.data]);
+
+      // 전역 상태 데이터 변환
+      // setMainCategory([...mainCategoryResponse.data]);
+      // setSubCategory([...subCategoryResponse.data]);
+    }
+
+    getCategoryInfo();
+  }, []);
+
   return (
     <BrowserRouter>
       <Global styles={globalStyle} />
@@ -52,10 +93,20 @@ const Router = () => {
             path="/login/oauth/callback/kakao"
             element={<KakaoRedirect />}
           />
-          <Route path="/product/detail" element={<ProductDetailPage />} />
+          <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/petprofile" element={<PetProfilePage />} />
           <Route path="/shop" element={<ShopPage />} />
+
+          <Route path="/shop/:category" element={<CategoryPage />} />
+          <Route
+            path="/shop/:category/:subcategory"
+            element={<CategoryPage />}
+          />
+          {/* <Route path="/shop/:category/:subCategory" element={<CategoryPage />} /> */}
+
           <Route path="/cart" element={<Cart />} />
+
+          <Route path="/store/create" element={<StoreCreate />} />
         </Routes>
       </Layout>
     </BrowserRouter>

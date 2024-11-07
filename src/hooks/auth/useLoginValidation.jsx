@@ -26,8 +26,8 @@ function useLoginValidation() {
     // 비밀번호 유효성 검사
     if (!password.length) {
       errors.login_password = '비밀번호를 입력해주세요.';
-    } else if (password.length < 6) {
-      errors.login_password = '비밀번호는 6자 이상이어야 합니다.';
+    } else if (password.length < 8) {
+      errors.login_password = '비밀번호는 8자 이상이어야 합니다.';
     } else {
       delete errors.login_password;
     }

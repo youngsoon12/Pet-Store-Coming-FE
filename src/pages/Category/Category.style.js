@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-
 export const styles = {
   mainContainer: css`
     width: 600px;
@@ -21,7 +20,7 @@ export const styles = {
     font-size: 15px;
     color: ${isActive ? '#000000' : '#9A9A9A'};
     cursor: pointer;
-    margin-right: 40px;
+    flex: auto;
 
     &:first-of-type {
       margin-left: 20px;
@@ -52,16 +51,27 @@ export const styles = {
     text-align: left;
   `,
   productImage: css`
-    width: 200px;
-    height: 200px;
-
+   width: 275px;
+   height: 265px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-
+   // background-color: #e0e0e0;
     margin-bottom: 10px;
     border-radius: 7px;
   `,
+
+itemGridImage: css`
+width: 200px;
+height: 200px;
+
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+
+margin-bottom: 10px;
+border-radius: 7px;
+`,
   productTitle: css`
     font-size: 14px;
     color: #484848;
@@ -71,25 +81,12 @@ export const styles = {
     
   `,
   productPrice: css`
+  text-decoration: line-through;
     font-size: 14px;
     font-weight:800;
     color: #9A9A9A;
-    text-decoration: line-through;
     margin-left: 10px
   `,
-  productRate: css`
-    font-size: 14px;
-    font-weight:800;
-    color: #ed5729;;
-    margin-left: 10px
-  `,
-  proDiscount: css`
-    font-size: 14px;
-    font-weight:800;
-    color: #000000;
-    margin-left: 10px
-  `,
-  
   divider: css`
     width: 600px;
     height: 0.5px;
@@ -115,17 +112,7 @@ export const styles = {
   //  text-align: center;
     margin-top: 10px;
   `,
-  itemGridImage: css`
-    width: 275px;
-    height: 265px;
-    
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    border-radius: 15px;
-    margin-bottom: 17px;
-  `,
+  
   itemGridTitle: css`
     font-size: 15px;
     margin-bottom: 6px;
@@ -135,8 +122,24 @@ export const styles = {
   `,
   itemGridPrice: css`
     font-size: 14px;
-    text-decoration: line-through;
     color: #9A9A9A;
+    text-decoration: line-through;
+    font-weight: 800;
+    margin-left: 10px
+    
+  `,
+  itemPrice: css`
+    font-size: 14px;
+    color: #000000;
+    font-weight: 800;
+    margin-left: 10px
+    
+  `,
+  
+
+  itemGridDiscount: css`
+    font-size: 14px;
+    color: #ed5729;
     font-weight: 800;
     margin-left: 10px
   `,

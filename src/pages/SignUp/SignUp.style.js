@@ -10,9 +10,6 @@ export const styles = {
       margin-bottom: 30px;
 
       width: 100%;
-      height: 100px;
-
-      background-image: url(http://localhost:8080/upload/main-category/thumbnail/20241031165304_city-g8626e9130_1920.jpg);
     `;
   },
   headerTitle() {
@@ -37,8 +34,10 @@ export const styles = {
       margin-top: 40px;
 
       & > button {
+        width: 100%;
+        padding: 10px 0;
         margin-top: 40px;
-        padding: 10px 20px;
+        /* padding: 10px 20px; */
         cursor: pointer;
         background-color: #191919;
         color: #fff;
@@ -50,7 +49,7 @@ export const styles = {
     `;
   },
 
-  formInputContainer() {
+  formInputContainer(errorMsg) {
     return css`
       width: 100%;
       padding: 20px 10px;
@@ -66,22 +65,65 @@ export const styles = {
         font-weight: 600;
       }
 
-      & > div:last-child {
+      & > .inputRadioField {
         display: flex;
-        align-items: center;
+        gap: 20px;
+      }
 
-        & > label:first-of-type {
-          margin-right: 13px;
+      & > .inputField {
+        flex: 1;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 5px;
+
+        & > input {
+          width: 100%;
+          border: 1px solid
+            rgba(${errorMsg ? '255, 77, 79, 1' : '154, 154, 154, 0.6'});
+          padding: 5px 10px;
+          border-radius: 5px;
+          outline: none;
+          transition: border 0.3s;
+        }
+
+        & > input::placeholder {
+          font-size: 12px;
+        }
+
+        & > input:focus {
+          border-color: ${errorMsg ? '#ff4d4f' : '#141414'};
+        }
+
+        & > .errorMsg {
+          color: red;
+          font-size: 8px;
+        }
+
+        & > .infoMsg {
+          font-size: 8px;
+          color: rgb(154, 154, 154);
         }
       }
 
-      & > input:last-child {
+      /* & > input {
         flex: 1;
         border: 1px solid rgba(154, 154, 154, 0.4);
         padding: 5px 10px;
         border-radius: 5px;
         outline: none;
+        transition: border 0.3s;
       }
+
+      & > input::placeholder {
+        font-size: 12px;
+      }
+
+      & > input:focus {
+        border-color: #141414;
+      } */
 
       border-bottom: 1px solid rgba(154, 154, 154, 0.4);
     `;

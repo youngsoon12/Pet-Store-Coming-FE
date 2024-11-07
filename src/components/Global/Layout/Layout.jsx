@@ -94,6 +94,10 @@ function Layout({ children }) {
         setActiveTab('search');
         setType(0);
         break;
+      case '/petprofile':
+        setType(3);
+        setTitle('우리아이 등록');
+        break;
       case '/my':
         setActiveTab('my');
         setTitle('MY PAGE');
@@ -124,6 +128,7 @@ function Layout({ children }) {
         setType(4);
         setTitle('장바구니');
         setNoIcons(true);
+        setActiveTab('');
         break;
       case '/order':
         setType(1);
@@ -140,7 +145,12 @@ function Layout({ children }) {
     <>
       {type >= 1 && <Header type={type} title={title} noIcons={noIcons} />}
 
-      <MainLayout direction="column" height="auto" align="center">
+      <MainLayout
+        direction="column"
+        height="auto"
+        justify="flex-start"
+        align="center"
+      >
         {children}
       </MainLayout>
 

@@ -3,16 +3,24 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styles } from './PurchaseModal.style';
 import Button from '../../global/Button/Button';
+import axios from 'axios';
+
 
 export default function PurchaseModal({
   discountPrice,
-  initialQuantity,
   options,
   closeModal,
+ 
+  productId, // productId를 함께 전송
+
 }) {
-  const [quantity, setQuantity] = useState(initialQuantity || 1);
+  
+
+  const [quantity, setQuantity] = useState(1);
   const [selectedOption, setSelectedOption] = useState(null);
   const navigate = useNavigate();
+  const userId = import.meta.env.VITE_USER_ID;
+  
 
   // 선택된 옵션의 addPrice를 합산한 총 가격
   const totalPrice =
@@ -30,17 +38,48 @@ export default function PurchaseModal({
     setSelectedOption(selected);
   };
 
-  const handleAddToCart = () => {
-    navigate('/cart');
-    closeModal();
+  const handleAddToCart = async () => {
+    try {
+      console.log('Sending request with data:', {
+        userId,     
+        productId,  
+        quantity,   
+      });
+  
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/cart/append`, {
+        userId,   
+        productId, 
+        quantity,  
+      });
+  
+      console.log('Response:', response);  
+  
+      if (response.status === 200) {
+        alert("장바구니에 상품이 추가되었습니다.");
+        navigate('/cart');  
+        closeModal();
+      }
+    } catch (error) {
+      console.error('Error during request:', error);  
+  
+      if (error.response) {
+        if (error.response.status === 409) {
+          alert("이 상품은 이미 장바구니에 있습니다.");
+        } else if (error.response.status === 400) {
+          alert("잘못된 요청입니다. 다시 시도해 주세요.");
+        } else if (error.response.status === 500) {
+          alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+        } else {
+          alert("예기치 않은 오류가 발생했습니다.");
+        }
+      } else if (error.request) {
+        alert("서버에 연결할 수 없습니다. 인터넷 연결을 확인하세요.");
+      } else {
+        alert("요청 처리 중 오류가 발생했습니다.");
+      }
+    }
   };
-
-  const handleBuyNow = () => {
-    navigate('/order');
-    closeModal();
-  };
-
-  return (
+    return (
     <div css={styles.overlay} onClick={closeModal}>
       <div css={styles.controlsContainer} onClick={(e) => e.stopPropagation()}>
         <div css={styles.dragHandle}>
@@ -54,11 +93,14 @@ export default function PurchaseModal({
             css={styles.selectBox}
           >
             <option value="">옵션을 선택해주세요</option>
+            
             {options.map((option) => (
               <option key={option.id} value={option.id}>
                 {option.description}
+                {option.addPrice !== 0 ? option.addPrice : " | 변동 없음"}
               </option>
             ))}
+            
           </select>
         </div>
 
@@ -94,19 +136,11 @@ export default function PurchaseModal({
         <div css={styles.buttonContainer}>
           <Button
             text="장바구니 담기"
-            theme="reverse"
-            width={259}
+            theme="black"
+            width={500}
             height={52}
             fontWeight={700}
             onClick={handleAddToCart}
-          />
-          <Button
-            text="바로 구매하기"
-            theme="black"
-            width={259}
-            height={52}
-            fontWeight={700}
-            onClick={handleBuyNow}
           />
         </div>
       </div>
