@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { getCookie } from '@util/configCookie';
+const baseURL = import.meta.env.VITE_API_URL;
 
 export class AuthAPI {
   async logout() {
     // POST /auth/logout API
     try {
       await axios.post(
-        'http://localhost:8080/auth/logout',
+        `${baseURL}/auth/logout`,
         {},
         {
           headers: {

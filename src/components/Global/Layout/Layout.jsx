@@ -162,7 +162,7 @@ function Layout({ children }) {
         - 단, 해당 위치에서 테스트를 하기 위해 Layout.jsx에 위치해 있을 뿐 나중에 마이페이지로 옮길 예정
       
       */}
-      {isActhenticated && <button onClick={openLogoutModal}>로그아웃</button>}
+      {/* {isActhenticated && <button onClick={openLogoutModal}>로그아웃</button>} */}
     </>
   );
 }
