@@ -13,9 +13,10 @@ export const styles = {
     `;
   },
 
-  modalContainer() {
+  modalContainer(content) {
     return css`
       position: fixed;
+      z-index: 1002;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -23,7 +24,7 @@ export const styles = {
       width: 70vw;
       max-width: 420px;
       min-width: 320px;
-      height: 184px;
+      min-height: 184px;
 
       box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
 
@@ -35,7 +36,7 @@ export const styles = {
       flex-direction: column;
 
       align-items: center;
-      justify-content: space-between;
+      justify-content: ${content ? 'nomal' : 'space-between'};
 
       padding: 28px;
     `;
