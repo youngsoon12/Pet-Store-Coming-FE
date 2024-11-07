@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import PaymentBtn from '../../components/payments/PaymentBtn';
+import PaymentBtn from '../../components/Payments/PaymentBtn';
 import PaymentProductCard from '../../components/Payments/PaymentProductCard';
 import { styles } from './Payments.style';
 import { useEffect, useState } from 'react';
