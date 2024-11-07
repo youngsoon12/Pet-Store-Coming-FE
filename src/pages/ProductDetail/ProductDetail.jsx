@@ -1,69 +1,27 @@
 /** @jsxImportSource @emotion/react */
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { styles } from './ProductDetail.style';
-import starIcon from '@assets/images/ProductDetail/starIcon.svg';
-import Wagon from '@assets/images/ProductDetail/Wagon.jpg';
-import Img1 from '@assets/images/ProductDetail/Img1.jpg';
-import Img2 from '@assets/images/ProductDetail/Img2.jpg';
-import Img3 from '@assets/images/ProductDetail/Img3.gif';
-import Img4 from '@assets/images/ProductDetail/Img4.jpg';
+import starIcon from '@assets/images/ProductDetail/starIcon.svg'
 import Review from '../../components/ProductDetail/Review/Review';
 import PurchaseModal from '../../components/ProductDetail/PurchaseModal/PurchaseModal';
 import PurchaseButton from '../../components/ProductDetail/PurchaseButton/PurchaseButton';
 import InfoSection from '../../components/ProductDetail/InfoSection/InfoSection';
+import axios from 'axios';
+import { useLocation, useParams } from 'react-router-dom';
 
 export default function ProductDetailPage() {
-  const products = [
-    {
-      id: 1,
-      sub_category_id: 1,
-      store_id: 1,
-      store_brand: "꼬밍",
-      name: "강아지 유모차",
-      price: 36900,
-      discount_rate: 5,
-      discount_price: 29900,
-      thumbnail_url: Wagon,
-      created_at: "2023-01-01",
-      updated_at: "2023-01-01",
-      options: [
-        { id: 100, productId: 1, description: "사료 100kg(+8000원)", addPrice: 8000 },
-        { id: 200, productId: 1, description: "사료 1000kg(+80000원)", addPrice: 80000 },
-        { id: 500, productId: 1, description: "사료 10000kg(+800000원)", addPrice: 800000 },
-       
-      ],
-    },
-    {
-      id: 2,
-      sub_category_id: 2,
-      store_id: 1,
-      store_brand: "꼬밍",
-      name: "고양이 유모차",
-      price: 39900,
-      discount_rate: 10,
-      discount_price: 35910,
-      thumbnail_url: Wagon,
-      created_at: "2023-01-01",
-      updated_at: "2023-01-01",
-      options: [
-        { id: 101, productId: 2, description: "고양이 사료 500g", addPrice: 5000 },
-        { id: 102, productId: 2, description: "고양이 사료 1kg", addPrice: 9000 },
-      ],
-    },
-  ];
+  const { id } = useParams();
+  // const userId = import.meta.env.VITE_USER_ID;
+  
 
-  const descriptionImages = [Img1, Img2, Img3, Img4];
   const reviewSectionRef = useRef(null);
+  
+  const [productDetail, setProductDetail] = useState(null);
+
   const [showAllDescriptions, setShowAllDescriptions] = useState(false);
-  const [currentProductIndex, setCurrentProductIndex] = useState(0);
-  const [quantity, setQuantity] = useState(1);
+
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const product = products[currentProductIndex];
-
-  const toggleDescription = () => {
-    setShowAllDescriptions((prev) => !prev);
-  };
 
   const scrollToReviews = () => {
     reviewSectionRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -77,55 +35,114 @@ export default function ProductDetailPage() {
     setModalOpen(false);
   };
 
+  useEffect(() => {
+    // 상품 상세 설명 정보 가져오기 함수
+    async function fetchProductDetailInformation() {
+      
+      try {
+
+        const res = await axios
+          .get(`${import.meta.env.VITE_API_URL}/product/${id}/detail`)
+          .then(res => res.data);
+          console.log(res); 
+
+        setProductDetail(res.data);
+
+      } catch(error) {
+        // 예외 처리 -> 서버에서 ErrorCode가 있거나 그냥 다른 에러가 날 경우 어떻게 처리할건가요?
+        console.log(error);
+      }
+    }
+    
+    fetchProductDetailInformation();
+  }, []);
+
   return (
     <>
-      <img src={product.thumbnail_url} alt={product.thumbnail_alt} css={styles.productImage} />
+      
+      {productDetail && (
+        <>
+          <img src={productDetail.prodcutThumbnailImageUrl} alt={productDetail.prodcutThumbnailImageName} css={styles.productImage} />
 
-      <div css={styles.productInfo}>
-        <div css={styles.productTitle}>
-          <span>{product.store_brand}</span>
-          <span>{product.name}</span>
-          <div css={styles.starsWrapper}>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <img key={index} src={starIcon} alt="star" css={styles.starIcon} />
-            ))}
+          <div css={styles.productInfo}>
+
+            {/* 상품 기본 정보 (스토어, 상품 이름) */}
+            <div css={styles.productTitle}>
+
+              <div css={styles.productInfo_left_panel}>
+                <span>{productDetail.storeBrandName}</span>
+                <span>{productDetail.productName}</span>
+
+                <div css={styles.priceDetails}>
+                  <span css={styles.discount}>{productDetail.productDiscountRate}%</span>
+                  <span css={styles.price}>{productDetail.productDiscountPrice.toLocaleString()}원</span>
+
+                  <div css={styles.originalPrice}>{productDetail.productPrice.toLocaleString()}원</div>
+                </div>
+              </div>
+
+              {/* 나 리뷰 */}
+              <div css={styles.starsWrapper}>
+                <div>
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <img key={index} src={starIcon} alt="star" css={styles.starIcon} />
+                  ))}
+                </div>
+                
+                <p css={styles.reviewCount} onClick={scrollToReviews}>33개 리뷰보기</p>
+              </div>
+            </div>
+
+
+            <div css={styles.separatorLine} />
+
+
+            {/* 상품 설명 */}
+            <div css={styles.descriptionImages}>
+              {productDetail.productDescription}
+              
+              {/* {descriptionImages.slice(0, showAllDescriptions ? descriptionImages.length : 2).map((image, index) => (
+                <img key={index} src={image} alt={`Product Detail ${index + 1}`} css={styles.descriptionImage} />
+              ))} */}
+            </div>
+
+            <button onClick={() => setShowAllDescriptions((prev) => !prev)} css={styles.toggleButton}>
+              {showAllDescriptions ? '상품 설명 닫기' : '상품 설명 더보기'}
+              
+              { !showAllDescriptions ? (
+                  <svg width="13" height="13" viewBox="0 0 28 16">
+                    <path d="M28 1L13.97 15 0 1.058" stroke="#000" strokeWidth="3" fill="none" />
+                  </svg>) 
+                  : 
+                  null 
+              }
+            </button>
+
+            {/* 나 아직 안됨 */}
+            {/* Work List -> Review API 설계 완료 시 데이터 가져온 후 처리 */}
+            {/* <Review /> */}
+
+            <div css={styles.separatorLine} />
+
+            <InfoSection />
+
+            <PurchaseButton onClick={handlePurchaseButtonClick} />
+
           </div>
-        </div>
-        <p css={styles.reviewCount} onClick={scrollToReviews}>33개 리뷰보기</p>
-        <div css={styles.priceDetails}>
-          <span css={styles.discount}>{product.discount_rate}%</span>
-          <span css={styles.price}>{product.discount_price.toLocaleString()}원</span>
-        </div>
-        <div css={styles.originalPrice}>{product.price.toLocaleString()}원</div>
-        <div css={styles.separatorLine} />
 
-        <div css={styles.descriptionImages}>
-          {descriptionImages.slice(0, showAllDescriptions ? descriptionImages.length : 2).map((image, index) => (
-            <img key={index} src={image} alt={`Product Detail ${index + 1}`} css={styles.descriptionImage} />
-          ))}
-        </div>
-
-        <button onClick={toggleDescription} css={styles.toggleButton}>
-          {showAllDescriptions ? '상품 설명 닫기' : '상품 설명 더보기'}
-          <svg width="13" height="13" viewBox="0 0 28 16">
-            <path d="M28 1L13.97 15 0 1.058" stroke="#000" strokeWidth="3" fill="none" />
-          </svg>
-        </button>
-        <Review />
-
-        <div css={styles.separatorLine} />
-        <InfoSection />
-      </div>
-      <PurchaseButton onClick={handlePurchaseButtonClick} />
-
-      {isModalOpen && (
-        <PurchaseModal
-          options={product.options} 
-          discountPrice={product.discount_price}
-          initialQuantity={quantity}
-          closeModal={closeModal}
-        />
+          {isModalOpen && (
+            <PurchaseModal
+              options={productDetail.productOptions} 
+              discountPrice={productDetail.productDiscountPrice}
+              productId={id}
+             
+              closeModal={closeModal}
+            />
+          )}
+        </>
       )}
+
     </>
   );
 }
+

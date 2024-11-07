@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-//import { useState } from 'react';
+import { useState } from 'react';
 import Slider from '../../components/Silder/Slider';
 import { styles } from './Main.style';
 import mainImage from '../../assets/images/mainpage/main.jpg';
@@ -8,8 +8,20 @@ import subImage2 from '../../assets/images/mainpage/sub2.jpg';
 import subImage3 from '../../assets/images/mainpage/sub3.jpg';
 import subImage4 from '../../assets/images/mainpage/sub4.jpg';
 import Footer from '../../components/Global/Footer/Footer';
+import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
+
+import {
+  isMainCategoryInfoState,
+  isSubCategoryInfoState,
+} from '../../recoil/atom/category';
+
 
 export default function Mainpage() {
+
+  const mainCategory = useRecoilValue(isMainCategoryInfoState);
+  const subCategoryData = useRecoilValue(isSubCategoryInfoState);
+
   const selectedCategory = '취향저격 간식 모음';
 
   const images = {
@@ -26,7 +38,7 @@ export default function Mainpage() {
     <>
       <div css={styles.mainContainer}>
         <Slider />
-        <div css={styles.imageGrid}>
+      <div css={styles.imageGrid}>
           <img
             src={images[selectedCategory][0]}
             alt="main"
