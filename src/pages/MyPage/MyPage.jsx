@@ -1,37 +1,70 @@
 /** @jsxImportSource @emotion/react */
-import ListItem from '../../components/MyPage/ListItem/ListItem';
-import PetCard from '../../components/MyPage/PetCard/PetCard';
-import TitleBox from '../../components/MyPage/TitleBox/TitleBox';
-import Button from '../../components/global/Button/Button';
+import ListItem from '@components/MyPage/ListItem/ListItem';
+import PetCard from '@components/MyPage/PetCard/PetCard';
+import TitleBox from '@components/MyPage/TitleBox/TitleBox';
+import Button from '@components/Global/Button/Button';
 import { styles } from './MyPage.style';
 import { myDatas } from './MyPageData';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { decodeToken, getCookie } from '@util/configCookie';
 
 export default function MyPage() {
   // const { name, list, myPets } = myDatas;
-  const { name, list } = myDatas;
+  const { list } = myDatas;
 
   const [myPets, setMyPets] = useState([]);
+
+  const token = getCookie('token');
+  const userInfo = decodeToken(token);
+
+  const name = userInfo.name;
+
   useEffect(() => {
     const baseURL = import.meta.env.VITE_API_URL;
-    const userId = '22ef481b-11e6-487c-b5e1-257efb4895a2';
+    const userId = userInfo.userId;
+
     async function getMyPets() {
       const myPetsResponse = await axios
         .get(`${baseURL}/canidae/list?user-id=${userId}`)
         .then((res) => res.data)
         .catch((err) => console.log(err));
+
       myPetsResponse && setMyPets([...myPetsResponse.data]);
-      console.log(myPetsResponse);
+      console.log(myPets);
+
+      // console.log('= = = = =');
+      // console.log('asd', myPetsResponse.data);
     }
     getMyPets();
     // console.log(myPets);
   }, []);
 
-  const deletePet = (petId) => {
-    const updatedPets = myPets.filter((pet) => pet.id !== petId);
-    setMyPets(updatedPets); // 상태를 업데이트하여 화면에 반영
+  const deletePet = (petId, newPrimaryCanidae) => {
+    const updatedPets = myPets.filter((pet) => pet.canidae.id !== petId);
+
+    const updatedPetsWithPrimary = updatedPets.map((pet) => {
+      if (pet.canidae.id === newPrimaryCanidae) {
+        return { ...pet, canidae: { ...pet.canidae, isPrimary: true } };
+      }
+
+      return pet;
+    });
+
+    setMyPets(updatedPetsWithPrimary);
+
+    // setMyPets((prev) => ({
+    //   ...prev,
+    //   canidae: {
+    //     ...prev.canidae,
+    //     isPrimary: id === newPrimaryCanidae && true
+    //   }
+    // }));
+
+    // const updatedPets = myPets.filter((pet) => pet.canidae.id !== petId);
+
+    // setMyPets(updatedPets); // 상태를 업데이트하여 화면에 반영
   };
 
   const navigate = useNavigate();

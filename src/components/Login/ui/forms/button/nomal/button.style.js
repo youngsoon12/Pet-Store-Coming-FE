@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 
-export const styles = (bgColor, color) => {
+export const styles = (bgColor, color, width, marginTop) => {
   return css`
-    width: 80%;
+    width: ${width ? width : '80%'};
     height: 45px;
     cursor: pointer;
     box-sizing: border-box;
@@ -11,7 +11,7 @@ export const styles = (bgColor, color) => {
     font-size: 14px;
 
     max-width: 400px;
-    margin-top: 10px;
+    margin-top: ${marginTop ? marginTop : '10px'};
 
     background-color: ${bgColor};
     border: none;

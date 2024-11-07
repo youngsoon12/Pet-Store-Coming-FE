@@ -7,20 +7,42 @@ import Button from '@components/Cart/Button/Button';
 import React, { useState, useEffect } from 'react';
 import CheckBox from '../../components/Cart/CheckBox/CheckBox';
 import getCartListAPI from '../../apis/CartList/GetCartListAPI';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { decodeToken, getCookie } from '../../util/configCookie';
+import { deleteCartListAPI } from '../../apis/CartList/deleteCartListAPI';
 
 export default function Cart() {
-  const { data: { data: cartData = [] } = {}, isLoading } = useQuery({
-    queryKey: ['cartItems'],
-    queryFn: getCartListAPI,
+  const token = getCookie('token');
+  const userInfo = decodeToken(token);
+  const userId = userInfo?.userId;
+
+  const { data: cartData = [], isLoading } = useQuery({
+    queryKey: ['cartItems', userId],
+    queryFn: ({ queryKey }) => {
+      const userIdFromQuery = queryKey[1];
+      return getCartListAPI(userIdFromQuery);
+    },
+    enabled: !!userId, // userId가 있을 때만 실행
+  });
+
+  const { mutate: deleteCartItems } = useMutation({
+    mutationFn: deleteCartListAPI, // mutationFn으로 deleteCartItemsAPI 지정
+    onSuccess: (data) => {
+      console.log('삭제 성공:', data);
+      // 로컬 상태에서 삭제
+      setNewCartItems((prevItems) =>
+        prevItems.filter((item) => !checkItems.includes(item.cartId))
+      );
+      setCheckItems([]);
+    },
+    onError: (error) => {
+      console.error('삭제 실패:', error);
+      // 에러 발생 시 처리할 작업
+    },
   });
   const navigate = useNavigate();
   const [newCartItems, setNewCartItems] = useState([]);
   const [checkItems, setCheckItems] = useState([]);
-  const token = getCookie('token');
-  const userInfo = decodeToken(token);
-  console.log(userInfo);
 
   // cartData 초기화
   useEffect(() => {
@@ -37,7 +59,7 @@ export default function Cart() {
 
   const allCheckedHandler = (e) => {
     setCheckItems(
-      e.target.checked ? newCartItems.map((item) => item.productId) : []
+      e.target.checked ? newCartItems.map((item) => item.cartId) : []
     );
   };
 
@@ -57,21 +79,20 @@ export default function Cart() {
       )
     );
   };
-  console.log(checkItems);
   const onBuyClick = () => {
     const selectedItems = newCartItems.filter((item) =>
-      checkItems.includes(item.productId)
+      checkItems.includes(item.cartId)
     );
     navigate('/order', { state: { selectedItems } });
   };
-  console.log(checkItems);
-  console.log(newCartItems);
   // 선택된 상품 삭제
   const deleteCheckedItem = () => {
-    setNewCartItems((prevItems) =>
-      prevItems.filter((item) => !checkItems.includes(item.productId))
-    );
-    setCheckItems([]);
+    const selectedIds = checkItems.map((id) => ({
+      cartItemId: id,
+      userId: userInfo.userId,
+    }));
+
+    deleteCartItems(selectedIds);
   };
 
   // 선택된 상품 수량 및 가격 계산
@@ -81,7 +102,7 @@ export default function Cart() {
   const calculateTotal = () => {
     const total = newCartItems.reduce(
       (acc, item) => {
-        if (checkItems.includes(item.productId)) {
+        if (checkItems.includes(item.cartId)) {
           const quantity = parseInt(item.productQuantity, 10);
           acc.totalCnt += quantity;
           acc.totalPrice += item.productPrice * quantity;
@@ -121,20 +142,20 @@ export default function Cart() {
               <div onClick={deleteCheckedItem}>선택삭제</div>
             </div>
             {newCartItems.map((item) => (
-              <div key={item.productId} css={styles.itemBox}>
+              <div key={item.cartId} css={styles.itemBox}>
                 <div>
                   <CheckBox
-                    id={item.productId}
+                    id={item.cartId}
                     checkItemHandler={(id, isChecked) =>
-                      checkItemHandler(item.productId, isChecked)
+                      checkItemHandler(item.cartId, isChecked)
                     }
-                    checked={checkItems.includes(item.productId)}
+                    checked={checkItems.includes(item.cartId)}
                     name="selected"
                     value={item.productName}
                   />
                   <Button
                     text="삭제"
-                    onClick={() => deleteCheckedItem(item.productId)}
+                    onClick={() => deleteCheckedItem(item.cartId)}
                     fontSize="12px"
                   />
                 </div>

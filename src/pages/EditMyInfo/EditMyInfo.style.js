@@ -6,7 +6,8 @@ export const styles = {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 30px;
+      margin: 40px 0;
+      width: 100%;
     `;
   },
   headerTitle() {
@@ -71,7 +72,7 @@ export const styles = {
       & input {
         flex: 1;
         border: 1px solid rgba(154, 154, 154, 0.4);
-        padding: 5px 10px;
+        padding: 8px 10px;
         border-radius: 5px;
         outline: none;
       }

@@ -9,18 +9,11 @@ import downArrow from '@assets/images/payment/down_arrow.svg';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { deliveryInfo } from '../../recoil/atom/deliveryInfo';
-import { useQuery } from '@tanstack/react-query';
-import getCartListAPI from '../../apis/CartList/GetCartListAPI';
+import { getCookie, decodeToken } from '../../util/configCookie';
 
 const Payments = () => {
-  const {
-    data: cartData,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ['cartList'],
-    queryFn: getCartListAPI,
-  });
+  const token = getCookie('token');
+  const userId = decodeToken(token);
 
   const location = useLocation();
   const selectedItems = location.state?.selectedItems || [];
@@ -75,13 +68,13 @@ const Payments = () => {
         totalDiscountAmount: totalDiscountAmount,
       });
     }
-  }, [selectedItems]);
+  }, []);
 
   // 두 번째 useEffect: amountList가 업데이트된 후 orderInfo에 반영
   useEffect(() => {
     setOrderInfo((prev) => ({
       ...prev,
-      userId: '3e6df3af-d038-4b94-a327-92ab30a88749',
+      userId: userId.userId,
       amount: parseInt(amountList.paymentPrice),
     }));
   }, [amountList]);
@@ -125,9 +118,6 @@ const Payments = () => {
     setPayPriceTogle((prev) => !prev);
   };
   const btnActive = Object.values(checkedItems).every(Boolean);
-
-  if (isLoading) return <div>장바구니를 불러오는중 입니다...</div>;
-  if (error) return <div>페이지 오류가 발생하였습니다 ...</div>;
 
   return (
     <>
