@@ -3,8 +3,7 @@ import { css } from '@emotion/react';
 
 export const styles = {
   productImage: css`
-    width: 600px;
-    height: 610px;
+    width: 100%;
     object-fit: cover;
   `,
   
@@ -88,7 +87,7 @@ export const styles = {
   `,
 
   separatorLine: css`
-    width: 550px;
+    /* width: 550px; */
     height: 1px;
     background-color: #D9D9D9;
     margin-top: 30px;
@@ -115,7 +114,7 @@ export const styles = {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 352px;
+    width:90%;
     height: 52px;
     margin: 0 auto;
     margin-top: 20px;
