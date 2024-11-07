@@ -9,8 +9,12 @@ import downArrow from '@assets/images/payment/down_arrow.svg';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { deliveryInfo } from '../../recoil/atom/deliveryInfo';
+import { getCookie, decodeToken } from '../../util/configCookie';
 
 const Payments = () => {
+  const token = getCookie('token');
+  const userId = decodeToken(token);
+
   const location = useLocation();
   const selectedItems = location.state?.selectedItems || [];
   console.log(selectedItems);
@@ -64,13 +68,13 @@ const Payments = () => {
         totalDiscountAmount: totalDiscountAmount,
       });
     }
-  }, [selectedItems]);
+  }, []);
 
   // 두 번째 useEffect: amountList가 업데이트된 후 orderInfo에 반영
   useEffect(() => {
     setOrderInfo((prev) => ({
       ...prev,
-      userId: '3e6df3af-d038-4b94-a327-92ab30a88749',
+      userId: userId.userId,
       amount: parseInt(amountList.paymentPrice),
     }));
   }, [amountList]);
