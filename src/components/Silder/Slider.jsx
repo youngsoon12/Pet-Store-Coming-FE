@@ -20,10 +20,11 @@ export default function Slider() {
   const [slides, setSlides] = useState(null);
 
   useEffect(() => {
+    // console.log(mainCategories[currentIndex]);
     setSlides({
       index: currentIndex,
       image: mainCategories[currentIndex]?.thumbnailUrl,
-      name: mainCategories[currentIndex]?.name,
+      name: mainCategories[currentIndex]?.slug.toUpperCase(),
       subjet: subjet[currentIndex],
       description: description[currentIndex],
     });
