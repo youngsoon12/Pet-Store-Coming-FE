@@ -119,6 +119,7 @@ export default function CategoryPage() {
   return (
     <>
       <div css={styles.mainContainer}>
+        <div>
         {/* Tab Bar */}
         <div css={styles.tabBarContainer}>
           {sub?.map((categoryItem) => {
@@ -133,7 +134,8 @@ export default function CategoryPage() {
               </span>
             );
           })}
-        </div>
+           </div>
+           </div>
 
         {/* NEW ITEMS Section */}
         <div css={styles.bestItemsLabel}>NEW ITEMS</div>

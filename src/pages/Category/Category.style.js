@@ -2,19 +2,22 @@
 import { css } from '@emotion/react';
 export const styles = {
   mainContainer: css`
-    width: 600px;
+   display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 20px;
   `,
   header: css`
-    width: 600px;
-    height: 52px;
+     width: 100%;
+     height: 52px;
   `,
   tabBarContainer: css`
-    width: 600px;
+     width: 100%;
     height: 50px;
     border-bottom: 1px solid #9A9A9A;
     display: flex;
     align-items: center;
-    padding-left: 20px;
+    gap:15px
   `,
   tabItem: (isActive) => css`
     font-size: 15px;
@@ -30,7 +33,7 @@ export const styles = {
     font-size: 20px;
     color: #000000;
     margin-top: 27px;
-    margin-left: 20px;
+    //margin-left: 20px;
     font-weight: 700;
   `,
   productCarousel: css`
@@ -46,13 +49,10 @@ export const styles = {
       display: none;
     }
   `,
-  productItem: css`
-    width: 200px;
-    text-align: left;
-  `,
+  
   productImage: css`
-   width: 275px;
-   height: 265px;
+   width: 100%;
+   height: 215px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -62,8 +62,8 @@ export const styles = {
   `,
 
   itemGridImage: css`
-  width: 200px;
-  height: 200px;
+  width: 215px;
+  height: 215px;
 
   background-position: center;
   background-repeat: no-repeat;
@@ -77,7 +77,7 @@ export const styles = {
     color: #484848;
     font-weight:800;
     margin-bottom: 5px;
-    margin-left: 10px
+   // margin-left: 10px
     
   `,
   productName: css`
@@ -85,7 +85,7 @@ export const styles = {
     color: #484848;
     font-weight:500;
     margin-bottom: 5px;
-    margin-left: 10px
+   // margin-left: 10px
     
   `,
   productWrapper: css`
@@ -98,18 +98,18 @@ export const styles = {
     font-size: 14px;
     font-weight:800;
     color: #9A9A9A;
-    margin-left: 10px
+   // margin-left: 10px
   `,
   divider: css`
-    width: 600px;
+    width: 100%;
     height: 0.5px;
     background-color: #9A9A9A;
-    margin: 33px 0;
+    margin: 30px 0;
   `,
   itemsLabel: css`
     font-size: 20px;
     color: #484848;
-    margin-left: 20px;
+   // margin-left: 20px;
     margin-top: 24px;
     font-weight: 700;
   `,
@@ -131,21 +131,21 @@ export const styles = {
     margin-bottom: 6px;
     color: #484848;
     font-weight: 800;
-    margin-left: 10px
+   // margin-left: 10px
   `,
   itemGridPrice: css`
     font-size: 14px;
     color: #9A9A9A;
     text-decoration: line-through;
     font-weight: 800;
-    margin-left: 10px
+    //margin-left: 10px
     
   `,
   itemPrice: css`
     font-size: 14px;
     color: #000000;
     font-weight: 800;
-    margin-left: 10px
+   // margin-left: 10px
     
   `,
   productWrapper: css`
@@ -157,6 +157,6 @@ export const styles = {
     font-size: 14px;
     color: #ed5729;
     font-weight: 800;
-    margin-left: 10px
+   // margin-left: 10px
   `,
 };

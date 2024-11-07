@@ -18,7 +18,7 @@ export const styles = {
     border-bottom: 1px solid #9A9A9A;
     display: flex;
     align-items: center;
-    gap:16px
+    gap:30px
   `,
   tabItem: (isActive) => css`
     font-size: 15px;
@@ -34,7 +34,6 @@ export const styles = {
     font-size: 20px;
     color: #000000;
     margin-top: 27px;
-    //margin-left: 20px;
     font-weight: 700;
   `,
   productCarousel: css`
@@ -50,10 +49,7 @@ export const styles = {
       display: none;
     }
   `,
-  productItem: css`
-    width: 200px;
-    text-align: left;
-  `,
+  
   productImage: css`
     width: 200px;
     height: 200px;
@@ -78,7 +74,6 @@ export const styles = {
     color: #484848;
     font-weight:800;
     margin-bottom: 5px;
-   // margin-left: 10px
     
   `,
   productName: css`
@@ -86,7 +81,6 @@ export const styles = {
     color: #484848;
     font-weight:500;
     margin-bottom: 5px;
-   // margin-left: 10px
     
   `,
   productPrice: css`
@@ -94,26 +88,23 @@ export const styles = {
     font-weight:800;
     color: #9A9A9A;
     text-decoration: line-through;
-    //margin-left: 10px
   `,
   productRate: css`
     font-size: 14px;
     font-weight:800;
     color: #ed5729;;
-   // margin-left: 10px
   `,
   proDiscount: css`
     font-size: 14px;
     font-weight:800;
     color: #000000;
-   // margin-left: 10px
   `,
   
   divider: css`
     width: 100%;
     height: 0.5px;
     background-color: #9A9A9A;
-    margin: 33px 0;
+    margin: 30px 0;
   `,
   itemsLabel: css`
     font-size: 20px;
