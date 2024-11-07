@@ -12,7 +12,6 @@ import { isActhenticatedState } from '@recoil/atom/authState';
 import Modal from '@components/Global/Modal/Modal';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-
 import { getCookie, removeCookie, decodeToken } from '@util/configCookie';
 
 // API 불러오기
@@ -74,6 +73,34 @@ function Layout({ children }) {
   // 페이지 리다이렉션 && Tab Bar
   useEffect(() => {
     const { pathname } = location;
+
+    const notLoginUserAccess = [
+      '/order',
+      '/order/success',
+      '/success',
+      '/my',
+      '/my/edit/petinfo',
+      '/my/edit/myinfo',
+      '/my/order-history',
+      '/cart',
+    ];
+
+    const LoginUserAccess = [
+      '/login',
+      '/login/oauth/callback/kakao',
+      '/sign-up',
+      '/signup/success',
+    ];
+
+    // 사용자가 로그인하지 않고 인가되지 않은 페이지 접속 시
+    if (!isActhenticated && notLoginUserAccess.includes(pathname)) {
+      navigate('/login');
+    }
+
+    // 로그인한 사용자가 로그인하지 않은 페이지 접속 시
+    if (isActhenticated && LoginUserAccess.includes(pathname)) {
+      navigate('/');
+    }
 
     // 사용자가 로그인 한 경우 페이지 리다이렉션
     // if (isActhenticated && location.pathname === '/login') {

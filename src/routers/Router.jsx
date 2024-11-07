@@ -31,15 +31,19 @@ import StoreCreate from '../pages/Store/Create/StoreCreate';
 
 import CategoryPage from '../pages/Category/Category';
 
+// 사용자 활성화 여부 상태 가져오기
+import { isActhenticatedState } from '@recoil/atom/authState';
+
 import {
   isMainCategoryInfoState,
   isSubCategoryInfoState,
 } from '../recoil/atom/category';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 const Router = () => {
   const setMainCategory = useSetRecoilState(isMainCategoryInfoState); // 메인 카테고리 정보를 담는 전역 상태 변환 함수 return
   const setSubCategory = useSetRecoilState(isSubCategoryInfoState); // 서브 카테고리 정보를 담는 전역 상태 변환 함수 return
+  const isLogin = useRecoilValue(isActhenticatedState);
 
   // useEffect()를 통해서 페이지 생성 Mount 시 카테고리 정보 response(응답)
   useEffect(() => {
@@ -86,39 +90,46 @@ const Router = () => {
 
           {/* 상품 상세 페이지 */}
           <Route path="/product/:id" element={<ProductDetailPage />} />
-
-          {/* - 로그인 이후 들어갈 수 없는 곳 */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/login/oauth/callback/kakao"
-            element={<KakaoRedirect />}
-          />
-
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/signup/success" element={<SignupSuccess />} />
-
-          {/* - 로그인 사용자만 들어갈 수 있는 곳 */}
-
-          {/* #1. 주문 내역 */}
-          <Route path="/order" element={<PaymentPage />} />
-
-          {/* #2. 결제하기 리다이렉션 페이지 */}
-          <Route path="/order/success" element={<OrderSuccess />} />
-
-          {/* #3. 결제 완료 펭지 */}
-          <Route path="/success" element={<PaymentSuccess />} />
-
-          {/* 내 정보 페이지 관련 */}
-          <Route path="/my" element={<MyPage />} />
-          <Route path="/my/edit/petinfo" element={<EditPetInfo />} />
-          <Route path="/my/edit/myinfo" element={<EditMyInfo />} />
-          <Route path="/my/order-history" element={<OrderList />} />
-
-          <Route path="/cart" element={<Cart />} />
           <Route path="/petprofile" element={<PetProfilePage />} />
+
+          {!isLogin ? (
+            <>
+              {/* - 로그인 이후 들어갈 수 없는 곳 */}
+              <Route path="/login" element={<LoginPage />} />
+              <Route
+                path="/login/oauth/callback/kakao"
+                element={<KakaoRedirect />}
+              />
+
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/signup/success" element={<SignupSuccess />} />
+            </>
+          ) : (
+            <>
+              {/* - 로그인 사용자만 들어갈 수 있는 곳 */}
+
+              {/* #1. 주문 내역 */}
+              <Route path="/order" element={<PaymentPage />} />
+
+              {/* #2. 결제하기 리다이렉션 페이지 */}
+              <Route path="/order/success" element={<OrderSuccess />} />
+
+              {/* #3. 결제 완료 펭지 */}
+              <Route path="/success" element={<PaymentSuccess />} />
+
+              {/* 내 정보 페이지 관련 */}
+              <Route path="/my" element={<MyPage />} />
+              <Route path="/my/edit/petinfo" element={<EditPetInfo />} />
+              <Route path="/my/edit/myinfo" element={<EditMyInfo />} />
+              <Route path="/my/order-history" element={<OrderList />} />
+
+              <Route path="/cart" element={<Cart />} />
+            </>
+          )}
 
           {/* 보류 */}
           <Route path="/store/create" element={<StoreCreate />} />
+          {/* <Route path="*" element={} /> */}
         </Routes>
       </Layout>
     </BrowserRouter>

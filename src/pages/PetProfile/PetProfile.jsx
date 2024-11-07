@@ -187,6 +187,7 @@ export default function PetProfilePage() {
           alt="Camera Icon"
           css={styles.cameraIcon}
           onClick={handleCameraClick}
+          loading="lazy"
         />
       </div>
       <div css={styles.inputContainer}>
