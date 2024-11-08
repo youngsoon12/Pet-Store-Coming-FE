@@ -36,7 +36,6 @@ export default function PurchaseModal({
   };
 
   const handleBuyNow = () => {
-
     const selectedItems = [
       {
         ...productDetail,
@@ -113,8 +112,8 @@ export default function PurchaseModal({
             </select>
           </div>
         )}
-        
-//         <div css={styles.optionSelect}>
+
+        {/* //         <div css={styles.optionSelect}>
 //           <select
 //             id="options"
 //             onChange={handleOptionChange}
@@ -129,7 +128,7 @@ export default function PurchaseModal({
 //               </option>
 //             ))}
 //           </select>
-//         </div>
+//         </div> */}
 
         <div css={styles.quantityControl}>
           <button
