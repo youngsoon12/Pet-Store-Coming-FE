@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { styles } from './OrderList.style';
-import ListCard from './listCard';
+import ListCard from './ListCard';
 import { useQuery } from '@tanstack/react-query';
 import { getOrderListAPI } from '../../apis/OrderList/getOrderListAPI';
 import { getCookie, decodeToken } from '../../util/configCookie';
@@ -17,6 +17,7 @@ const OrderList = () => {
   } = useQuery({
     queryKey: ['orderItems', userId],
     queryFn: () => getOrderListAPI(userId), // queryFn을 함수로 전달
+    enabled: !!userId,
   });
 
   if (isLoading)
