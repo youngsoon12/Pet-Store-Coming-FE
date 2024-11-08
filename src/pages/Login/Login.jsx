@@ -63,6 +63,7 @@ function LoginPage() {
     const interval = setInterval(() => {
       if (newPopup.closed) {
         clearInterval(interval);
+        console.log('팝업 창이 닫혔습니다.');
       }
     }, 1000);
   };

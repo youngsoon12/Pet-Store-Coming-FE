@@ -95,9 +95,8 @@ export default function Mainpage() {
             <div css={styles.subImagesContainer}>
               {recommendedProduct.slice(1).map((item) => {
                 return (
-                  <div css={styles.subImageWrapper}>
+                  <div css={styles.subImageWrapper} key={item.productId}>
                     <img
-                      key={item.productId}
                       src={item.productThumbnailImageUrl}
                       alt={item.productName}
                       css={styles.subImage}
