@@ -29,10 +29,13 @@ export default function CategoryPage() {
   }, []);
 
   useEffect(() => {
+    // console.log(state)
     const baseUrl = import.meta.env.VITE_API_URL;
 
     if (subcategory) {
       async function getFindAllProducts() {
+        // console.log(state);
+
         const data = await axios
           .get(`${baseUrl}/product/${state.main}/${state.sub}/find-all`)
           .then((res) => res.data.data)
@@ -88,8 +91,8 @@ export default function CategoryPage() {
   }, [subcategory]);
 
   useEffect(() => {
-    setActiveTab(subcategory);
-  }, [subcategory]);
+    setActiveTab(activeTab);
+  }, [activeTab]);
 
   // 콘솔 출력 추가
   useEffect(() => {}, [
@@ -103,14 +106,17 @@ export default function CategoryPage() {
 
   const handleTabClick = (categoryName) => {
     const mainid = state.main;
+
+    setActiveTabValues(categoryName.name);
+    setActiveTab(categoryName.name);
     navigate(`/shop/${category}/${encodeURIComponent(categoryName.slug)}`, {
       state: {
         ...state,
         ['sub']: categoryName.id,
+        ['name']: categoryName.name,
       },
     });
-
-    setActiveTab(categoryName);
+    // setActiveTab(categoryName);
   };
 
   return (
@@ -153,7 +159,7 @@ export default function CategoryPage() {
                 />
                 <div css={styles.productTitlePriceContainer}>
                   <div css={styles.productTitle}>{item.storeBrandName}</div>
-                  <div css={styles.productName}>{item.productName}</div>
+                  <div css={styles.productTitle}>{item.productName}</div>
                   {item.productDiscountRate > 0 ? (
                     <>
                       <div css={styles.productPrice}>{item.productPrice}원</div>
@@ -195,7 +201,7 @@ export default function CategoryPage() {
                   }}
                 ></div>
                 <div css={styles.itemGridTitle}>{product.storeBrandName}</div>
-                <div css={styles.productName}>{product.productName}</div>
+                <div css={styles.itemGridTitle}>{product.productName}</div>
 
                 {product.productDiscountRate > 0 ? (
                   <>
