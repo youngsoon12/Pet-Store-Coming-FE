@@ -93,8 +93,12 @@ function LoginPage() {
         return;
       }
 
+      console.log('sdf');
+
       if (event.data.type === 'KAKAO_AUTH_CODE') {
         const authCode = event.data.code;
+
+        console.log(authCode);
 
         try {
           const accessToken = await apiClass.fetchKakaoToken(authCode);
