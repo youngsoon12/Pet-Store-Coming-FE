@@ -8,6 +8,7 @@ export const styles = {
       flex-direction: column;
       width: 100%;
       gap: 20px;
+      align-items: center;
     `;
   },
 
@@ -86,12 +87,13 @@ export const styles = {
       display: flex;
       align-items: center;
       transition: transform 0.6s;
-      transform: translateX(${resetPassword && '-337.39px'});
+      transform: translateX(${resetPassword && '-347.39px'});
     `;
   },
   slider_left() {
     return css`
       width: 337.39px;
+      margin-right: 10px;
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
