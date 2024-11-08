@@ -20,15 +20,16 @@ export const styles = {
     gap:15px
   `,
   tabItem: (isActive) => css`
-    font-size: 15px;
-    color: ${isActive ? '#000000' : '#9A9A9A'};
-    cursor: pointer;
-    flex: auto;
+  font-size: 15px;
+  color: ${isActive ? '#000000' : '#9A9A9A'};
+  cursor: pointer;
+  flex: auto;
 
-    &:first-of-type {
-      margin-left: 20px;
-    }
-  `,
+  &:first-of-type {
+    margin-left: 20px;
+  }
+`,
+
   bestItemsLabel: css`
     font-size: 20px;
     color: #000000;
@@ -91,6 +92,7 @@ export const styles = {
   productWrapper: css`
     display: flex;
     margin-top: 2px;
+   
   `,
   
   productPrice: css`
@@ -151,6 +153,7 @@ export const styles = {
   productWrapper: css`
     display: flex;
     margin-top: 2px;
+    gap:5px;
   `,
 
   itemGridDiscount: css`

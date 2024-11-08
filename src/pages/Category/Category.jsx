@@ -106,15 +106,20 @@ export default function CategoryPage() {
 
   const handleTabClick = (categoryName) => {
     const mainid = state.main;
+    
+    setActiveTabValues(categoryName.name); // Recoil 상태 업데이트
+    setActiveTab(categoryName.name); // 로컬 상태 업데이트
+    
     navigate(`/shop/${category}/${encodeURIComponent(categoryName.slug)}`, {
       state: {
         ...state,
         ['sub']: categoryName.id,
       },
     });
-
-    setActiveTab(categoryName);
+    // setActiveTab(categoryName);
   };
+  
+  
 
   return (
     <>

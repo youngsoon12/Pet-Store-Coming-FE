@@ -146,6 +146,7 @@ export const styles = {
   productWrapper: css`
     display: flex;
     margin-top: 2px;
+    gap:3px;
   `,
   itemGridPrice: css`
     font-size: 14px;
