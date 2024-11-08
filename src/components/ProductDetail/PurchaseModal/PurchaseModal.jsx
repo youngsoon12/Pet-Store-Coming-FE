@@ -41,6 +41,7 @@ export default function PurchaseModal({
         ...productDetail,
         productImageUrl: productDetail.prodcutThumbnailImageUrl,
         productQuantity: quantity,
+        productId: productId,
       },
     ];
     navigate('/order', { state: { selectedItems } });
