@@ -11,7 +11,7 @@ function KakaoRedirect() {
       if (window.opener) {
         window.opener.postMessage(
           { type: 'KAKAO_AUTH_CODE', code },
-          `${import.meta.env.VITE_VITE_ORIGIN_URL}`
+          `${import.meta.env.VITE_ORIGIN_URL}`
         );
       }
 
