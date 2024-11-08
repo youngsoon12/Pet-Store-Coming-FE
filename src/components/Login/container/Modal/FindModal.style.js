@@ -16,7 +16,7 @@ export const styles = {
     return css`
       display: flex;
       flex-direction: column;
-
+      width: 100%;
       gap: 8px;
 
       & > label {
@@ -47,6 +47,7 @@ export const styles = {
 
   submitBtn() {
     return css`
+      width: 100%;
       margin-top: 5px;
       border: 1px solid black;
       background-color: #171717;
