@@ -9,7 +9,7 @@ import { LoginAPI } from '@apis/LoginPage/LoginAPI.js';
 // Social Login Btn 관련 import
 import SocialButton from '@/components/Login/ui/forms/button/social';
 import Icon from '@/components/Login/ui/icon';
-import kakaoLogo from '@assets/images/login/logo/kakao.svg';
+import kakaoLogo from '@assets/images/Login/logo/kakao.svg';
 
 // Custom 수평선 컴포넌트 import
 import HorizontalRole from '@components/Login/ui/horizontal_rule';
@@ -93,8 +93,12 @@ function LoginPage() {
         return;
       }
 
+      console.log('sdf');
+
       if (event.data.type === 'KAKAO_AUTH_CODE') {
         const authCode = event.data.code;
+
+        console.log(authCode);
 
         try {
           const accessToken = await apiClass.fetchKakaoToken(authCode);
