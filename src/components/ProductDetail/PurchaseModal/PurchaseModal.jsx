@@ -2,7 +2,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styles } from './PurchaseModal.style';
-import Button from '../../Global/Button/Button';
+import Button from '@components/Global/Button/Button';
+
 import axios from 'axios';
 import { decodeToken, getCookie } from '../../../util/configCookie';
 
@@ -35,6 +36,7 @@ export default function PurchaseModal({
   };
 
   const handleBuyNow = () => {
+
     const selectedItems = [
       {
         ...productDetail,
@@ -91,22 +93,43 @@ export default function PurchaseModal({
           <div css={styles.dragBar}></div>
         </div>
 
-        <div css={styles.optionSelect}>
-          <select
-            id="options"
-            onChange={handleOptionChange}
-            css={styles.selectBox}
-          >
-            <option value="">옵션을 선택해주세요</option>
+        {options.length > 0 && (
+          <div css={styles.optionSelect}>
+            <select
+              id="options"
+              onChange={handleOptionChange}
+              css={styles.selectBox}
+            >
+              <option value="">옵션을 선택해주세요</option>
 
-            {options.map((option) => (
-              <option key={option.id} value={option.id}>
-                {option.description}
-                {option.addPrice !== 0 ? option.addPrice : ' | 변동 없음'}
-              </option>
-            ))}
-          </select>
-        </div>
+              {options.map((option) => (
+                <option key={option.id} value={option.id}>
+                  {option.description}
+                  {option.addPrice !== 0
+                    ? option.addPrice
+                    : ' | 가격 변동 없음'}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+        
+//         <div css={styles.optionSelect}>
+//           <select
+//             id="options"
+//             onChange={handleOptionChange}
+//             css={styles.selectBox}
+//           >
+//             <option value="">옵션을 선택해주세요</option>
+
+//             {options.map((option) => (
+//               <option key={option.id} value={option.id}>
+//                 {option.description}
+//                 {option.addPrice !== 0 ? option.addPrice : ' | 변동 없음'}
+//               </option>
+//             ))}
+//           </select>
+//         </div>
 
         <div css={styles.quantityControl}>
           <button
@@ -159,4 +182,3 @@ export default function PurchaseModal({
     </div>
   );
 }
- 

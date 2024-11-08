@@ -26,7 +26,7 @@ import { activeTabState } from '@recoil/atom/tabState';
 // 쿠키
 
 function Layout({ children }) {
-  const [type, setType] = useState(1);
+  const [type, setType] = useState(0);
   const [title, setTitle] = useState('');
   const [noIcons, setNoIcons] = useState(false);
 
@@ -51,29 +51,26 @@ function Layout({ children }) {
     }
   }, [isActhenticated]);
 
-  // // // 로그인 이후 쿠키 만료 시간 계산
-  // useEffect(() => {
-  //   const token = getCookie('token');
+  // // 로그인 이후 쿠키 만료 시간 계산
+  useEffect(() => {
+    const token = getCookie('token');
+    if (token) {
+      const decodeInfo = decodeToken(token);
 
-  //   if (token) {
-  //     const decodeInfo = decodeToken(token);
-
-  //     if (decodeInfo) {
-  //       const expirationTime = decodeInfo.exp * 1000;
-  //       const currentTime = Date.now();
-
-  //       if (currentTime > expirationTime) {
-  //         // 토큰 만료됨
-  //         removeCookie('token');
-  //         removeCookie('refreshToken');
-  //         removeCookie("tokenExpirationTime")
-  //         localStorage.removeItem("device-id");
-  //         alert('세션이 만료되었습니다. 다시 로그인 해주세요.');
-  //         navigate('/login');
-  //       }
-  //     }
-  //   }
-  // }, [navigate]);
+      if (decodeInfo) {
+        const expirationTime = decodeInfo.exp * 1000;
+        const currentTime = Date.now();
+        if (currentTime > expirationTime) {
+          // 토큰 만료됨
+          removeCookie('token');
+          removeCookie('refreshToken');
+          setIsActhenticated(false);
+          alert('세션이 만료되었습니다. 다시 로그인 해주세요.');
+          navigate('/login');
+        }
+      }
+    }
+  }, [navigate]);
 
   // 페이지 리다이렉션 && Tab Bar
   useEffect(() => {
@@ -114,63 +111,78 @@ function Layout({ children }) {
     // 사용자가 로그인을 하고 있지 않은 경우
 
     // Tab Bar 그 멀까요?
-    switch (pathname) {
-      case '/':
-        setActiveTab('home');
-        setType(1);
-        break;
-      case '/shop':
-        setActiveTab('shop');
-        setType(1);
-        break;
-      case '/search':
-        setActiveTab('search');
-        setType(0);
-        break;
-      case '/petprofile':
-        setType(3);
-        setTitle('우리아이 등록');
-        break;
-      case '/my':
-        setActiveTab('my');
-        setTitle('MY PAGE');
-        setType(3);
-        break;
-      case '/my/edit/petinfo':
-        setActiveTab('my');
-        setTitle('우리아이 정보 수정');
+    if (pathname.startsWith('/shop')) {
+      setActiveTab('shop');
+      setType(1);
+      // '/shop/:category' 또는 '/shop/:category/:subcategory' 경로일 경우
+      const pathParts = pathname.split('/');
+      if (pathParts.length >= 3 && pathParts[1] === 'shop') {
+        const category = pathParts[2]; // '/shop/:category' 또는 '/shop/:category/:subcategory'에서 :category 추출
         setType(4);
-        setNoIcons(true);
-        break;
-      case '/my/edit/myinfo':
-        setActiveTab('my');
-        setTitle('내 정보 수정');
-        setType(4);
-        setNoIcons(true);
-        break;
-      case '/login':
-        setType(2);
-        break;
-      case '/sign-up':
-        setType(2);
-        break;
-      case '/signup/success':
-        setType(1);
-        break;
-      case '/cart':
-        setType(4);
-        setTitle('장바구니');
-        setNoIcons(true);
-        setActiveTab('');
-        break;
-      case '/order':
-        setType(1);
-        break;
-      case '/my/order-history':
-        setType(4);
-        setActiveTab('my');
-        setTitle('주문 내역');
-        break;
+        setTitle(category.toUpperCase());
+      }
+    } else if (pathname.startsWith('/product')) {
+      setActiveTab('');
+      setType(5);
+    } else {
+      switch (pathname) {
+        case '/':
+          setActiveTab('home');
+          setType(1);
+          break;
+        // case '/shop':
+        //   setActiveTab('shop');
+        //   setType(1);
+        //   break;
+        case '/search':
+          setActiveTab('search');
+          setType(0);
+          break;
+        case '/petprofile':
+          setType(3);
+          setTitle('우리아이 등록');
+          break;
+        case '/my':
+          setActiveTab('my');
+          setTitle('MY PAGE');
+          setType(3);
+          break;
+        case '/my/edit/petinfo':
+          setActiveTab('my');
+          setTitle('우리아이 정보 수정');
+          setType(4);
+          setNoIcons(true);
+          break;
+        case '/my/edit/myinfo':
+          setActiveTab('my');
+          setTitle('내 정보 수정');
+          setType(4);
+          setNoIcons(true);
+          break;
+        case '/login':
+          setType(2);
+          break;
+        case '/sign-up':
+          setType(2);
+          break;
+        case '/signup/success':
+          setType(1);
+          break;
+        case '/cart':
+          setType(4);
+          setTitle('장바구니');
+          setNoIcons(true);
+          setActiveTab('');
+          break;
+        case '/order':
+          setType(1);
+          break;
+        case '/my/order-history':
+          setType(4);
+          setActiveTab('my');
+          setTitle('주문 내역');
+          break;
+      }
     }
   }, [location]);
 
