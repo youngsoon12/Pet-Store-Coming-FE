@@ -57,6 +57,7 @@ export const styles = {
   notice: css`
     color: #9a9a9a;
     margin-top: 10px;
+
     & > strong {
       color: #171717;
       font-weight: bold;

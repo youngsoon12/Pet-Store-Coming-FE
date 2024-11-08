@@ -2,7 +2,7 @@
 import { styles } from './Login.style.js';
 
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { LoginAPI } from '@apis/LoginPage/LoginAPI.js';
 
@@ -28,12 +28,18 @@ import useLoginValidation from '@hooks/auth/useLoginValidation';
 
 import { useSetRecoilState } from 'recoil';
 import { isActhenticatedState } from '@recoil/atom/authState.js';
+import Modal from '../../components/Global/Modal/Modal.jsx';
+import FindEmailModal from '../../components/Login/container/Modal/FindEmailModal/FindEmailModal.jsx';
+import FindPasswordModal from '../../components/Login/container/Modal/FindPasswordModal/FindPasswordModal.jsx';
 
 function LoginPage() {
   const apiClass = useMemo(() => new LoginAPI(), []);
   const navigate = useNavigate();
 
   const setIsAuthenticated = useSetRecoilState(isActhenticatedState);
+
+  const [actionEmailBtn, setActionEmailBtn] = useState(false);
+  const [actionPasswordBtn, setActionPasswordBtn] = useState(false);
 
   // Custom Hook
   const { formValues, handleChange } = useLoginForm();
@@ -159,8 +165,26 @@ function LoginPage() {
 
         <Button bgColor="#171717" color="#fff" text="로그인" />
 
-        <AuthActions />
+        <AuthActions
+          actionEmailBtnClick={() => setActionEmailBtn(true)}
+          actionPasswordBtnClick={() => setActionPasswordBtn(true)}
+        />
       </Container>
+
+      {actionEmailBtn && (
+        <Modal
+          setState={setActionEmailBtn}
+          title="이메일 찾기"
+          content={<FindEmailModal />}
+        />
+      )}
+      {actionPasswordBtn && (
+        <Modal
+          setState={setActionPasswordBtn}
+          title="비밀번호 찾기"
+          content={<FindPasswordModal setState={setActionPasswordBtn} />}
+        />
+      )}
     </div>
   );
 }

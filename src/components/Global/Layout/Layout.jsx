@@ -71,6 +71,7 @@ function Layout({ children }) {
       }
     }
   }, [navigate]);
+
   // 페이지 리다이렉션 && Tab Bar
   useEffect(() => {
     const { pathname } = location;
