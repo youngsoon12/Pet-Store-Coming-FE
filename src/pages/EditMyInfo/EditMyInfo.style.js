@@ -29,7 +29,7 @@ export const styles = {
       justify-content: space-between;
       /* border-top: 1px solid black; */
 
-      margin-top: 40px;
+      margin-top: 120px;
 
       & > button {
         margin-top: 40px;
@@ -41,6 +41,7 @@ export const styles = {
         border-radius: 3px;
         font-size: 14px;
         font-weight: 600;
+        width: 100%;
       }
     `;
   },
