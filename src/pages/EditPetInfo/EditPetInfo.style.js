@@ -8,19 +8,32 @@ export const styles = {
     /* justify-content: center; */
     padding: 20px 0;
     width: 100%;
+    max-width: 470px;
   `,
 
-  label: css`
-    font-size: 18px;
-    margin-bottom: 15px;
-    margin-top: 35px;
-    font-weight: bold;
-    color: #9a9a9a;
-  `,
   imgContainer: css`
     width: 190px;
     aspect-ratio: 1;
     margin-bottom: 60px;
+  `,
+
+  inputContainer: css`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+  `,
+
+  label: css`
+    font-size: 14px;
+    font-weight: bold;
+    color: #9a9a9a;
   `,
 
   cameraIcon: css`
@@ -34,26 +47,24 @@ export const styles = {
 
   input: css`
     width: 100%;
-    font-size: 16px;
+    font-size: 14px;
     border: 1px solid #c2c6cc;
     display: flex;
     border-radius: 7px;
     padding: 10px 10px;
-    margin-bottom: 35px;
-    margin-top: 15px;
+    outline: none;
+    transition: 0.3s;
+
+    &:focus {
+      border: 1px solid #141414;
+    }
   `,
   genderButtonContainer: css`
     display: flex;
     justify-content: space-between;
-    margin-bottom: 35px;
-    margin-top: 15px;
   `,
   // titleLabel: css`
   //   margin-top: 15px;
   //   display: flex;
   // `,
-  registerButton: css`
-    margin-top: 25px;
-    margin-left: 180px;
-  `,
 };
