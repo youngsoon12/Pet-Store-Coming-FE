@@ -97,14 +97,12 @@ function LoginPage() {
         return;
       }
 
-      console.log('sdf');
 
       if (event.data.type === 'KAKAO_AUTH_CODE') {
         const authCode = event.data.code;
 
-        console.log(authCode);
-
         try {
+          console.log('Heelo');
           const accessToken = await apiClass.fetchKakaoToken(authCode);
           const isSuccess = await apiClass.fetchSocialLogin(accessToken);
           if (!isSuccess) {
