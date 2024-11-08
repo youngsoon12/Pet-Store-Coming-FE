@@ -3,22 +3,23 @@ import { css } from '@emotion/react';
 
 export const styles = {
   mainContainer: css`
-     display: flex;
+    display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 0 20px;
+    //padding: 0 20px;
+    padding-bottom: 30px;
   `,
   header: css`
     width: 100%;
     height: 52px;
   `,
   tabBarContainer: css`
-     width: 100%;
+    width: 100%;
     height: 50px;
-    border-bottom: 1px solid #9A9A9A;
+    border-bottom: 1px solid #9a9a9a;
     display: flex;
     align-items: center;
-    gap:30px
+    gap: 30px;
   `,
   tabItem: (isActive) => css`
     font-size: 15px;
@@ -35,6 +36,7 @@ export const styles = {
     color: #000000;
     margin-top: 27px;
     font-weight: 700;
+    margin-left: 20px;
   `,
   productCarousel: css`
     display: flex;
@@ -44,12 +46,12 @@ export const styles = {
     gap: 20px;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    
+
     &::-webkit-scrollbar {
       display: none;
     }
   `,
-  
+
   productImage: css`
     width: 200px;
     height: 200px;
@@ -64,52 +66,49 @@ export const styles = {
   productTitle: css`
     font-size: 14px;
     color: #484848;
-    font-weight:800;
+    font-weight: 800;
     margin-bottom: 5px;
-    //margin-left: 10px
-    
+    //margin-left: 10px;
   `,
   storeBrandName: css`
     font-size: 14px;
     color: #484848;
-    font-weight:800;
+    font-weight: 800;
     margin-bottom: 5px;
-    
   `,
   productName: css`
     font-size: 14px;
     color: #484848;
-    font-weight:500;
+    font-weight: 500;
     margin-bottom: 5px;
-    
   `,
   productPrice: css`
     font-size: 14px;
-    font-weight:800;
-    color: #9A9A9A;
+    font-weight: 800;
+    color: #9a9a9a;
     text-decoration: line-through;
   `,
   productRate: css`
     font-size: 14px;
-    font-weight:800;
-    color: #ed5729;;
+    font-weight: 800;
+    color: #ed5729;
   `,
   proDiscount: css`
     font-size: 14px;
-    font-weight:800;
+    font-weight: 800;
     color: #000000;
   `,
-  
+
   divider: css`
     width: 100%;
     height: 0.5px;
-    background-color: #9A9A9A;
+    background-color: #9a9a9a;
     margin: 30px 0;
   `,
   itemsLabel: css`
     font-size: 20px;
     color: #484848;
-   // margin-left: 20px;
+    margin-left: 20px;
     margin-top: 24px;
     font-weight: 700;
   `,
@@ -122,13 +121,13 @@ export const styles = {
     margin-top: 24px;
   `,
   itemGridImageContainer: css`
-  //  text-align: center;
+    //  text-align: center;
     margin-top: 10px;
   `,
   itemGridImage: css`
     width: 100%;
     height: 215px;
-    
+
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -141,17 +140,18 @@ export const styles = {
     margin-bottom: 6px;
     color: #484848;
     font-weight: 800;
-   // margin-left: 10px
+    // margin-left: 10px
   `,
   productWrapper: css`
     display: flex;
     margin-top: 2px;
+    gap: 5px;
   `,
   itemGridPrice: css`
     font-size: 14px;
     text-decoration: line-through;
-    color: #9A9A9A;
+    color: #9a9a9a;
     font-weight: 800;
-   // margin-left: 10px
+    // margin-left: 10px
   `,
 };

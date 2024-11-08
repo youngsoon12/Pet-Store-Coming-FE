@@ -29,10 +29,12 @@ export default function CategoryPage() {
   }, []);
 
   useEffect(() => {
+    // console.log(state)
     const baseUrl = import.meta.env.VITE_API_URL;
 
     if (subcategory) {
       async function getFindAllProducts() {
+        // console.log(state);
 
         const data = await axios
           .get(`${baseUrl}/product/${state.main}/${state.sub}/find-all`)
@@ -89,8 +91,8 @@ export default function CategoryPage() {
   }, [subcategory]);
 
   useEffect(() => {
-    setActiveTab(subcategory);
-  }, [subcategory]);
+    setActiveTab(activeTab);
+  }, [activeTab]);
 
   // 콘솔 출력 추가
   useEffect(() => {}, [
@@ -104,36 +106,39 @@ export default function CategoryPage() {
 
   const handleTabClick = (categoryName) => {
     const mainid = state.main;
+
+    setActiveTabValues(categoryName.name);
+    setActiveTab(categoryName.name);
     navigate(`/shop/${category}/${encodeURIComponent(categoryName.slug)}`, {
       state: {
         ...state,
         ['sub']: categoryName.id,
+        ['name']: categoryName.name,
       },
     });
-
-    setActiveTab(categoryName);
+    // setActiveTab(categoryName);
   };
 
   return (
     <>
       <div css={styles.mainContainer}>
         <div>
-        {/* Tab Bar */}
-        <div css={styles.tabBarContainer}>
-          {sub?.map((categoryItem) => {
-            return (
-              <span
-                key={categoryItem.id}
-                id={categoryItem.id}
-                css={styles.tabItem(categoryItem.name === activeTab)}
-                onClick={() => handleTabClick(categoryItem)}
-              >
-                {categoryItem.name}
-              </span>
-            );
-          })}
-           </div>
-           </div>
+          {/* Tab Bar */}
+          <div css={styles.tabBarContainer}>
+            {sub?.map((categoryItem) => {
+              return (
+                <span
+                  key={categoryItem.id}
+                  id={categoryItem.id}
+                  css={styles.tabItem(categoryItem.name === activeTab)}
+                  onClick={() => handleTabClick(categoryItem)}
+                >
+                  {categoryItem.name}
+                </span>
+              );
+            })}
+          </div>
+        </div>
 
         {/* NEW ITEMS Section */}
         <div css={styles.bestItemsLabel}>NEW ITEMS</div>
@@ -159,8 +164,14 @@ export default function CategoryPage() {
                     <>
                       <div css={styles.productPrice}>{item.productPrice}원</div>
                       <div css={styles.productWrapper}>
-                      <div css={styles.itemGridDiscount}> {item.productDiscountRate}% </div>
-                      <div css={styles.itemPrice}> {item.productDiscountPrice}원</div>
+                        <div css={styles.itemGridDiscount}>
+                          {' '}
+                          {item.productDiscountRate}%{' '}
+                        </div>
+                        <div css={styles.itemPrice}>
+                          {' '}
+                          {item.productDiscountPrice}원
+                        </div>
                       </div>
                     </>
                   ) : (
@@ -173,33 +184,47 @@ export default function CategoryPage() {
 
         <div css={styles.divider}></div>
 
-{/* ITEMS Section */}
-<div css={styles.itemsLabel}>ITEMS</div>
-<div css={styles.itemGridContainer}>
-  {products && products.map((product) => (
-    <div key={product.productId} css={styles.itemGridImageContainer} onClick={() => navigate(`/product/${product.productId}`)}>
-      <div
-        css={styles.productImage}
-        style={{ backgroundImage: `url(${product.productThumbnailImageUrl})` }}
-      ></div>
-      <div css={styles.itemGridTitle}>{product.storeBrandName}</div>
-      <div css={styles.itemGridTitle}>{product.productName}</div>
+        {/* ITEMS Section */}
+        <div css={styles.itemsLabel}>ITEMS</div>
+        <div css={styles.itemGridContainer}>
+          {products &&
+            products.map((product) => (
+              <div
+                key={product.productId}
+                css={styles.itemGridImageContainer}
+                onClick={() => navigate(`/product/${product.productId}`)}
+              >
+                <div
+                  css={styles.productImage}
+                  style={{
+                    backgroundImage: `url(${product.productThumbnailImageUrl})`,
+                  }}
+                ></div>
+                <div css={styles.itemGridTitle}>{product.storeBrandName}</div>
+                <div css={styles.itemGridTitle}>{product.productName}</div>
 
-      {product.productDiscountRate > 0 ? (
-        <>
-          <div css={styles.itemGridPrice}>{product.productPrice}원</div>
-          <div css={styles.productWrapper}>
-          <div css={styles.itemGridDiscount}>{product.productDiscountRate}%</div>
-          <div css={styles.itemPrice}>{product.productDiscountPrice}원</div>
-          </div>
-        </>
-      ) : (
-        <div css={styles.itemPrice}>{product.productDiscountPrice}원</div>
-      )}
-    </div>
-  ))}
-</div>
-
+                {product.productDiscountRate > 0 ? (
+                  <>
+                    <div css={styles.itemGridPrice}>
+                      {product.productPrice}원
+                    </div>
+                    <div css={styles.productWrapper}>
+                      <div css={styles.itemGridDiscount}>
+                        {product.productDiscountRate}%
+                      </div>
+                      <div css={styles.itemPrice}>
+                        {product.productDiscountPrice}원
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <div css={styles.itemPrice}>
+                    {product.productDiscountPrice}원
+                  </div>
+                )}
+              </div>
+            ))}
+        </div>
       </div>
     </>
   );
