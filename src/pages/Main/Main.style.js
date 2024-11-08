@@ -17,6 +17,7 @@ export const styles = {
     width: 100%;
     border-radius: 15px;
     /* margin: 0 20px; */
+    cursor: pointer;
   `,
   textContainer: css`
     width: 100%;
@@ -26,6 +27,9 @@ export const styles = {
     font-weight: 700;
     font-size: 22px;
     font-weight: bold;
+    & > span {
+      color: #9a9a9a;
+    }
   `,
   subtitle: css`
     font-weight: 500;
@@ -38,8 +42,14 @@ export const styles = {
     gap: 12px;
     margin-top: 30px;
   `,
+  subImageWrapper: css`
+    width: 100%;
+    aspect-ratio: 1;
+  `,
   subImage: css`
     width: 100%;
+    height: 100%;
     border-radius: 15px;
+    cursor: pointer;
   `,
 };

@@ -36,4 +36,9 @@ export const styles = {
       width: 20px;
     }
   `,
+
+  notice: css`
+    margin-top: 20px;
+    font-size: 14px;
+  `,
 };

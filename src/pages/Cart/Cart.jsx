@@ -124,7 +124,7 @@ export default function Cart() {
   }, [checkItems, newCartItems]);
 
   if (isLoading) {
-    return <div>장바구니 불러오는 중 ...</div>;
+    return <div css={styles.loading}>장바구니 불러오는 중 ...</div>;
   }
 
   return (
