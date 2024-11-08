@@ -16,7 +16,7 @@ const PaymentSuccess = () => {
   const [orderInfo, setOrderInfo] = useRecoilState(deliveryInfo);
   const [cartItems] = useRecoilState(paymentProductAtom); // 장바구니 데이터를 Recoil에서 바로 가져옴
   const [isApproved, setIsApproved] = useState(false); // 승인 여부 상태 추가
-
+  console.log(cartItems.productId);
 
   // 결제 승인 요청을 처리하는 mutation
   const approvePaymentMutation = useMutation({
