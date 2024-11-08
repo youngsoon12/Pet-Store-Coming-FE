@@ -3,10 +3,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { styles } from './Slider.style';
-import { isMainCategoryInfoState } from '../../recoil/atom/category'; 
+import { isMainCategoryInfoState } from '../../recoil/atom/category';
 
-const subjet = ["MW6 강아지 유모차", 'LONTANO BACKPACK', 'Born to Basic'];
-const description = ['캠핑/피크닉 시즌 활용도 만점!', '초경량 무게 한정 수량 입고!!', '데일리 산책 무드 3팩 구성',];
+const subjet = ['Born to Basic', 'LONTANO BACKPACK', 'MW6 강아지 유모차'];
+const description = [
+  '데일리 산책 무드 3팩 구성',
+  '초경량 무게 한정 수량 입고!!',
+  '캠핑/피크닉 시즌 활용도 만점!',
+];
 
 export default function Slider() {
   const navigate = useNavigate();
@@ -16,42 +20,44 @@ export default function Slider() {
   const [slides, setSlides] = useState(null);
 
   useEffect(() => {
+    // console.log(mainCategories[currentIndex]);
     setSlides({
       index: currentIndex,
-      image: mainCategories[currentIndex].thumbnailUrl,
-      name: mainCategories[currentIndex].name,
+      image: mainCategories[currentIndex]?.thumbnailUrl,
+      name: mainCategories[currentIndex]?.slug.toUpperCase(),
       subjet: subjet[currentIndex],
-      description: description[currentIndex]
-    })
-
+      description: description[currentIndex],
+    });
   }, [mainCategories, currentIndex]);
-
-
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % mainCategories.length);
-    }, 3000); 
+    }, 3000);
     return () => clearInterval(interval);
   }, [slides]);
 
   // category.name을 사용하여 경로를 설정
   const handleClickCategory = (category) => {
-    console.log("category")
-    console.log(category)
-    navigate(`/shop/${category.slug}`, { state: {
-      main: category.id,
-      sub: "",
-    } });
+    console.log('category');
+    console.log(category);
+    navigate(`/shop/${category.slug}`, {
+      state: {
+        main: category.id,
+        sub: '',
+      },
+    });
   };
 
   return (
     <div css={styles.sliderContainer}>
-      { slides && (
+      {slides && (
         <div
           css={[
             styles.slide,
-            slides.index === currentIndex ? styles.activeSlide : styles.inactiveSlide,
+            slides.index === currentIndex
+              ? styles.activeSlide
+              : styles.inactiveSlide,
           ]}
           style={{ backgroundImage: `url(${slides.image})` }}
         >
@@ -61,14 +67,13 @@ export default function Slider() {
             <p css={styles.productDescription}>{slides.description}</p>
             <button
               css={styles.categoryButton}
-              onClick={() => handleClickCategory(mainCategories[currentIndex])}  
+              onClick={() => handleClickCategory(mainCategories[currentIndex])}
             >
               {slides.name} &gt;
             </button>
           </div>
         </div>
-      ) }
-
+      )}
     </div>
   );
 }

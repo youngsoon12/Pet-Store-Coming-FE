@@ -15,8 +15,12 @@ export const styles = {
     cursor: pointer;
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
   `,
   controlsContainer: css`
@@ -25,7 +29,7 @@ export const styles = {
     bottom: 0;
     background-color: white;
     border-radius: 20px 20px 0 0;
-    padding: 50px;
+    padding: 10px 50px 50px 50px;
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     display: flex;
@@ -34,8 +38,12 @@ export const styles = {
     animation: slideUp 0.3s forwards;
 
     @keyframes slideUp {
-      from { transform: translateY(100%); }
-      to { transform: translateY(0); }
+      from {
+        transform: translateY(100%);
+      }
+      to {
+        transform: translateY(0);
+      }
     }
   `,
   dragHandle: css`
@@ -97,16 +105,16 @@ export const styles = {
   price: css`
     margin-left: 355px;
   `,
-   
+
   selectBox: css`
     width: 500px;
     height: 40px;
     border: 1px solid #d9d9d9;
     border-radius: 5px;
-    padding: 8px; 
+    padding: 8px;
     font-size: 14px;
     color: #333;
-    `,
+  `,
   divider: css`
     width: 532px;
     height: 3px;
