@@ -6,7 +6,7 @@ import { styles } from './PetProfile.style';
 import CategoryButton from '@components/CategoryButton/CategoryButton';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   isMainCategoryInfoState,
   isSubCategoryInfoState,
@@ -14,15 +14,16 @@ import {
 import { decodeToken, getCookie } from '@util/configCookie';
 
 export default function PetProfilePage() {
-  // const [gender, setGender] = useState(true);
+  const location = useLocation();
+  const { state } = location;
 
   ///////////////////////////////////////////////////////////////
   // api 연동
 
   const navigate = useNavigate();
 
-  const token = getCookie('token');
-  const userInfo = decodeToken(token);
+  const token = state?.signUp ? '' : getCookie('token');
+  const userInfo = state?.signUp ? state.userInfo : decodeToken(token);
 
   const userId = userInfo.userId;
   const today = new Date();
@@ -108,7 +109,6 @@ export default function PetProfilePage() {
         setSelectedImage(reader.result);
       };
       reader.readAsDataURL(file);
-
     }
   };
 
@@ -134,7 +134,6 @@ export default function PetProfilePage() {
 
     const baseURL = import.meta.env.VITE_API_URL;
     const url = `${baseURL}/canidae/insert`;
-
 
     try {
       const response = await axios.post(url, formData, {

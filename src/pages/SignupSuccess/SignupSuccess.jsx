@@ -40,7 +40,12 @@ export default function SignupSuccess() {
                   fontWeight={'bold'}
                   width={'130'}
                   onClick={() => {
-                    navigate('/petprofile', { state: { id: userInfo.id } });
+                    navigate('/petprofile', {
+                      state: {
+                        userInfo,
+                        signUp: true,
+                      },
+                    });
                   }}
                 />
                 <Button
