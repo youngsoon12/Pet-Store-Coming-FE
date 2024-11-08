@@ -113,23 +113,22 @@ export default function PurchaseModal({
           </div>
         )}
 
-        <div css={styles.optionSelect}>
-          <select
-            id="options"
-            onChange={handleOptionChange}
-            css={styles.selectBox}
-          >
-            <option value="">옵션을 선택해주세요</option>
+        {/* //         <div css={styles.optionSelect}>
+//           <select
+//             id="options"
+//             onChange={handleOptionChange}
+//             css={styles.selectBox}
+//           >
+//             <option value="">옵션을 선택해주세요</option>
 
-            {options.map((option) => (
-              <option key={option.id} value={option.id}>
-                {option.description}
-                {option.addPrice !== 0 ? option.addPrice : ' | 변동 없음'}
-              </option>
-            ))}
-          </select>
-        </div>
- 
+//             {options.map((option) => (
+//               <option key={option.id} value={option.id}>
+//                 {option.description}
+//                 {option.addPrice !== 0 ? option.addPrice : ' | 변동 없음'}
+//               </option>
+//             ))}
+//           </select>
+//         </div> */}
 
         <div css={styles.quantityControl}>
           <button

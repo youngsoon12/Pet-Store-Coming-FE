@@ -86,7 +86,7 @@ function LoginPage() {
     }
   };
 
-  // 소셜 로그인 인증 코드 받은 후 로그인 처리 (해당 정보로 회원가입 한 정보가 없을 시 회원가입 페이지로 이동)
+  // 소셜 로그인 인증 코드 받은 후 로그인 처리 (해당 정보로 회원가입 한 정보가 없을 시 회원가입 페이지로 이동)f
   useEffect(() => {
     const handleMessage = async (event) => {
       if (event.origin !== `${import.meta.VITE_ORIGIN_URL}`) {
