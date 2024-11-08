@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import PaymentBtn from '../../components/payments/PaymentBtn';
+import PaymentBtn from '../../components/Payments/PaymentBtn';
 import PaymentProductCard from '../../components/Payments/PaymentProductCard';
 import { styles } from './Payments.style';
 import { useEffect, useState } from 'react';
-import upArrow from '@assets/images/payment/up_arrow.svg';
-import downArrow from '@assets/images/payment/down_arrow.svg';
+import upArrow from '@assets/images/Payment/up_arrow.svg';
+import downArrow from '@assets/images/Payment/down_arrow.svg';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { deliveryInfo } from '../../recoil/atom/deliveryInfo';
@@ -19,7 +19,6 @@ const Payments = () => {
   const selectedItems = location.state?.selectedItems || [];
   const [paymentProduct, setPaymentProduct] =
     useRecoilState(paymentProductAtom);
-  console.log(userId.userId);
 
   // state 구간
   const [amountList, setAmountList] = useState({
@@ -44,7 +43,6 @@ const Payments = () => {
   // recoil state 구간
 
   const [orderInfo, setOrderInfo] = useRecoilState(deliveryInfo);
-  console.log(orderInfo);
   // UseEffect 구간
   useEffect(() => {
     if (selectedItems) {
@@ -73,7 +71,6 @@ const Payments = () => {
       setPaymentProduct([...selectedItems]);
     }
   }, []);
-  console.log(paymentProduct);
   // 두 번째 useEffect: amountList가 업데이트된 후 orderInfo에 반영
   useEffect(() => {
     setOrderInfo((prev) => ({

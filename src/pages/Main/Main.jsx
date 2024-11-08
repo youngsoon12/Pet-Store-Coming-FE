@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react';
 import Slider from '../../components/Silder/Slider';
 import { styles } from './Main.style';
-import mainImage from '../../assets/images/mainpage/main.jpg';
-import subImage1 from '../../assets/images/mainpage/sub1.jpg';
-import subImage2 from '../../assets/images/mainpage/sub2.jpg';
-import subImage3 from '../../assets/images/mainpage/sub3.jpg';
-import subImage4 from '../../assets/images/mainpage/sub4.jpg';
+import subImage1 from '../../assets/images/Mainpage/sub1.jpg';
+import mainImage from '../../assets/images/Mainpage/main.jpg';
+import subImage2 from '../../assets/images/Mainpage/sub2.jpg';
+import subImage3 from '../../assets/images/Mainpage/sub3.jpg';
+import subImage4 from '../../assets/images/Mainpage/sub4.jpg';
 import Footer from '../../components/Global/Footer/Footer';
 import { useRecoilValue } from 'recoil';
 

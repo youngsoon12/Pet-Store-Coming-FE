@@ -11,7 +11,7 @@ function KakaoRedirect() {
       if (window.opener) {
         window.opener.postMessage(
           { type: 'KAKAO_AUTH_CODE', code },
-          'http://localhost:5173'
+          `${import.meta.env.VITE_VITE_ORIGIN_URL}`
         );
       }
 

@@ -7,20 +7,20 @@ import { useEffect, useMemo, useState } from 'react';
 import { LoginAPI } from '@apis/LoginPage/LoginAPI.js';
 
 // Social Login Btn 관련 import
-import SocialButton from '@/components/login/ui/forms/button/social';
-import Icon from '@/components/login/ui/icon';
+import SocialButton from '@/components/Login/ui/forms/button/social';
+import Icon from '@/components/Login/ui/icon';
 import kakaoLogo from '@assets/images/login/logo/kakao.svg';
 
 // Custom 수평선 컴포넌트 import
-import HorizontalRole from '@components/login/ui/horizontal_rule';
+import HorizontalRole from '@components/Login/ui/horizontal_rule';
 
 // 로그인 인풋 관련 import
 import TextInput from '@components/Global/Input/Input.jsx';
-import { loginInputType } from '@components/login/data/login';
+import { loginInputType } from '@components/Login/data/login';
 
-import Container from '@components/login/container';
-import Button from '@components/login/ui/forms/button/nomal';
-import AuthActions from '@components/login/layout/auth_actions';
+import Container from '@components/Login/container';
+import Button from '@components/Login/ui/forms/button/nomal';
+import AuthActions from '@components/Login/layout/auth_actions';
 
 // Custom Hook
 import useLoginForm from '@hooks/auth/useLoginForm';
@@ -89,7 +89,7 @@ function LoginPage() {
   // 소셜 로그인 인증 코드 받은 후 로그인 처리 (해당 정보로 회원가입 한 정보가 없을 시 회원가입 페이지로 이동)
   useEffect(() => {
     const handleMessage = async (event) => {
-      if (event.origin !== 'http://localhost:5173') {
+      if (event.origin !== `${import.meta.VITE_ORIGIN_URL}`) {
         return;
       }
 

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import back from '@assets/images/header/icons/back.svg';
+import back from '@assets/images/Header/icons/back.svg';
 
 export default function Back({ handleClick }) {
   const iconStyle = css`

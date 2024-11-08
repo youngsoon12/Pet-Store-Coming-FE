@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { styles } from './SignupSuccess.style';
-import Button from '../../components/global/Button/Button';
+import Button from '../../components/Global/Button/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 

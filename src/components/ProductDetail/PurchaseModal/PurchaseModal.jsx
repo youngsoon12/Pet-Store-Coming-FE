@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styles } from './PurchaseModal.style';
 import Button from '@components/Global/Button/Button';
+
 import axios from 'axios';
 import { decodeToken, getCookie } from '../../../util/configCookie';
 
@@ -35,7 +36,6 @@ export default function PurchaseModal({
   };
 
   const handleBuyNow = () => {
-    console.log(productDetail);
 
     const selectedItems = [
       {
@@ -51,11 +51,6 @@ export default function PurchaseModal({
   const handleAddToCart = async () => {
     try {
       const userId = userInfo.userId;
-      console.log('Sending request with data:', {
-        userInfo,
-        productId,
-        quantity,
-      });
 
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/cart/append`,
@@ -65,8 +60,6 @@ export default function PurchaseModal({
           quantity,
         }
       );
-
-      console.log('Response:', response);
 
       if (response.status === 200) {
         alert('장바구니에 상품이 추가되었습니다.');
@@ -120,6 +113,23 @@ export default function PurchaseModal({
             </select>
           </div>
         )}
+        
+//         <div css={styles.optionSelect}>
+//           <select
+//             id="options"
+//             onChange={handleOptionChange}
+//             css={styles.selectBox}
+//           >
+//             <option value="">옵션을 선택해주세요</option>
+
+//             {options.map((option) => (
+//               <option key={option.id} value={option.id}>
+//                 {option.description}
+//                 {option.addPrice !== 0 ? option.addPrice : ' | 변동 없음'}
+//               </option>
+//             ))}
+//           </select>
+//         </div>
 
         <div css={styles.quantityControl}>
           <button

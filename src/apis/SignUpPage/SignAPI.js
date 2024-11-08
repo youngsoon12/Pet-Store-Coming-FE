@@ -19,7 +19,6 @@ export class SignUpAPI {
             }));
         }
       }
-
       return false;
     }
   }

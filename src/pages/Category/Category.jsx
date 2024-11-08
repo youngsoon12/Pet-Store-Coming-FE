@@ -29,12 +29,10 @@ export default function CategoryPage() {
   }, []);
 
   useEffect(() => {
-    // console.log(state)
     const baseUrl = import.meta.env.VITE_API_URL;
 
     if (subcategory) {
       async function getFindAllProducts() {
-        console.log(state);
 
         const data = await axios
           .get(`${baseUrl}/product/${state.main}/${state.sub}/find-all`)

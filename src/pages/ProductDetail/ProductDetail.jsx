@@ -46,7 +46,6 @@ export default function ProductDetailPage() {
         const res = await axios
           .get(`${import.meta.env.VITE_API_URL}/product/${id}/detail`)
           .then((res) => res.data);
-        console.log(res);
 
         setProductDetail(res.data);
       } catch (error) {

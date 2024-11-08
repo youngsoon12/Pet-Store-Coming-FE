@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
-import DaumPost from '@components/global/DaumPost/DaumPost';
+import DaumPost from '@components/Global/DaumPost/DaumPost';
 import { styles } from './AddressInput.style';
 
 export default function AddressInput({ containerWidth, handleChange, value }) {

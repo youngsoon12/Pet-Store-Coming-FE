@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 
 import useSignUpForm from '@hooks/auth/useSignUpForm';
 import { SignUpAPI } from '@apis/SignUpPage/SignAPI';
-import Button from '@components/login/ui/forms/button/nomal';
+import Button from '@components/Login/ui/forms/button/nomal';
 
 function SignUp() {
   const navigate = useNavigate();
