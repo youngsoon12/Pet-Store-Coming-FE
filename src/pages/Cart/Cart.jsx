@@ -6,7 +6,7 @@ import empty_cart from '@assets/images/Cart/empty_cart.svg';
 import Button from '@components/Cart/Button/Button';
 import React, { useState, useEffect } from 'react';
 import CheckBox from '../../components/Cart/CheckBox/CheckBox';
-import getCartListAPI from '../../apis/CartList/GetCartListAPI';
+import getCartListAPI from '../../apis/CartList/getCartListAPI';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { decodeToken, getCookie } from '../../util/configCookie';
 import { deleteCartListAPI } from '../../apis/CartList/deleteCartListAPI';
