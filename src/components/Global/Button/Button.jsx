@@ -6,14 +6,22 @@ export default function Button({
   text,
   width,
   height,
-  theme,
   fontSize,
   fontWeight,
   onClick,
   disableUnselected,
   type,
+  theme,
+  padding,
+  border,
 }) {
-  const buttonStyle = styles.button(theme, fontSize, fontWeight);
+  const buttonStyle = styles.button(
+    theme,
+    fontSize,
+    fontWeight,
+    padding,
+    border
+  );
 
   return (
     <button

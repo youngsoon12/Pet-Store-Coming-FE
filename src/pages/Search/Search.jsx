@@ -7,7 +7,6 @@ import searchIcon from '@assets/images/Header/icons/search.svg';
 import axios from 'axios';
 import SearchResult from '@components/Search/SearchResult/SearchResult';
 
-
 export default function SearchPage() {
   const [searchValue, setSearchValue] = useState(''); // 상품 인풋 텍스트
   const [searchResults, setSearchResults] = useState(null); // 얻어온 데이터의 정보를 담는 State 변수
@@ -39,7 +38,9 @@ export default function SearchPage() {
     }
   };
 
-  // useEffect(() => {}, []);
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   return (
     <div css={styles.container}>
@@ -59,8 +60,13 @@ export default function SearchPage() {
       </form>
       {/* <Category searchValue={submittedTerm} /> */}
 
-      {searchResults ? (
+      {searchResults?.length > 0 ? (
         <SearchResult result={searchResults} />
+      ) : searchResults?.length === 0 ? (
+        <>
+          <div css={styles.notice}>찾으시는 상품이 없습니다 ૮ ˘ﻌ˘ ა</div>
+          <CategoryList />
+        </>
       ) : (
         <CategoryList />
       )}

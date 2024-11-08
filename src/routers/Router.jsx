@@ -90,6 +90,8 @@ const Router = () => {
 
           {/* 상품 상세 페이지 */}
           <Route path="/product/:id" element={<ProductDetailPage />} />
+
+          {/* 입력 초기 반려견 등록 페이지 */}
           <Route path="/petprofile" element={<PetProfilePage />} />
 
           {!isLogin ? (
