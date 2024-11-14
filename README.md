@@ -15,9 +15,6 @@
 
 <br><br>
 
-# 배포 링크
-- [링크]([https://playkeyboard.netlify.app/](https://pet-store-coming-fe.vercel.app/)) 
-
 <br><br>
 
 # 팀 소개 및 역할
