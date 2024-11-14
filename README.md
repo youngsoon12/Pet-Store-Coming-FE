@@ -57,4 +57,4 @@
 - 클라이언트에서 보내준 정보들을 토대로 RestTemplate를 사용하여 토스 페이먼츠 결제 취소 API를 호출하여 신청한 금액만큼 결제 취소를 하고 결제 취소 성공 시 orderTable의 totalAmount를 취소한 금액에 따라 수정하고, orderItem 테이블 status 컬럼을 주문완료에서 주문취소로 변경하는 주문 취소 API 구현
 
 # 팀 노션
-- [링크](https://www.notion.so/13e9a879c5cc805e9956fe1ba43a44b3?pvs=4)
+- [링크](https://nosy-polo-4ce.notion.site/13e9a879c5cc805e9956fe1ba43a44b3?pvs=4)
