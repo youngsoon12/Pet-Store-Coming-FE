@@ -53,8 +53,8 @@
 ## 주문 내역 페이지 (Front, Back)
 - React-Query와 axios를 사용하여 orderItem의 정보들을 GET해와서 리스트 개수에 맞춰 컴포넌트들을 불러오게끔 구현
 - end-point에 userId를 넣어 myBatis 조인하는 쿼리를 작성하여 order테이블에서 userId와 일치하는 orderId를 구하고 orderItem 테이블에서 orderId와 일치하는 orderItem테이블의 productId를 product 테이블과 조인하여 상품정보들을 클라이언트에 response 데이터로 반환시켜주는 API 구현
-- 주문한 상품들의 정보들을 보여주면서 주문 취소 버튼 클릭시 POST로 (cancelAmount, orderId, orderItemId)를 보내주는주문 취소 API호출
-- 클라이언트에서 보내준 정보들을 토대로 RestTemplate를 사용하여 토스 페이먼츠 결제 취소 API를 호출하여 신청한 금액만큼 결제 취소를 하고 결제 취소 성공 시 orderTable의 totalAmount를 취소한 금액에 따라 수정하고, orderItem 테이블에서 status 컬럼을 주문완료에서 주문취소로 변경하는 주문 취소 API 구현
+- 주문한 상품들의 정보들을 보여주면서 주문 취소 버튼 클릭시 POST로 (cancelAmount, orderId, orderItemId)를 보내주는 주문 취소 API호출
+- 클라이언트에서 보내준 정보들을 토대로 RestTemplate를 사용하여 토스 페이먼츠 결제 취소 API를 호출하여 신청한 금액만큼 결제 취소를 하고 결제 취소 성공 시 orderTable의 totalAmount를 취소한 금액에 따라 수정하고, orderItem테이블에서 status 컬럼을 주문완료에서 주문취소로 변경하는 주문 취소 API 구현
 
 # 팀 노션
 - [링크](https://nosy-polo-4ce.notion.site/13e9a879c5cc805e9956fe1ba43a44b3?pvs=4)
